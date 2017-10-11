@@ -23,7 +23,6 @@ class ReadingLevelLessonController extends Controller
         else {
             $message = ['flash_level'=>'danger message-custom','flash_message'=>'Level lesson này đã tồn tại!'];
         }
-
         return redirect('createNewLevelLesson')->with($message);
     }
 }

@@ -13,6 +13,10 @@ class ReadingLevelLessonService {
     public function createNewLevelLesson($level) {
         return $this->_readingLevelLessonModel->createNewLevelLesson($level);
     }
+
+    public function getAllLevelLesson() {
+        return $this->_readingLevelLessonModel->getAllLevelLesson();
+    }
 }
 ?>
 

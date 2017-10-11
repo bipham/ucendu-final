@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use App\Services\ReadingLevelLessonService;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 class ReadingLevelLesson extends Model
 {
@@ -14,8 +12,12 @@ class ReadingLevelLesson extends Model
 
     public $timestamps = true;
 
-    public function createNewLevelLesson($level) {
+    public function typeQuestions()
+    {
+        return $this->hasMany('App\Models\ReadingTypeQuestion', 'level_lesson_id');
+    }
 
+    public function createNewLevelLesson($level) {
         if ($this->where('level', '=', $level)->exists()) {
             // level found
             return 'fail';
@@ -26,5 +28,9 @@ class ReadingLevelLesson extends Model
             $new_level_lesson->save();
             return 'success';
         }
+    }
+
+    public function getAllLevelLesson() {
+        return $this->where('status', 1)->get();
     }
 }

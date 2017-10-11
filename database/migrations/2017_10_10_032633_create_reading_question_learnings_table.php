@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReadingLearningQuestionLearningsTable extends Migration
+class CreateReadingQuestionLearningsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateReadingLearningQuestionLearningsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reading_learning_question_learnings', function (Blueprint $table) {
+        Schema::create('reading_question_learnings', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('type_question_id')->unsigned();
             $table->integer('question_id_custom')->unsigned();
@@ -32,6 +32,6 @@ class CreateReadingLearningQuestionLearningsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reading_learning_question_learnings');
+        Schema::dropIfExists('reading_question_learnings');
     }
 }
