@@ -25,8 +25,7 @@ class CreateReadingMixTestLessonsTable extends Migration
             $table->integer('total_questions');
             $table->integer('limit_time')->default(20);
             $table->integer('order_lesson');
-            $table->integer('type_question_id')->nullable();
-            $table->integer('type_lesson_id')->default(3);
+//            $table->integer('type_lesson_id')->default(3);
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

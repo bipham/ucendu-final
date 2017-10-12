@@ -11,7 +11,14 @@ class ReadingQuestionLearningService {
     }
 
     public function getTheLastQuestionCustomId() {
-        return $this->_readingQuestionLearningModel->getTheLastQuestionCustomId();
+        $last_question_custom = $this->_readingQuestionLearningModel->getTheLastQuestionCustomId();
+        if (!$last_question_custom) {
+            $last_question_custom_id = 1;
+        }
+        else {
+            $last_question_custom_id = $last_question_custom->question_custom_id + 1;
+        }
+        return $last_question_custom_id;
     }
 
     public function addNewQuestionLearning($learning_type_question_id, $type_question_id, $question_custom_id, $answer, $keyword) {

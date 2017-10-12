@@ -13,5 +13,9 @@ class ReadingLevelUserService {
     public function createNewLevelUser($level) {
         return $this->_readingLevelUserModel->createNewLevelUser($level);
     }
+
+    public function getAllLevelUser() {
+        return $this->_readingLevelUserModel->getAllLevelUser();
+    }
 }
 ?>

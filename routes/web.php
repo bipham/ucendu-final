@@ -37,8 +37,8 @@ Route::get('markAllNotificationAsRead',['as'=>'markAllNotificationAsRead','uses'
 
 Route::group(['domain' => 'admin.{nameDomain}'], function () {
     //************ For Reading Lesson *************
-    Route::get('uploadReadingLesson',['as'=>'getUploadReadingLesson','uses'=>'Admin\ReadingLessonController@getUploadReadingLesson']);
-    Route::post('uploadReadingLesson',['as'=>'postUploadReadingLesson','uses'=>'Admin\ReadingLessonController@postUploadReadingLesson']);
+    Route::get('createNewReadingPractice',['as'=>'getCreateNewReadingPractice','uses'=>'Admin\ReadingPracticeController@getCreateNewReadingPractice']);
+    Route::post('createNewReadingPractice',['as'=>'postCreateNewReadingPractice','uses'=>'Admin\ReadingPracticeController@postCreateNewReadingPractice']);
     Route::get('createNewLevelLesson',['as'=>'getCreateNewLevelLesson','uses'=>'Admin\ReadingLevelLessonController@getCreateNewLevelLesson']);
     Route::post('createNewLevelLesson',['as'=>'postCreateNewLevelLesson','uses'=>'Admin\ReadingLevelLessonController@postCreateNewLevelLesson']);
     Route::get('deleteLessonReading/{lesson_id}',['as'=>'deleteLessonReading','uses'=>'Admin\ReadingLessonController@deleteLessonReading']);

@@ -18,14 +18,8 @@ class ReadingLearningTypeQuestionController extends Controller
         $readingTypeQuestionService = new ReadingTypeQuestionService();
         $all_type_questions = $readingTypeQuestionService->getAllTypeQuestionById($first_level_lesson_id->id);
         $readingQuestionLearningService = new ReadingQuestionLearningService();
-        $i_ques = $readingQuestionLearningService->getTheLastQuestionCustomId();
-        if (!$i_ques) {
-            $id_ques = 1;
-        }
-        else {
-            $id_ques = $i_ques->question_custom_id + 1;
-        }
-        return view('admin.readingCreateNewLearningTypeQuestion', compact('all_type_questions', 'all_levels', 'id_ques'));
+        $last_question_custom_id = $readingQuestionLearningService->getTheLastQuestionCustomId();
+        return view('admin.readingCreateNewLearningTypeQuestion', compact('all_type_questions', 'all_levels', 'last_question_custom_id'));
     }
 
     public function postCreateNewLearningTypeQuestion($domain) {
@@ -56,5 +50,4 @@ class ReadingLearningTypeQuestionController extends Controller
         }
         return json_encode(['result' => $result]);
     }
-
 }

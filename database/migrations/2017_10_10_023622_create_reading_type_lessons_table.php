@@ -10,6 +10,7 @@ class CreateReadingTypeLessonsTable extends Migration
      * Run the migrations.
      *
      * @return void
+     * 1. Practice, 2. Mini test, 3. Mix test, 4. Full test
      */
     public function up()
     {

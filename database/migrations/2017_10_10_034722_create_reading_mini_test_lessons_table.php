@@ -17,6 +17,7 @@ class CreateReadingMiniTestLessonsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->integer('level_user_id')->unsigned();
+            $table->integer('type_question_id')->nullable();
             $table->text('content_lesson');
             $table->text('content_highlight');
             $table->string('image_feature')->nullable();
@@ -24,8 +25,7 @@ class CreateReadingMiniTestLessonsTable extends Migration
             $table->text('content_answer_quiz');
             $table->integer('total_questions');
             $table->integer('order_lesson');
-            $table->integer('type_question_id')->nullable();
-            $table->integer('type_lesson_id')->default(2);
+//            $table->integer('type_lesson_id')->default(2);
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

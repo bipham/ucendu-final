@@ -6,5 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReadingMixTestLesson extends Model
 {
-    //
+    public function getTheCurrentLessonId() {
+        return $this->orderBy('id', 'desc')->first();
+    }
+
+    public function addNewReadingLesson() {
+
+    }
 }

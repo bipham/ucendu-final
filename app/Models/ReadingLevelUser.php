@@ -25,4 +25,8 @@ class ReadingLevelUser extends Model
             return 'success';
         }
     }
+
+    public function getAllLevelUser() {
+        return $this->where('status', 1)->get();
+    }
 }

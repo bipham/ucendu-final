@@ -16,7 +16,7 @@
     <script src="/public/libs/ckeditor/ckeditor.js"></script>
 @endsection
 @section('content')
-    <div class="container new-learning-container upload-page-custom" data-idquestion="{!! $id_ques !!}">
+    <div class="container new-learning-container upload-page-custom" data-idquestion="{!! $last_question_custom_id !!}">
         @include('utils.message')
         {{--@include('errors.input')--}}
         <form role="form" action="{!!url('createNewLearningTypeQuestion')!!}" method="POST">
@@ -29,7 +29,7 @@
                     </label>
                     <select class="form-control" id="list_level" name="list_level" >
                         @foreach($all_levels as $all_level)
-                            <option value="{!! $all_level->id !!}">{!! $all_level->level !!}</option>;
+                            <option value="{!! $all_level->id !!}">{!! $all_level->level !!}</option>
                         @endforeach
                     </select>
                 </div>
@@ -37,9 +37,9 @@
                     <label for="list_type_questions">
                         Chon dạng câu hỏi!
                     </label>
-                    <select class="form-control" id="list_type_questions" name="list_type_questions" >
+                    <select class="form-control" id="list_type_questions" name="list_type_questions" onchange="getAllTypeQuestionByLevelLessonId()">
                         @foreach($all_type_questions as $type_question)
-                            <option value="{!! $type_question->id !!}">{!! $type_question->name !!}</option>;
+                            <option value="{!! $type_question->id !!}">{!! $type_question->name !!}</option>
                         @endforeach
                     </select>
                 </div>
