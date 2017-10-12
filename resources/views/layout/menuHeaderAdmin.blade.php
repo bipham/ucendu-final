@@ -25,6 +25,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('/createNewTypeQuestion')}}">New_type_question</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('/createNewReadingPractice')}}">New_practice_lesson</a>
+                </li>
             </ul>
         </div>
     </div>
