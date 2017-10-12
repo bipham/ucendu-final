@@ -97,7 +97,7 @@
 
 </script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
-<script src="{{asset('public/js/socketNoti.js')}}"></script>
+{{--<script src="{{asset('public/js/socketNoti.js')}}"></script>--}}
 @yield('scripts')
 </body>
 </html>

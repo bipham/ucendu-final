@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-//use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\ReadingLevelLessonService;
 use App\Services\ReadingTypeQuestionService;
-use Request;
 use Illuminate\Support\Facades\Input;
 
 class ReadingTypeQuestionController extends Controller
@@ -34,5 +33,12 @@ class ReadingTypeQuestionController extends Controller
             }
         }
         return redirect('createNewTypeQuestion')->with($message);
+    }
+
+    public function getTypeQuestionByLevelLessonId($domain) {
+        $level_lesson_id = $_GET['level_lesson_id'];
+        $readingTypeQuestionService = new ReadingTypeQuestionService();
+        $all_type_questions = $readingTypeQuestionService->getAllTypeQuestionById($level_lesson_id);
+        return json_encode(['list_type_questions' => $all_type_questions]);
     }
 }

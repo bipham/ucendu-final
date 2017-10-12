@@ -17,6 +17,16 @@ class ReadingTypeQuestion extends Model
         return $this->belongsTo('App\Models\ReadingLevelLesson', 'level_lesson_id');
     }
 
+    public function learningTypeQuestions()
+    {
+        return $this->hasMany('App\Models\ReadingLearningTypeQuestion', 'type_question_id');
+    }
+
+    public function questionLearnings()
+    {
+        return $this->hasMany('App\Models\reading_question_learnings', 'type_question_id');
+    }
+
     public function createNewTypeQuestion($name, $level_lesson_id) {
         if ($this->where('name', $name)->where('level_lesson_id', $level_lesson_id)->exists()) {
             // Record found
@@ -29,5 +39,9 @@ class ReadingTypeQuestion extends Model
             $new_type_question->save();
             return 'success';
         }
+    }
+
+    public function getAllTypeQuestionById($level_lesson_id) {
+        return $this->where('status', 1)->where('level_lesson_id', $level_lesson_id)->get();
     }
 }

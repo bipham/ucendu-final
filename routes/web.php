@@ -49,8 +49,9 @@ Route::group(['domain' => 'admin.{nameDomain}'], function () {
     //********** For Reading Question *************
     Route::get('createNewTypeQuestion',['as'=>'getCreateNewTypeQuestion','uses'=>'Admin\ReadingTypeQuestionController@getCreateNewTypeQuestion']);
     Route::post('createNewTypeQuestion',['as'=>'postCreateNewTypeQuestion','uses'=>'Admin\ReadingTypeQuestionController@postCreateNewTypeQuestion']);
-    Route::post('createNewSectionTypeQuestion',['as'=>'postCreateNewSectionTypeQuestion','uses'=>'Admin\TypeQuestionController@postCreateNewSectionTypeQuestion']);
-    Route::get('getTypeQuestion',['as'=>'getTypeQuestion','uses'=>'Admin\TypeQuestionController@getTypeQuestion']);
+    Route::get('createNewLearningTypeQuestion',['as'=>'getCreateNewLearningTypeQuestion','uses'=>'Admin\ReadingLearningTypeQuestionController@getCreateNewLearningTypeQuestion']);
+    Route::post('createNewLearningTypeQuestion',['as'=>'postCreateNewLearningTypeQuestion','uses'=>'Admin\ReadingLearningTypeQuestionController@postCreateNewLearningTypeQuestion']);
+    Route::get('getTypeQuestionByLevelLessonId',['as'=>'getTypeQuestionByLevelLessonId','uses'=>'Admin\ReadingTypeQuestionController@getTypeQuestionByLevelLessonId']);
 
     //********** For Reading Vocabulary *************
     Route::get('createNewVocabulary',['as'=>'getCreateNewVocabulary','uses'=>'Admin\ReadingVocabularyController@getCreateNewVocabulary']);

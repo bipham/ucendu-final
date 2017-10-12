@@ -17,6 +17,10 @@ class ReadingLevelLessonService {
     public function getAllLevelLesson() {
         return $this->_readingLevelLessonModel->getAllLevelLesson();
     }
+
+    public function getFirstLevelLesson() {
+        return $this->_readingLevelLessonModel->getFirstLevelLesson();
+    }
 }
 ?>
 

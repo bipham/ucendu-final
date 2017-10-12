@@ -34,7 +34,6 @@
                             Chọn Danh Mục
                         </label>
                         <select class="form-control" id="level-lesson" name="level_lesson" >
-                            <option value="">Select Level Lesson!</option>
                             @foreach($all_level_lessons as $level_lesson)
                                 <option value="{!! $level_lesson->id !!}">{!! $level_lesson->level !!}</option>
                             @endforeach

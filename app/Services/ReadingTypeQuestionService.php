@@ -13,5 +13,9 @@ class ReadingTypeQuestionService {
     public function createNewTypeQuestion($name, $level_lesson_id) {
         return $this->_readingTypeQuestionModel->createNewTypeQuestion($name, $level_lesson_id);
     }
+
+    public function getAllTypeQuestionById($level_lesson_id) {
+        return $this->_readingTypeQuestionModel->getAllTypeQuestionById($level_lesson_id);
+    }
 }
 ?>

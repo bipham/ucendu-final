@@ -1,29 +1,21 @@
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('[name="_token"]').val()
-    }
-});
-
-var baseUrl = document.location.origin;
-var mainUrl = baseUrl.substring(13);
-var ajaxFinishCreateNewTypeQuestion = baseUrl + '/createNewTypeQuestion';
-var ajaxFinishCreateNewSectionOfTypeQuestion = baseUrl + '/createNewSectionTypeQuestion';
+var ajaxFinishCreateNewLearningOfTypeQuestion = baseUrl + '/createNewLearningTypeQuestion';
+var ajaxGetAllTypeQuestionByLevelLessonId = baseUrl + '/getTypeQuestionByLevelLessonId';
 var view_layout = '';
 var content_section = '';
 var left_section = '';
 var right_section = '';
-var listQ = [];
+var option_list_questions = '';
+var title_section = '';
 var listAnswer = {};
 var listKeyword = {};
 var listClassKeyword = {};
+var listQ = [];
 var list_type_questions = {};
 var listAnswer_source = {};
 var listKeyword_source = {};
 var list_type_questions_source = {};
+var type_question_id = '';
 var i = '';
-var ajaxGetListTypeQuestion = baseUrl + '/getTypeQuestion';
-var ajaxGetStepSection = baseUrl + '/getStepSection';
-var option_list_questions = '';
 $( document ).ready(function() {
     content_section = CKEDITOR.instances["content_section"].getData();
     left_section = CKEDITOR.instances["left_section"].getData();
@@ -39,74 +31,88 @@ $( document ).ready(function() {
         }
     });
 
-    $('.btn-finish-new-type-question').click(function () {
-        var name_type_question = $('#type_question_name').val().trim();
-        if (name_type_question == '') {
-            bootbox.alert({
-                message: "Please enter data!",
-                backdrop: true
-            });
-        }
-        else {
-            $.ajax({
-                type: "POST",
-                url: ajaxFinishCreateNewTypeQuestion,
-                dataType: "json",
-                data: { name_type_question: name_type_question },
-                success: function (data) {
-                    bootbox.alert({
-                        message: "Create new type question success!",
-                        backdrop: true,
-                        callback: function(){
-                            $('#list_type_questions').append('<option selected value="' + data.new_type_question_id + '">' + name_type_question + '</option>');
-                            $('#type_question_name').val('');
-                            $('#readingCreateNewTypeQuestion').modal('toggle');
-                        }
-                    });
-                },
-                error: function (data) {
-                    bootbox.alert({
-                        message: "FAIL CREATE NEW TYPE QUESTIONS!",
-                        backdrop: true
-                    });
-                }
-            });
-        }
+    $('#list_level').on('change', function () {
+        var level_lesson_id = $(this).val().trim();
+        $.ajax({
+            type: "GET",
+            url: ajaxGetAllTypeQuestionByLevelLessonId,
+            dataType: "json",
+            data: { level_lesson_id: level_lesson_id },
+            success: function (data) {
+                $('#list_type_questions').empty();
+                $.each(data.list_type_questions, function (index, type_question) {
+                    $('#list_type_questions').append('<option value="' + type_question.id + '">' + type_question.name + '</option>');
+                })
+            },
+            error: function (data) {
+                bootbox.alert({
+                    message: "FAIL GET ALL TYPE QUESTION!",
+                    backdrop: true
+                });
+            }
+        });
     });
 
     $('.btn-create-new-section-type-question').click(function () {
-        var type_question_id = $('#list_type_questions').val().trim();
-        var title_section = $('#title_section').val().trim();
-        var level_id = $('#list_level').val().trim();
         var step_section = $('#step_section').val().trim();
         var view_layout = $('#view_layout').val().trim();
         var name_icon_section = $('#name_icon_section').val().trim();
         var content_section = CKEDITOR.instances["content_section"].getData().trim();
         var checkDataStepAnswer = checkStepAnswer();
-        if (!checkDataStepAnswer || type_question_id == '' || title_section == '' || name_icon_section == '') {
+        if (!checkDataStepAnswer || step_section == '') {
             bootbox.alert({
                 message: "Please enter data!",
                 backdrop: true
             });
         }
         else {
+            if (jQuery.isEmptyObject(listAnswer)) {
+                listAnswer = 'null';
+                listKeyword = 'null';
+                list_type_questions = 'null';
+            }
+            console.log('list_answer: ' + JSON.stringify(listAnswer));
+            console.log('list_type_questions: ' + JSON.stringify(list_type_questions));
+            console.log('listKeyword: ' + JSON.stringify(listKeyword));
+            console.log('type_question_id: ' + type_question_id);
+            console.log('view_layout: ' + view_layout);
+            console.log('step_section: ' + step_section);
+            console.log('title_section: ' + title_section);
+            console.log('name_icon_section: ' + name_icon_section);
+            console.log('content_section: ' + content_section);
+            console.log('left_section: ' + left_section);
+            console.log('right_section: ' + right_section);
             $.ajax({
                 type: "POST",
-                url: ajaxFinishCreateNewSectionOfTypeQuestion,
+                url: ajaxFinishCreateNewLearningOfTypeQuestion,
                 dataType: "json",
-                data: { type_question_id: type_question_id, level_id: level_id, step_section: step_section, view_layout: view_layout, title_section: title_section, name_icon_section: name_icon_section, content_section: content_section, left_section: left_section, right_section: right_section ,list_answer: listAnswer, list_type_questions: list_type_questions, listKeyword: listKeyword },
+                data: { type_question_id: type_question_id, step_section: step_section, view_layout: view_layout, title_section: title_section, name_icon_section: name_icon_section, content_section: content_section, left_section: left_section, right_section: right_section ,list_answer: listAnswer, list_type_questions: list_type_questions, listKeyword: listKeyword },
                 success: function (data) {
-                    bootbox.alert({
-                        message: "Create new section of type question success!",
-                        backdrop: true,
-                        callback: function(){
-                            location.href= baseUrl + '/createNewTypeQuestion';
-                        }
-                    });
+                    if (data.result == 'fail-step') {
+                        bootbox.alert({
+                            message: 'Fail! Step section is not available!',
+                            backdrop: true,
+                        });
+                    }
+                    else if (data.result == 'fail-title') {
+                        bootbox.alert({
+                            message: 'Fail! Title section is not available!',
+                            backdrop: true,
+                        });
+                    }
+                    else {
+                        bootbox.alert({
+                            message: 'Create new learning type question success!',
+                            backdrop: true,
+                            callback: function(){
+                                location.href= baseUrl + '/createNewLearningTypeQuestion';
+                            }
+                        });
+                    }
                 },
                 error: function (data) {
                     bootbox.alert({
-                        message: "FAIL CREATE NEW SECTION OF TYPE QUESTION!",
+                        message: "FAIL CREATE NEW learning OF TYPE QUESTION!",
                         backdrop: true
                     });
                 }
@@ -115,55 +121,21 @@ $( document ).ready(function() {
     });
 
     $('.btn-next-step-second').click(function () {
-        // check quiz:
-        $.ajax({
-            type: "GET",
-            url: ajaxGetListTypeQuestion,
-            dataType: "json",
-            success: function (data) {
-                option_list_questions = '';
-                jQuery.each( data.list_type_questions, function( index_list_type_question, list_type_question ) {
-                    option_list_questions += '<option value="' + list_type_question.id + '">' + list_type_question.name + '</option>';
-                });
-            },
-            error: function (data) {
-                bootbox.alert({
-                    message: "FAIL TYPE QUESTIONS!",
-                    backdrop: true
-                });
-            }
-        });
-
-        //get Step:
-        var type_question_id = $('#list_type_questions').val().trim();
-        var step_section = $('#step_section').val().trim();
-
-        $.ajax({
-            type: "GET",
-            url: ajaxGetStepSection,
-            dataType: "json",
-            data: { type_question_id: type_question_id,  step_section: step_section},
-            success: function (data) {
-                console.log(data.step_section.step_section);
-                var new_step = data.step_section.step_section + 1;
-                $('#step_section').attr({
-                    'min': new_step,
-                    'value': new_step
-                });
-            },
-            error: function (data) {
-                bootbox.alert({
-                    message: "FAIL get step section!",
-                    backdrop: true
-                });
-            }
-        });
-
-        $('.step-first').addClass('hidden');
-        $('.step-second').removeClass('hidden');
-        $("html, body").animate({
-            scrollTop: $('.new-learning-container').offset().top
-        }, 100);
+        title_section = $('#title_section').val().trim();
+        type_question_id = $('#list_type_questions').val().trim();
+        if (title_section == '') {
+            bootbox.alert({
+                message: "Please enter title section!",
+                backdrop: true
+            });
+        }
+        else {
+            $('.step-first').addClass('hidden');
+            $('.step-second').removeClass('hidden');
+            $("html, body").animate({
+                scrollTop: $('.new-learning-container').offset().top
+            }, 100);
+        }
     });
 
     $('.btn-prev-step-first').click(function () {
@@ -199,13 +171,6 @@ $( document ).ready(function() {
                         '<div class="title-row-enter">Keyword ' + qorder + ': </div>' +
                         '<textarea class="input-keyword keyword-' + qorder + '" data-qnumber="' + qnumber + '"></textarea>' +
                         '</div>' +
-                        '<div class="enter-type-question row-enter-custom">' +
-                        '<label for="select-type-question-' + qnumber + '" data-qnumber="' + qnumber + '"><strong>Chọn Loai cau hoi</strong></label> ' +
-                        '<select class="form-control sl-type-question-' + qorder + '" data-qnumber="' + qnumber + '" name="select-type-question-' + qnumber + '"> ' +
-                        '<option value="">Chọn Loai cau hoi!</option> ' +
-                        option_list_questions +
-                        '</select> ' +
-                        '</div>' +
                         '</div>');
                 }
                 if (jQuery.inArray(qnumber, listAnswer_source) == -1) {
@@ -238,6 +203,7 @@ $( document ).ready(function() {
     });
 });
 
+// Function:
 function checkStepAnswer() {
     listAnswer = {};
     listKeyword = {};
@@ -263,14 +229,8 @@ function checkStepAnswer() {
             listClassKeyword[qnumber] = '';
         }
         listKeyword[qnumber] = keywords_key;
-        var type_question_key = $('.sl-type-question-' + qorder).val();
 
-        if (type_question_key != '') {
-            list_type_questions[qnumber] = type_question_key;
-        }
-        else {
-            delete list_type_questions[qnumber];
-        }
+        list_type_questions[qnumber] = type_question_id;
     });
     if ((listQ.length == Object.keys(listAnswer).length) && (listQ.length  == Object.keys(list_type_questions).length)) {
         return true;

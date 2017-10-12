@@ -33,4 +33,8 @@ class ReadingLevelLesson extends Model
     public function getAllLevelLesson() {
         return $this->where('status', 1)->get();
     }
+
+    public function getFirstLevelLesson() {
+        return $this->where('status', 1)->get()->first();
+    }
 }

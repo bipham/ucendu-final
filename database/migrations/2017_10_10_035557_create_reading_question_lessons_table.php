@@ -17,7 +17,7 @@ class CreateReadingQuestionLessonsTable extends Migration
             $table->increments('id');
             $table->integer('lesson_id')->unsigned();
             $table->integer('type_lesson_id')->nullable();
-            $table->integer('question_id_custom')->unsigned();
+            $table->integer('question_custom_id')->unsigned();
             $table->string('answer');
             $table->string('keyword')->nullable();
             $table->integer('type_question_id')->unsigned();
