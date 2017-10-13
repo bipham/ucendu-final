@@ -6,7 +6,7 @@
  * Time: 3:30 PM englishStoryViewDetail.blade
  */
 ?>
-@extends('layout.masterNoFooter')
+@extends('layout.masterNoFooterClient')
 @section('meta-title')
     English-story - UCENDU
 @endsection

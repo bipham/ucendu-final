@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class ReadingPracticeLesson extends Model
 {
@@ -12,11 +13,21 @@ class ReadingPracticeLesson extends Model
 
     public $timestamps = true;
 
+    public function typeQuestion()
+    {
+        return $this->belongsTo('App\Models\ReadingTypeQuestion', 'type_question_id');
+    }
+
+    public function levelUser()
+    {
+        return $this->belongsTo('App\Models\ReadingLevelUser', 'level_user_id');
+    }
+
     public function getTheCurrentLessonId() {
         return $this->orderBy('id', 'desc')->first();
     }
 
-    public function addNewReadingLesson($title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id) {
+    public function addNewPracticeLesson($title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id) {
         if ($this->where('type_question_id', $type_question_id)->where('order_lesson', $order_lesson)->exists()) {
             return 'fail-order';
         }
@@ -36,5 +47,14 @@ class ReadingPracticeLesson extends Model
             return $new_reading_lesson->id;
         }
 
+    }
+
+    public function getAllPracticeLesson() {
+        return $this->where('status',1)->orderBy('updated_at','desc')->select('id', 'title', 'level_user_id', 'image_feature', 'order_lesson', 'type_question_id')->get()->all();
+    }
+
+    public function updateTitlePracticeLesson($lesson_id, $title) {
+        $this->where('id', $lesson_id)->update(['title' => $title, 'updated_at' => Carbon::now()]);
+        return 'update-success';
     }
 }

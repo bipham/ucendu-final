@@ -6,7 +6,7 @@
  * Time: 7:36 PM
  */
 ?>
-@extends('layout.masterNoMenu')
+@extends('layout.masterNoMenuAdmin')
 @section('meta-title')
     Create new level lesson
 @endsection

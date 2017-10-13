@@ -12,14 +12,25 @@ class ReadingQuestionLesson extends Model
 
     public $timestamps = true;
 
+    public function typeQuestion()
+    {
+        return $this->belongsTo('App\Models\ReadingTypeQuestion', 'type_question_id');
+    }
+
+    public function typeLesson()
+    {
+        return $this->belongsTo('App\Models\ReadingTypeLesson', 'type_lesson_id');
+    }
+
     public function getTheLastQuestionCustomId() {
         return $this->orderBy('question_custom_id', 'desc')->first();
     }
 
     public function addNewQuestionLesson($type_lesson_id, $lesson_id, $type_question_id, $question_custom_id, $answer, $keyword) {
         if ($this->where('question_custom_id', $question_custom_id)->exists()) {
-            $this   ->where('question_custom_id', $question_custom_id)
+            $this->where('question_custom_id', $question_custom_id)
                 ->update(['answer' => $answer, 'keyword' => $keyword, 'updated_at' => Carbon::now()]);
+            return 'update-success';
         }
         else {
             $new_question_learning = new ReadingQuestionLesson();

@@ -6,7 +6,7 @@
  * Time: 11:45 AM
  */
 ?>
-@extends('layout.masterNoMenu')
+@extends('layout.masterNoMenuAdmin')
 @section('meta-title')
     Create new level user
 @endsection

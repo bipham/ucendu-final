@@ -64,8 +64,9 @@ class ReadingPracticeController extends Controller
         if ($lesson_id != 'fail-order') {
             foreach ($list_answer as $question_custom_id => $answer) {
                 $readingQuestionLessonServicee = new ReadingQuestionLessonService();
-                $result = $readingQuestionLessonServicee->addNewQuestionLesson(Config('constants.type_lesson.practice'), $lesson_id, $type_question_id, $question_custom_id, $answer, $listKeyword[$question_custom_id]);
+                $readingQuestionLessonServicee->addNewQuestionLesson(Config('constants.type_lesson.practice'), $lesson_id, $type_question_id, $question_custom_id, $answer, $listKeyword[$question_custom_id]);
             }
+            $result = 'success';
         }
         else $result = 'fail-order';
 

@@ -6,7 +6,7 @@
  * Time: 3:36 PM
  */
 ?>
-@extends('layout.masterNoMenu')
+@extends('layout.masterNoMenuAdmin')
 @section('meta-title')
     Reading - Create New Learning Type Question
 @endsection
@@ -146,7 +146,8 @@
 @endsection
 
 @section('scripts')
-    <script src="{{asset('public/js/admin/adminFunctions.js')}}"></script>
+    <script src="{{asset('public/js/admin/adminCreateNewItemFunctions.js')}}"></script>
+    <script src="{{asset('public/js/admin/adminGetDataFunctions.js')}}"></script>
     <script src="{{asset('public/js/admin/readingNewLearningTypeQuestion.js')}}"></script>
 @endsection
 

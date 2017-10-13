@@ -7,7 +7,7 @@
  */
 ?>
 
-@extends('layout.masterNoMenu')
+@extends('layout.masterNoMenuAdmin')
 @section('meta-title')
     Edit Lesson
 @endsection

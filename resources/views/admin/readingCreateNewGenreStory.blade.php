@@ -6,7 +6,7 @@
  * Time: 10:44 PM
  */
 ?>
-@extends('layout.masterNoMenu')
+@extends('layout.masterNoMenuAdmin')
 @section('meta-title')
     Create new genre story
 @endsection

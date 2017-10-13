@@ -7,7 +7,7 @@
  */
 //var_dump($practice_lessons);
 ?>
-@extends('layout.masterNoFooter')
+@extends('layout.masterNoFooterClient')
 @section('meta-title')
     Home
 @endsection

@@ -8,7 +8,7 @@
 //dd($all_comments);
 ?>
 
-@extends('layout.masterNoMenu')
+@extends('layout.masterNoMenuAdmin')
 @section('meta-title')
     Reading List Comment
 @endsection

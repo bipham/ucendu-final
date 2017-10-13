@@ -36,7 +36,7 @@ $( document ).ready(function() {
             },
             error: function (data) {
                 bootbox.alert({
-                    message: "Update info basic fail!",
+                    message: "Update info basic  fdf",
                     backdrop: true
                 });
             }

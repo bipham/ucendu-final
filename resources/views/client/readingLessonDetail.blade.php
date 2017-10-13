@@ -7,7 +7,7 @@
  */
 //dd($practice_lessons);
 ?>
-@extends('layout.masterNoFooter')
+@extends('layout.masterNoFooterClient')
 @section('meta-title')
     {!! $lesson_detail->title !!}
 @endsection

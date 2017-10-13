@@ -47,7 +47,7 @@ class ReadingLessonService {
     public function addNewReadingLesson($type_lesson_id, $title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id) {
         switch ($type_lesson_id) {
             case 1:
-                $result = $this->_readingPracticeLessonModel->addNewReadingLesson($title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id);
+                $result = $this->_readingPracticeLessonModel->addNewPracticeLesson($title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id);
                 break;
             case 2:
                 $result = $this->_readingMiniTestLessonModel->addNewReadingLesson();
@@ -57,6 +57,29 @@ class ReadingLessonService {
                 break;
             case 4:
                 $result = $this->_readingFullTestLessonModel->addNewReadingLesson();
+                break;
+        }
+        return $result;
+    }
+
+    public function getAllLesson() {
+        $lesson['practice'] = $this->_readingPracticeLessonModel->getAllPracticeLesson();
+        return $lesson;
+    }
+
+    public function updateTitleLesson($type_lesson_id, $lesson_id, $title) {
+        switch ($type_lesson_id) {
+            case 1:
+                $result = $this->_readingPracticeLessonModel->updateTitlePracticeLesson($lesson_id, $title);
+                break;
+            case 2:
+                $result = $this->_readingMiniTestLessonModel->getTheCurrentLessonId();
+                break;
+            case 3:
+                $result = $this->_readingMixTestLessonModel->getTheCurrentLessonId();
+                break;
+            case 4:
+                $result = $this->_readingFullTestLessonModel->getTheCurrentLessonId();
                 break;
         }
         return $result;
