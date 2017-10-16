@@ -36,3 +36,7 @@ h6.title-info-custom {
 .form-control {
     padding: .5rem .1em;
 }
+
+ul.list-ordered li {
+    display: inline;
+}

@@ -54,7 +54,36 @@ class ReadingPracticeLesson extends Model
     }
 
     public function updateTitlePracticeLesson($lesson_id, $title) {
-        $this->where('id', $lesson_id)->update(['title' => $title, 'updated_at' => Carbon::now()]);
-        return 'update-success';
+        if ($this->where('id', $lesson_id)->where('title', $title)->exists()) {
+            return 'title-not-change';
+        }
+        else {
+            $this->where('id', $lesson_id)->update(['title' => $title, 'updated_at' => Carbon::now()]);
+            return 'update-success';
+        }
+    }
+
+    public function updateLevelUserPracticeLesson($lesson_id, $level_user_id) {
+        if ($this->where('id', $lesson_id)->where('level_user_id', $level_user_id)->exists()) {
+            return 'level-user-not-change';
+        }
+        else {
+            $this->where('id', $lesson_id)->update(['level_user_id' => $level_user_id, 'updated_at' => Carbon::now()]);
+            return 'update-success';
+        }
+    }
+
+    public function updateBasicInfoPracticeLesson($lesson_id, $type_question_id, $order_lesson) {
+        if ($this->where('type_question_id', $type_question_id)->where('order_lesson', $order_lesson)->exists()) {
+            return 'order-fail';
+        }
+        else {
+            $this->where('id', $lesson_id)->update(['type_question_id' => $type_question_id, 'order_lesson' => $order_lesson, 'updated_at' => Carbon::now()]);
+            return 'update-success';
+        }
+    }
+
+    public function getAllOrderLessonByTypeQuestionId($type_question_id) {
+        return $this->where('type_question_id', $type_question_id)->orderBy('order_lesson','asc')->select('order_lesson')->get()->all();
     }
 }

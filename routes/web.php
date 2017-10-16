@@ -47,6 +47,8 @@ Route::group(['domain' => 'admin.{nameDomain}'], function () {
     Route::post('updateQuizReading/{quiz_id}',['as'=>'updateQuizReading','uses'=>'Admin\ReadingLessonController@updateQuizReading']);
     Route::get('managerReadingLesson',['as'=>'managerReadingLesson','uses'=>'Admin\ReadingLessonController@managerReadingLesson']);
     Route::post('updateTitleLesson/{type_lesson_id}-{lesson_id}',['as'=>'updateTitleLesson','uses'=>'Admin\ReadingLessonController@updateTitleLesson']);
+    Route::post('updateBasicInfoLesson/{type_lesson_id}-{lesson_id}',['as'=>'updateBasicInfoLesson','uses'=>'Admin\ReadingLessonController@updateBasicInfoLesson']);
+    Route::post('updateLevelUserLesson/{type_lesson_id}-{lesson_id}',['as'=>'updateLevelUserLesson','uses'=>'Admin\ReadingLessonController@updateLevelUserLesson']);
 
     //********** For Reading Question *************
     Route::get('createNewTypeQuestion',['as'=>'getCreateNewTypeQuestion','uses'=>'Admin\ReadingTypeQuestionController@getCreateNewTypeQuestion']);

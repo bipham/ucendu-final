@@ -1,19 +1,19 @@
 /**
  * Created by BiPham on 10/13/2017.
  */
-var ajaxGetAllTypeQuestionByLevelLessonId = baseUrl + '/getTypeQuestionByLevelLessonId';
-
-function getAllTypeQuestionByLevelLessonId() {
-    var level_lesson_id = $('#list_level').val().trim();
+function getAllTypeQuestionByLevelLessonId(less_id) {
+    var ajaxGetAllTypeQuestionByLevelLessonId = baseUrl + '/getTypeQuestionByLevelLessonId';
+    var lessID = less_id || '';
+    var level_lesson_id = $('#list_level' + lessID).val().trim();
     $.ajax({
         type: "GET",
         url: ajaxGetAllTypeQuestionByLevelLessonId,
         dataType: "json",
         data: { level_lesson_id: level_lesson_id },
         success: function (data) {
-            $('#list_type_questions').empty();
+            $('#list_type_questions' + lessID).empty();
             $.each(data.list_type_questions, function (index, type_question) {
-                $('#list_type_questions').append('<option value="' + type_question.id + '">' + type_question.name + '</option>');
+                $('#list_type_questions' + lessID).append('<option value="' + type_question.id + '">' + type_question.name + '</option>');
             })
         },
         error: function (data) {

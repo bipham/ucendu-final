@@ -8,7 +8,7 @@
 ?>
 <!-- Button Edit Title Lesson-->
 <div class="basic-info info-title-lesson">
-    <h6 class="title-info-custom title-lesson-custom">
+    <h6 class="title-info-custom title-lesson-custom title-lesson-{!! $lesson->id !!}">
         {!! $lesson->title !!}
     </h6>
     <i class="btn-edit-basic-info fa fa-pencil-square-o" aria-hidden="true" data-id="{!! $lesson->id !!}" data-toggle="modal" data-target="#editInfoTitleLessonModal-{!! $lesson->id !!}"></i>

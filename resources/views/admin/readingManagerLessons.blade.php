@@ -34,7 +34,7 @@
         </ul>
         <div class="tab-content" id="managerLessonContent">
             <div class="tab-pane fade show active" id="practiceLesson" role="tabpanel" aria-labelledby="practice-tab">
-                @include('components.tables.practiceTable',['lessons' => $lessons['practice']]);
+                @include('components.tables.practiceTable',['lessons' => $lessons['practice']])
             </div>
             <div class="tab-pane fade" id="miniTestLesson" role="tabpanel" aria-labelledby="mini-test-tab">
 

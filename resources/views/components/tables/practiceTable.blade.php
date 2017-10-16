@@ -21,36 +21,29 @@
     </thead>
     <tbody>
     @foreach($lessons as $key => $lesson)
+        <?php
+        $type_lesson_id = config('constants.type_lesson.practice');
+        $readingLessonService = new App\Services\ReadingLessonService();
+        $all_type_questions = $lesson->typeQuestion->levelLesson->typeQuestions()->get();
+        $all_orders = $readingLessonService->getAllOrderLessonByTypeQuestionId($type_lesson_id, $lesson->typeQuestion->id);
+        ?>
         <tr class="item_row item-lesson-{!! $lesson->id !!}">
             <td><input type="checkbox" name="item-lesson" value="{!! $lesson->id !!}"></td>
             <td>{!! $key + 1 !!}</td>
             <td>
-                @include('components.modals.editTitleLessonModal', ['$lesson' => $lesson, 'type_lesson_id' => config('constants.type_lesson.practice')])
+                @include('components.modals.editTitleLessonModal', ['$lesson' => $lesson, 'type_lesson_id' => $type_lesson_id])
             </td>
             <td>
-                <?php
-                    $all_type_questions = $lesson->typeQuestion->levelLesson->typeQuestions()->get();
-                ?>
-                @include('components.modals.editTypeQuestionModal', ['all_level_lessons' => $all_level_lessons, 'all_type_questions' => $all_type_questions, 'lesson' => $lesson, 'type_lesson_id' => config('constants.type_lesson.practice')])
+                @include('components.modals.editTypeQuestionModal', ['all_level_lessons' => $all_level_lessons, 'all_type_questions' => $all_type_questions, 'lesson' => $lesson, 'type_lesson_id' => $type_lesson_id, 'all_orders' => $all_orders])
             </td>
             <td>
-                @include('components.modals.editLevelLessonModal', ['all_level_lessons' => $all_level_lessons, 'all_type_questions' => $all_type_questions, 'lesson' => $lesson, 'type_lesson_id' => config('constants.type_lesson.practice')])
+                @include('components.modals.editLevelLessonModal', ['lesson' => $lesson])
             </td>
             <td>
-                <div class="basic-info info-order-lesson">
-                    <h6 class="title-info-custom order-lesson-custom">
-                        {!! $lesson->order_lesson !!}
-                    </h6>
-                    <i class="btn-edit-basic-info fa fa-pencil-square-o" aria-hidden="true" data-id="{!! $lesson->id !!}" data-toggle="modal" data-target="#editInfoBasicReadingLessonModal-{!! $lesson->id !!}"></i>
-                </div>
+                @include('components.modals.editOrderLessonModal', ['lesson' => $lesson])
             </td>
             <td>
-                <div class="basic-info info-level-user">
-                    <h6 class="title-info-custom level-user-custom">
-                        {!! $lesson->levelUser->level !!}
-                    </h6>
-                    <i class="btn-edit-basic-infofa fa-pencil-square-o" aria-hidden="true" data-id="{!! $lesson->id !!}" data-toggle="modal" data-target="#editInfoBasicReadingLessonModal-{!! $lesson->id !!}"></i>
-                </div>
+                @include('components.modals.editLevelUserLessonModal', ['$lesson' => $lesson, 'all_level_users' => $all_level_users, 'type_lesson_id' => $type_lesson_id])
             </td>
             <td>
                 <a href="{{url('editLessonReading/' . $lesson->id)}}">
