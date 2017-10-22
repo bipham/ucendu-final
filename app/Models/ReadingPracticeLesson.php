@@ -86,4 +86,8 @@ class ReadingPracticeLesson extends Model
     public function getAllOrderLessonByTypeQuestionId($type_question_id) {
         return $this->where('type_question_id', $type_question_id)->orderBy('order_lesson','asc')->select('order_lesson')->get()->all();
     }
+
+    public function getDetailPracticeLesson($lesson_id) {
+        return $this->where('status', 1)->where('id', $lesson_id)->select('id', 'content_lesson', 'content_highlight', 'content_quiz', 'content_answer_quiz')->get()->first();
+    }
 }

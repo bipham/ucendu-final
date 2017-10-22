@@ -72,4 +72,13 @@ class ReadingPracticeController extends Controller
 
         return json_encode(['result' => $result]);
     }
+
+    public function getEditPracticeLessonReading($domain, $lesson_id) {
+        $readingQuestionLessonServicee = new ReadingQuestionLessonService();
+        $last_question_custom_id = $readingQuestionLessonServicee->getTheLastQuestionCustomId();
+        $readingLessonService = new ReadingLessonService();
+        $lesson = $readingLessonService->getLessonDetailById(Config('constants.type_lesson.practice'), $lesson_id);
+//        dd($lesson);
+        return view('admin.readingEditPracticeLesson',compact('last_question_custom_id', 'lesson'));
+    }
 }
