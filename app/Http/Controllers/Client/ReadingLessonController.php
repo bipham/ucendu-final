@@ -19,21 +19,8 @@ class ReadingLessonController extends Controller
 {
     public function index($domain, $link_level)
     {
-        $level_id = getIdFromLink($link_level);
-        $lesson_id = 0;
-        $readingLevelModel = new ReadingLevel();
-        $level = $readingLevelModel->getLevelById($level_id);
-        $readingLessonModel = new ReadingLesson();
-        $readingTypeQuestionOfQuizModel = new ReadingTypeQuestionOfQuiz();
-        $practice_lessons = $readingLessonModel->getPracticeNewest(8);
-        $test_lessons = $readingLessonModel->getTestNewest(8);
-        $readingResult = new ReadingResult();
-        $result_reading_users = $readingResult->getResultReadingByUserId(Auth::id());
-        $highest_result = [];
-        foreach ($result_reading_users as $result_reading_user) {
-            $highest_result[$result_reading_user->lesson_id] = $result_reading_user->highest_correct;
-        }
-        return view('client.reading',compact('level', 'lesson_id', 'practice_lessons', 'test_lessons', 'readingTypeQuestionOfQuizModel', 'highest_result'));
+        $level_lesson_id = getIdFromLink($link_level);
+        return view('client.readingOverview', compact('level_lesson_id'));
     }
 
     public function readingLessonDetail($domain, $level, $link_lesson)

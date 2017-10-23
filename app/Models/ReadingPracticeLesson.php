@@ -53,6 +53,10 @@ class ReadingPracticeLesson extends Model
         return $this->where('status',1)->orderBy('updated_at','desc')->select('id', 'title', 'level_user_id', 'image_feature', 'order_lesson', 'type_question_id')->get()->all();
     }
 
+    public function getPracticesByTypeQuestionId($type_question_id) {
+        return $this->where('status',1)->where('type_question_id', $type_question_id)->orderBy('order_lesson','asc')->select('id', 'title', 'level_user_id', 'image_feature', 'order_lesson')->get()->all();
+    }
+
     public function updateTitlePracticeLesson($lesson_id, $title) {
         if ($this->where('id', $lesson_id)->where('title', $title)->exists()) {
             return 'title-not-change';

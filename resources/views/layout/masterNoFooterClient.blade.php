@@ -33,7 +33,7 @@
 <div class="overlay"></div>
 <div id="loading"></div>
 @include('layout.header')
-@include('layout.menuHeaderReading')
+{{--@include('layout.menuHeaderReading')--}}
 <div role="main" class="main main-page">
     {{--@yield('banner-page')--}}
     @include('layout.tabContentReading')
@@ -43,8 +43,8 @@
     @yield('content')
 
 </div>
-@include('utils.toolbarReadingLesson')
-@include('utils.leftMenuReading', ['level' => $level, 'lesson_id' => $lesson_id ])
+{{--@include('utils.toolbarReadingLesson')--}}
+@include('utils.leftMenuReading', ['level_lesson_id' > $level_lesson_id]);
 @include('layout.footerNavigation')
 <script src="{{asset('public/libs/tether/tether.min.js')}}"></script>
 <script src="{{asset('public/libs/jquery/jquery.min.js')}}"></script>

@@ -192,5 +192,23 @@ class ReadingLessonService {
         }
         return $result;
     }
+
+    public function getLessonsByTypeQuestionId($type_lesson_id, $type_question_id) {
+        switch ($type_lesson_id) {
+            case 1:
+                $result = $this->_readingPracticeLessonModel->getPracticesByTypeQuestionId($type_question_id);
+                break;
+            case 2:
+                $result = $this->_readingMiniTestLessonModel->getTheCurrentLessonId();
+                break;
+            case 3:
+                $result = $this->_readingMixTestLessonModel->getTheCurrentLessonId();
+                break;
+            case 4:
+                $result = $this->_readingFullTestLessonModel->getTheCurrentLessonId();
+                break;
+        }
+        return $result;
+    }
 }
 ?>

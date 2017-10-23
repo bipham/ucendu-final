@@ -1,11 +1,10 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: BiPham
- * Date: 7/18/2017
- * Time: 4:42 PM
+ * User: nobikun1412
+ * Date: 10/23/2017
+ * Time: 3:29 PM
  */
-//var_dump($practice_lessons);
 ?>
 @extends('layout.masterNoFooterClient')
 @section('meta-title')
@@ -45,9 +44,9 @@
             <div class="content-breadcrumb-header content-banner-custom">
                 <h2 class="title-post">READING IELTS</h2>
                 {{--<ol class="breadcrumb" id="path">--}}
-                    {{--<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>--}}
-                    {{--<li class="breadcrumb-item"><a href="{{url('/')}}">Tin tìm mua</a></li>--}}
-                    {{--<li class="breadcrumb-item"><a href="{{url('/')}}">asd</a></li>--}}
+                {{--<li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>--}}
+                {{--<li class="breadcrumb-item"><a href="{{url('/')}}">Tin tìm mua</a></li>--}}
+                {{--<li class="breadcrumb-item"><a href="{{url('/')}}">asd</a></li>--}}
                 {{--</ol>--}}
             </div>
         </div>
