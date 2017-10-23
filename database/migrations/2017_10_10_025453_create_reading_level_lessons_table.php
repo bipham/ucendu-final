@@ -16,6 +16,7 @@ class CreateReadingLevelLessonsTable extends Migration
         Schema::create('reading_level_lessons', function (Blueprint $table) {
             $table->increments('id');
             $table->string('level')->unique();
+            $table->text('introduction')->nullable();
             $table->boolean('status')->default(1);
             $table->timestamps();
         });
