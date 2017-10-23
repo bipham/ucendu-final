@@ -63,6 +63,16 @@ class ReadingPracticeLesson extends Model
         }
     }
 
+    public function updateContentPracticeLesson($lesson_id, $content_lesson, $content_highlight) {
+        $this->where('id', $lesson_id)->update(['content_lesson' => $content_lesson, 'content_highlight' => $content_highlight ,'updated_at' => Carbon::now()]);
+        return 'update-success';
+    }
+
+    public function updateQuizPracticeLesson($lesson_id, $content_quiz, $content_answer_quiz, $total_questions) {
+        $this->where('id', $lesson_id)->update(['content_quiz' => $content_quiz, 'content_answer_quiz' => $content_answer_quiz, 'total_questions' => $total_questions,'updated_at' => Carbon::now()]);
+        return 'update-success';
+    }
+
     public function updateLevelUserPracticeLesson($lesson_id, $level_user_id) {
         if ($this->where('id', $lesson_id)->where('level_user_id', $level_user_id)->exists()) {
             return 'level-user-not-change';
@@ -88,6 +98,6 @@ class ReadingPracticeLesson extends Model
     }
 
     public function getDetailPracticeLesson($lesson_id) {
-        return $this->where('status', 1)->where('id', $lesson_id)->select('id', 'content_lesson', 'content_highlight', 'content_quiz', 'content_answer_quiz')->get()->first();
+        return $this->where('status', 1)->where('id', $lesson_id)->select('id', 'content_lesson', 'content_highlight', 'content_quiz', 'content_answer_quiz', 'type_question_id')->get()->first();
     }
 }

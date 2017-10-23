@@ -9,13 +9,10 @@ var mainUrl = baseUrl.substring(13);
 var content_lesson_source = '';
 var lesson_id = $('.upload-page-custom').data('lesson-id');
 var quiz_id = $('.upload-page-custom').data('quiz-id');
-console.log('lesson: ' + lesson_id);
-console.log('quiz: ' + quiz_id);
-var ajaxUpdateContentLessonReading = baseUrl + '/updateContentLessonReading/' + lesson_id;
+var ajaxUpdateContentLessonReading = baseUrl + '/updateContentLessonReading/1-' + lesson_id;
 var content_highlight_lesson = '';
-
+var type_question_id = 0;
 var content_quiz = '';
-var type_lesson = '';
 var listQ = [];
 var content_answer_quiz ='';
 var listClassKeyword = {};
@@ -25,34 +22,8 @@ var list_type_questions = {};
 var listAnswer_source = {};
 var listKeyword_source = {};
 var list_type_questions_source = {};
-var ajaxUpdateQuizReadingReading = baseUrl + '/updateQuizReading/' + quiz_id;
-
-var option_list_questions = '';
-var ajaxGetListTypeQuestion = baseUrl + '/getTypeQuestion';
-var list_type_old = [];
+var ajaxUpdateQuizReadingReading = baseUrl + '/updateQuizReading/1-' + lesson_id;
 var list_Q_old = [];
-
-function getOldValueListAnswer() {
-    $('#solution-area .question-quiz').each(function () {
-        var qnumber = $(this).data('qnumber');
-        if (jQuery.inArray(qnumber, listAnswer_source) == -1) {
-            listAnswer_source[qnumber] = $('.explain-area-' + qnumber + ' .key-answer').html();
-            listKeyword_source[qnumber] = $('#keywordArea-' + qnumber + ' .keywords-area').html();
-            if (listKeyword_source[qnumber] == 'No_keywords') {
-                listClassKeyword[qnumber] = 'hidden-class';
-                listKeyword_source[qnumber] = '';
-            }
-            else {
-                listClassKeyword[qnumber] = '';
-            }
-            if (jQuery.inArray(qnumber, list_Q_old) == -1) {
-                list_type_questions_source[qnumber] = $('.explain-area-' + qnumber).data('type-question');
-                list_type_old.push(list_type_questions_source[qnumber]);
-                list_Q_old.push(qnumber);
-            }
-        }
-    });
-}
 
 //Edit Content
 function editContentLesson() {
@@ -93,10 +64,10 @@ function updateContentLesson() {
         data: { 'content_highlight_lesson': content_highlight_lesson, 'content_lesson_source': content_lesson_source},
         success: function (data) {
             bootbox.alert({
-                message: "Update lesson success! " + data.result,
+                message: "Update lesson success!",
                 backdrop: true,
                 callback: function(){
-                    location.href= baseUrl + '/editLessonReading/' + data.result;
+                    location.href= baseUrl + '/managerReadingLesson';
                 }
             });
         },
@@ -117,20 +88,31 @@ function stepEditContentLesson() {
 function editQuizLesson() {
     $('.preview-lesson').toggleClass('hidden');
     $('.edit-quiz-lesson').toggleClass('hidden');
-    getOldValueListAnswer();
+    $('#solution-area .question-quiz').each(function () {
+        var qnumber = $(this).data('qnumber');
+        if (jQuery.inArray(qnumber, listAnswer_source) == -1) {
+            listAnswer_source[qnumber] = $('.explain-area-' + qnumber + ' .key-answer').html();
+            listKeyword_source[qnumber] = $('#keywordArea-' + qnumber + ' .keywords-area').html();
+            if (listKeyword_source[qnumber] == 'No_keywords') {
+                listClassKeyword[qnumber] = 'hidden-class';
+                listKeyword_source[qnumber] = '';
+            }
+            else {
+                listClassKeyword[qnumber] = '';
+            }
+            if (jQuery.inArray(qnumber, list_Q_old) == -1) {
+                list_Q_old.push(qnumber);
+            }
+        }
+    });
 }
 
 $( document ).ready(function() {
     //Edit Quiz
     $('.btn-next-edit-answer').click(function () {
-        // content_quiz = CKEDITOR.instances["quizLesson"].getData().trim();
-        console.log('list answer: ' + JSON.stringify(listAnswer_source));
-        console.log('listKeyword_source: ' + JSON.stringify(listKeyword_source));
-        console.log('list_type_questions_source: ' + JSON.stringify(list_type_questions_source));
         var checkDataStepQuiz = checkStepQuiz();
-        console.log('type Lesson: ' + type_lesson);
         if (checkDataStepQuiz) {
-            if ((content_quiz != CKEDITOR.instances["quizLesson"].getData()) || (type_lesson != $('#typeLesson').val()) ) {
+            if (content_quiz != CKEDITOR.instances["quizLesson"].getData()) {
                 content_quiz = CKEDITOR.instances["quizLesson"].getData();
                 $('.preview-content-quiz .card-block').html(content_quiz);
                 $('.answer-area').html('');
@@ -159,7 +141,6 @@ $( document ).ready(function() {
                     }
                 });
             }
-            console.log('listQ: ' + listQ);
             if (listQ.length > 0) {
                 $('.edit-quiz').toggleClass('hidden');
                 $('.edit-answer').toggleClass('hidden');
@@ -179,10 +160,8 @@ $( document ).ready(function() {
     });
 
     $('.btn-next-preview-edit').click(function () {
+        type_question_id = $('.upload-page-custom').data('type-question-id');
         var checkDataStepAnswer = checkStepAnswer();
-        console.log('list type: ' + JSON.stringify(list_type_questions));
-        console.log('list answer: ' + JSON.stringify(listAnswer));
-        console.log('list keyword: ' + JSON.stringify(listKeyword));
         if (checkDataStepAnswer) {
             $('.preview-edit-lesson').toggleClass('hidden');
             $('.edit-answer').toggleClass('hidden');
@@ -215,24 +194,12 @@ $( document ).ready(function() {
                     '&nbsp;Locate' +
                     '</a>' +
                     '</div>' +
-                    // '<div class="solution-tools locate-keyword-tool">' +
-                    //     '<a class="btn btn-xs btn-outline-info btn-show-keywords" data-qnumber="' + qnumber +'" data-toggle="collapse" href="#keywordArea-' + qnumber + '" aria-expanded="false" aria-controls="keywordArea-' + qnumber + '" onclick="showKeywords(' + qnumber + ')">' +
-                    //         '<i class="fa fa-key" aria-hidden="true"></i>' +
-                    //         '&nbsp;Keywords' +
-                    //     '</a>' +
-                    // '</div>' +
                     '<div class="solution-tools locate-comment-tool">' +
                     '<a class="btn btn-xs btn-outline-primary btn-show-comments" data-qnumber="' + qnumber +'" data-toggle="collapse" href="#commentArea-' + qnumber + '" aria-expanded="false" aria-controls="commentArea-' + qnumber + '" onclick="showComments(' + qnumber + ')">' +
                     '<i class="fa fa-question" aria-hidden="true"></i>' +
                     '&nbsp;Comments' +
                     '</a>' +
                     '</div>' +
-                    // '<div class="collapse collage-keywords collapse-custom" id="keywordArea-' + qnumber +'"> ' +
-                    //     '<div class="card card-header keywords-area-title">KEYWORDS:' +
-                    //     '</div>' +
-                    //     '<div class="card card-block keywords-area">' +
-                    //     '</div>' +
-                    // '</div>' +
                     '<div class="collapse collage-comments collapse-custom" id="commentArea-' + qnumber +'"> ' +
                     '<div class="card card-header comments-area-title">QUESTION & ANSWER:' +
                     '</div>' +
@@ -263,26 +230,17 @@ $( document ).ready(function() {
     });
 
     $('.btn-update-quiz-lesson').click(function () {
-        var limit_time = $('#limitTime').val();
-        console.log('list list_type_old: ' + JSON.stringify(list_type_old));
-        console.log('list list_Q_old: ' + JSON.stringify(list_Q_old));
-        console.log('list keyword: ' + JSON.stringify(listKeyword));
-        console.log('list lesson_id: ' + lesson_id);
-        console.log('list list_answer: ' + JSON.stringify(listAnswer));
-        console.log('list type_lesson: ' + type_lesson);
-        console.log('list limit_time: ' + limit_time);
         $.ajax({
             type: "POST",
             url: ajaxUpdateQuizReadingReading,
             dataType: "json",
-            data: { lesson_id: lesson_id, list_type_old: list_type_old, list_Q_old: list_Q_old, list_answer: listAnswer, content_quiz: content_quiz, content_answer_quiz: content_answer_quiz, list_type_questions: list_type_questions, listKeyword: listKeyword, type_lesson: type_lesson, limit_time: limit_time },
+            data: { list_Q_old: list_Q_old, list_answer: listAnswer, content_quiz: content_quiz, content_answer_quiz: content_answer_quiz, type_question_id: type_question_id, listKeyword: listKeyword},
             success: function (data) {
-                console.log(data);
                 bootbox.alert({
-                    message: "Update quiz success! " + data.result,
+                    message: "Update quiz success!",
                     backdrop: true,
                     callback: function(){
-                        location.href= baseUrl + '/editLessonReading/' + data.result;
+                        location.href= baseUrl + '/managerReadingLesson';
                     }
                 });
             },
@@ -296,6 +254,51 @@ $( document ).ready(function() {
     });
 
 });
+
+function checkStepQuiz() {
+    if (CKEDITOR.instances["quizLesson"].getData() == '') {
+        bootbox.alert({
+            message: "Please enter the content of quiz!",
+            backdrop: true
+        });
+        return false;
+    }
+    else return true;
+}
+
+function checkStepAnswer() {
+    listAnswer = {};
+    listKeyword = {};
+    list_type_questions = {};
+
+    $('.preview-content-quiz .card-block .last-option').each(function () {
+        var qnumber = $(this).data('qnumber');
+        var qorder = $(this).attr('name');
+        qorder = qorder.match(/\d+/);
+        var answer_key = $('.answer-' + qorder).val().trim();
+        var keywords_key = $('.keyword-' + qorder).val();
+        if (answer_key != '') {
+            listAnswer[qnumber] = answer_key;
+        }
+        else {
+            delete listAnswer[qnumber];
+        }
+        if (keywords_key == '') {
+            keywords_key = 'No_keywords';
+            listClassKeyword[qnumber] = 'hidden-class';
+        }
+        else {
+            listClassKeyword[qnumber] = '';
+        }
+        listKeyword[qnumber] = keywords_key;
+
+        list_type_questions[qnumber] = type_question_id;
+    });
+    if ((listQ.length == Object.keys(listAnswer).length) && (listQ.length  == Object.keys(list_type_questions).length)) {
+        return true;
+    }
+    else return false;
+}
 
 $(document).on("change", "input.answer-q",function() {
     var qnumber = $(this).data('qnumber');

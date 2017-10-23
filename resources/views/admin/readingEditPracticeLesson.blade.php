@@ -19,7 +19,7 @@
     <script src="/public/libs/ckeditor/ckeditor.js"></script>
 @endsection
 @section('content')
-    <div class="container upload-page-custom container-page-custom" data-idquestion="{!! $last_question_custom_id !!}" data-lesson-id="{!! $lesson->id !!}" data-quiz-id="{!! $lesson->id !!}">
+    <div class="container upload-page-custom container-page-custom" data-idquestion="{!! $last_question_custom_id !!}" data-lesson-id="{!! $lesson->id !!}" data-quiz-id="{!! $lesson->id !!}" data-type-question-id="{!! $lesson->type_question_id !!}">
         <input type="hidden" name="_token" value="{!!csrf_token()!!}">
         <div class="preview-lesson">
             <div class="solution-detail panel-container">
@@ -104,7 +104,7 @@
                     CKEDITOR.replace( 'editor_quiz' );
                 </script>
                 <div class="control-edit-lesson-content">
-                    <button type="button" class="btn btn-success btn-next-edit-answer btn-edit-custom">
+                    <button type="button" class="btn btn-success btn-next-edit-answer btn-edit-custom" onclick="">
                         Next
                     </button>
                 </div>
@@ -181,7 +181,7 @@
 @section('scripts')
     {{--<script src="{{asset('public/js/admin/upload.js')}}"></script>--}}
     <script src="{{asset('public/js/admin/readingEditLesson.js')}}"></script>
-    <script src="{{asset('public/js/admin/adminCreateNewItemFunctions.js')}}"></script>
+    {{--<script src="{{asset('public/js/admin/adminCreateNewItemFunctions.js')}}"></script>--}}
     <script src="{{asset('public/js/admin/readingEditPracticeFunctions.js')}}"></script>
     <script src="{{asset('public/js/admin/readingHighlight.js')}}"></script>
     <script src="{{asset('public/js/client/readingSolutionDetail.js')}}"></script>

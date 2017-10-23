@@ -45,4 +45,11 @@ class ReadingQuestionLesson extends Model
             return 'success';
         }
     }
+
+    public function deleteQuestionLesson($type_lesson_id, $lesson_id, $question_custom_id) {
+        $this-> where('lesson_id', $lesson_id)
+             -> where('type_lesson_id', $type_lesson_id)
+             -> where('question_custom_id', $question_custom_id)
+             -> delete();
+    }
 }

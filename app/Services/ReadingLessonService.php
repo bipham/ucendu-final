@@ -156,5 +156,41 @@ class ReadingLessonService {
         }
         return $result;
     }
+
+    public function updateContentLesson($type_lesson_id, $lesson_id, $content_lesson, $content_highlight) {
+        switch ($type_lesson_id) {
+            case 1:
+                $result = $this->_readingPracticeLessonModel->updateContentPracticeLesson($lesson_id, $content_lesson, $content_highlight);
+                break;
+            case 2:
+                $result = $this->_readingMiniTestLessonModel->getTheCurrentLessonId();
+                break;
+            case 3:
+                $result = $this->_readingMixTestLessonModel->getTheCurrentLessonId();
+                break;
+            case 4:
+                $result = $this->_readingFullTestLessonModel->getTheCurrentLessonId();
+                break;
+        }
+        return $result;
+    }
+
+    public function updateQuizLesson($type_lesson_id, $lesson_id, $content_quiz, $content_answer_quiz, $total_questions) {
+        switch ($type_lesson_id) {
+            case 1:
+                $result = $this->_readingPracticeLessonModel->updateQuizPracticeLesson($lesson_id, $content_quiz, $content_answer_quiz, $total_questions);
+                break;
+            case 2:
+                $result = $this->_readingMiniTestLessonModel->getTheCurrentLessonId();
+                break;
+            case 3:
+                $result = $this->_readingMixTestLessonModel->getTheCurrentLessonId();
+                break;
+            case 4:
+                $result = $this->_readingFullTestLessonModel->getTheCurrentLessonId();
+                break;
+        }
+        return $result;
+    }
 }
 ?>

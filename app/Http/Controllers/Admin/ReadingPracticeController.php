@@ -63,8 +63,8 @@ class ReadingPracticeController extends Controller
         //Save questions - answers:
         if ($lesson_id != 'fail-order') {
             foreach ($list_answer as $question_custom_id => $answer) {
-                $readingQuestionLessonServicee = new ReadingQuestionLessonService();
-                $readingQuestionLessonServicee->addNewQuestionLesson(Config('constants.type_lesson.practice'), $lesson_id, $type_question_id, $question_custom_id, $answer, $listKeyword[$question_custom_id]);
+                $readingQuestionLessonService = new ReadingQuestionLessonService();
+                $readingQuestionLessonService->addNewQuestionLesson(Config('constants.type_lesson.practice'), $lesson_id, $type_question_id, $question_custom_id, $answer, $listKeyword[$question_custom_id]);
             }
             $result = 'success';
         }
@@ -74,8 +74,8 @@ class ReadingPracticeController extends Controller
     }
 
     public function getEditPracticeLessonReading($domain, $lesson_id) {
-        $readingQuestionLessonServicee = new ReadingQuestionLessonService();
-        $last_question_custom_id = $readingQuestionLessonServicee->getTheLastQuestionCustomId();
+        $readingQuestionLessonService = new ReadingQuestionLessonService();
+        $last_question_custom_id = $readingQuestionLessonService->getTheLastQuestionCustomId();
         $readingLessonService = new ReadingLessonService();
         $lesson = $readingLessonService->getLessonDetailById(Config('constants.type_lesson.practice'), $lesson_id);
 //        dd($lesson);
