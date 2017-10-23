@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{asset('public/css/client/readingFooterNavigation.css')}}"/>
     <link rel="stylesheet" href="{{asset('public/css/client/responsive.css')}}"/>
     <link rel="stylesheet" href="{{asset('public/libs/toolbar/jquery.toolbar.css')}}" />
+    <link rel="stylesheet" href="{{asset('public/libs/nice-select/css/nice-select.css')}}" />
     {{--<link rel="stylesheet" href="{{asset('public/libs/jcubic-splitter/css/jquery.splitter.css')}}" />--}}
     <script>
         var current_user = {!! json_encode(Auth::user()) !!};
@@ -44,7 +45,7 @@
 
 </div>
 {{--@include('utils.toolbarReadingLesson')--}}
-@include('utils.leftMenuReading', ['level_lesson_id' > $level_lesson_id]);
+@include('utils.leftMenuReading', ['level_lesson_id' => $level_lesson_id])
 @include('layout.footerNavigation')
 <script src="{{asset('public/libs/tether/tether.min.js')}}"></script>
 <script src="{{asset('public/libs/jquery/jquery.min.js')}}"></script>
@@ -54,6 +55,7 @@
 <script src="{{asset('public/libs/splitter/jquery-resizable.js')}}"></script>
 <script src="//cdn.rawgit.com/julmot/mark.js/master/dist/jquery.mark.min.js"></script>
 <script src="{{asset('public/libs/toolbar/jquery.toolbar.js')}}"></script>
+<script src="{{asset('public/libs/nice-select/js/jquery.nice-select.min.js')}}"></script>
 <script src="{{asset('public/js/my-script.js')}}"></script>
 <script src="{{asset('public/js/client/readingFooterNavigation.js')}}"></script>
 <script language="JavaScript">

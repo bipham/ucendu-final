@@ -6,23 +6,30 @@
  * Time: 11:40 PM
  */
 ?>
-
-<div class="nav-side-menu">
-    <div class="brand">Brand Logo</div>
-    <div class="menu-list">
-        <?php
-        $readingTypeQuestionService = new App\Services\ReadingTypeQuestionService();
-        $readingLessonService = new App\Services\ReadingLessonService();
-        $readingLearningTypeQuestionService = new App\Services\ReadingLearningTypeQuestionService();
-        $all_lessons = $readingTypeQuestionService->getAllTypeQuestionById($level_lesson_id);
+<?php
+$readingTypeQuestionService = new App\Services\ReadingTypeQuestionService();
+$readingLessonService = new App\Services\ReadingLessonService();
+$readingLearningTypeQuestionService = new App\Services\ReadingLearningTypeQuestionService();
+$readingLevelLessonService = new App\Services\ReadingLevelLessonService();
+$all_level_lessons = $readingLevelLessonService->getAllLevelLesson();
+$all_lessons = $readingTypeQuestionService->getAllTypeQuestionById($level_lesson_id);
 //        dd($all_lessons);
-        ?>
+?>
+<div class="nav-side-menu">
+    <div class="brand">
+        <a href="{{url('/')}}" class="brand-web">
+            <img src="{{url('/public/imgs/original/logo.jpg')}}" alt="Logo" class="img-custom img-logo-website">
+        </a>
+    </div>
+    <div class="overview-menu">
+        <select class="level-lesson">
+            @foreach($all_level_lessons as $level_lesson)
+                <option value="{!! $level_lesson->id !!}" @if($level_lesson->id == $level_lesson_id) selected="selected" @endif>{!! $level_lesson->level !!}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="menu-list">
         <ul id="menu-content" class="menu-content">
-            <li>
-                <a href="#">
-                    <i class="fa fa-dashboard fa-lg"></i> Dashboard -
-                </a>
-            </li>
             <h6 class="title-menu">
                 Lessons
             </h6>
@@ -37,9 +44,9 @@
                         <?php
                         $all_learnings = $readingLearningTypeQuestionService->getLearningOfTypeQuestion($lesson->id);
                         ?>
-                        @foreach($all_learnings as $learning)
-                            <li>{!! $learning->title_section !!}</li>
-                        @endforeach
+                            @foreach($all_learnings as $learning)
+                                <li>{!! $learning->title_section !!}</li>
+                            @endforeach
                     </ul>
 
                     {{--Show practice:--}}

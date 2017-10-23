@@ -35,6 +35,8 @@ $(".panel-top").resizable({
 
 jQuery("document").ready(function($){
 
+    $('select').niceSelect();
+
     var nav = $('.menu-reading');
 
     $('#myTabReading a:not(.reading-test-quiz)').on('shown.bs.tab', function (e) {
