@@ -17,7 +17,7 @@ CKEDITOR.plugins.add( 'radio_quiz', {
         );
         editor.addCommand( 'insertRadioQuiz', new CKEDITOR.dialogCommand( 'radio_quizDialog' ) );
         editor.ui.addButton( 'radio_quiz', {
-            label: 'Multiple 2 answers',
+            label: 'Multiple 1 answer',
             command: 'insertRadioQuiz',
             toolbar: 'others,4'
         });
