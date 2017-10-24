@@ -28,6 +28,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('/createNewReadingPractice')}}">New_practice_lesson</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('/managerReadingLesson')}}">Manager_lesson</a>
+                </li>
             </ul>
         </div>
     </div>
