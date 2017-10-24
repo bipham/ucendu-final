@@ -1459,3 +1459,11 @@ h2.title-post {
 .cke_button_disabled .cke_button_label{
 	color: #cccc;
 }
+
+.sub-level-one li {
+	padding-left: 20px !important;
+}
+
+.sub-level-two li {
+	padding-left: 40px !important;
+}

@@ -7,6 +7,7 @@
  */
 return [
     'type_lesson' => [
+        'learning' => 0,
         'practice' => 1,
         'mini_test' => 2,
         'mix_test' => 3,
