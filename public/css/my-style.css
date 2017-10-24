@@ -1404,3 +1404,11 @@ h2.title-post {
 .breadcrumb-header .breadcrumb a:focus, a:hover {
 	color: #5cb85c;
 }
+
+.sub-level-one li {
+	padding-left: 20px !important;
+}
+
+.sub-level-two li {
+	padding-left: 40px !important;
+}
