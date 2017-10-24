@@ -18,7 +18,7 @@ CKEDITOR.plugins.add( 'checkbox_quiz', {
         );
         editor.addCommand( 'insertCheckboxQuiz', new CKEDITOR.dialogCommand( 'checkbox_quizDialog' ) );
         editor.ui.addButton( 'checkbox_quiz', {
-            label: 'Multiple 1 answer',
+            label: 'Multiple 2 answers',
             command: 'insertCheckboxQuiz',
             toolbar: 'others,1'
         });
