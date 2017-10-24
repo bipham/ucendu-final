@@ -7,7 +7,7 @@
  */
 //dd($lesson_quiz);
 ?>
-@extends('layout.masterNoFooter')
+@extends('layout.masterNoFooterClient')
 @section('meta-title')
     Solution Detail
 @endsection

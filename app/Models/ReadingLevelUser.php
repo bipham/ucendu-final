@@ -12,6 +12,11 @@ class ReadingLevelUser extends Model
 
     public $timestamps = true;
 
+    public function practiceLessons()
+    {
+        return $this->hasMany('App\Models\ReadingPracticeLesson', 'level_user_id');
+    }
+
     public function createNewLevelUser($level) {
 
         if ($this->where('level', '=', $level)->exists()) {

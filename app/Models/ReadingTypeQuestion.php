@@ -27,6 +27,16 @@ class ReadingTypeQuestion extends Model
         return $this->hasMany('App\Models\reading_question_learnings', 'type_question_id');
     }
 
+    public function questionLessons()
+    {
+        return $this->hasMany('App\Models\ReadingQuestionLesson', 'type_question_id');
+    }
+
+    public function practiceLessons()
+    {
+        return $this->hasMany('App\Models\ReadingPracticeLesson', 'type_question_id');
+    }
+
     public function createNewTypeQuestion($name, $level_lesson_id) {
         if ($this->where('name', $name)->where('level_lesson_id', $level_lesson_id)->exists()) {
             // Record found

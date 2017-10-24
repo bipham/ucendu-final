@@ -8,7 +8,7 @@
 //var_dump($highest_result[1]);
 //dd($all_vocabulary);
 ?>
-@extends('layout.masterNoFooter')
+@extends('layout.masterNoFooterClient')
 @section('meta-title')
     Vocabulary Reading
 @endsection

@@ -36,13 +36,23 @@ CKEDITOR.dialog.add( 'select_quizDialog', function( editor ) {
                 ]
             }
         ],
+        onShow: function() {
+
+            this.setValueOf( 'tab-basic', 'question', question_number_input );
+            this.setValueOf( 'tab-basic', 'number_option', number_select_option );
+            this.setValueOf( 'tab-basic', 'type_question', type_question_select );
+
+        },
         onOk: function() {
             var dialog = this;
             var data_ques = $('.upload-page-custom').data('idquestion');
             var question_number = dialog.getValueOf( 'tab-basic', 'question' );
+            question_number_input = parseInt(question_number) + 1;
             var number_option = dialog.getValueOf( 'tab-basic', 'number_option' );
+            number_select_option = parseInt(number_option);
             // var content_question = dialog.getValueOf( 'tab-basic', 'content_question' );
             var type_question = dialog.getValueOf('tab-basic', 'type_question' );
+            type_question_select = type_question;
             var l_option = 'last-option';
             var option = '';
             if (type_question == 'A B C') {

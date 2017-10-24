@@ -6,7 +6,7 @@
  * Time: 10:18 PM
  */
 ?>
-@extends('layout.masterNoMenu')
+@extends('layout.masterNoMenuAdmin')
 @section('meta-title')
     Create new level story
 @endsection

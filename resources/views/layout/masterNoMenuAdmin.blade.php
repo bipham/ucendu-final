@@ -51,6 +51,7 @@
 <script src="//cdn.rawgit.com/julmot/mark.js/master/dist/jquery.mark.min.js"></script>
 <script src="{{asset('public/libs/toolbar/jquery.toolbar.js')}}"></script>
 <script src="{{asset('public/js/my-script.js')}}"></script>
+<script src="{{asset('public/js/admin/adminVariableSetup.js')}}"></script>
 <script language="JavaScript">
     <!--
     var dictionaries = "ev_ve";

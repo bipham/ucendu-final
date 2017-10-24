@@ -11,7 +11,7 @@
         <div class="row-fluid row-footer">
             <div class="section-info col-md-4">
                 <div class="show-current-step">
-                    test
+
                 </div>
             </div>
             <div class="section-button col-md-4">

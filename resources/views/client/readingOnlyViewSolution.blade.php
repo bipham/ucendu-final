@@ -8,7 +8,7 @@
 //dd($type_question);
 ?>
 
-@extends('layout.masterNoFooter')
+@extends('layout.masterNoFooterClient')
 @section('meta-title')
     Solution Detail
 @endsection

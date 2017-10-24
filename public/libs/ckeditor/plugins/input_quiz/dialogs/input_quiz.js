@@ -39,11 +39,16 @@ CKEDITOR.dialog.add( 'input_quizDialog', function( editor ) {
                 ]
             }
         ],
+        onShow: function() {
+
+            this.setValueOf( 'tab-basic', 'question', question_number_input );
+
+        },
         onOk: function() {
             var dialog = this;
             var data_ques = $('.upload-page-custom').data('idquestion');
-            console.log(data_ques);
             var class_quiz = dialog.getValueOf( 'tab-basic', 'question' );
+            question_number_input = parseInt(class_quiz) + 1;
             // var value_quiz = dialog.getValueOf( 'tab-basic', 'value_question' );
             // var opt_quiz = dialog.getValueOf( 'tab-basic', 'opt_question' );
             // var last_option = dialog.getValueOf('tab-basic', 'last_option' );

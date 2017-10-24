@@ -7,7 +7,7 @@
  */
 //var_dump($practice_lessons);
 ?>
-@extends('layout.masterNoFooter')
+@extends('layout.masterNoFooterClient')
 @section('meta-title')
     Home
 @endsection
@@ -67,21 +67,7 @@
     <div class="container reading-page page-custom">
         <div class="list-reading-thumbnail">
             <div class="row list-lesson-thumbnail">
-                @foreach($practice_lessons as $practice_lesson)
-                    <?php
-                    $detailTypeQuestionOfQuiz =  $readingTypeQuestionOfQuizModel->getDetailQuizByQuizId($practice_lesson->id);
-                    //                            dd($practice_lesson);
-                    $quiz_id = $practice_lesson->id;
-                    //                            dd($highest_result[$practice_lesson->lesson_id]);
-                    if (array_key_exists($practice_lesson->lesson_id, $highest_result)) {
-                        $highest_result_reading = $highest_result[$practice_lesson->lesson_id];
-                    }
-                    else {
-                        $highest_result_reading = 99999;
-                    }
-                    ?>
-                    @include('utils.contentGrid',['lesson' => $practice_lesson, 'detailTypeQuestionOfQuiz' => json_decode($detailTypeQuestionOfQuiz), 'highest_result_reading' => $highest_result_reading])
-                @endforeach
+
             </div>
         </div>
     </div>
@@ -91,20 +77,7 @@
     <div class="container reading-page page-custom">
         <div class="list-reading-thumbnail">
             <div class="row list-lesson-thumbnail">
-                @foreach($test_lessons as $test_lesson)
-                    <?php
-                    $detailTypeQuestionOfQuiz =  $readingTypeQuestionOfQuizModel->getDetailQuizByQuizId($test_lesson->id);
-                    //                        dd($detailTypeQuestionOfQuiz);
-                    $quiz_id = $test_lesson->id;
-                    if (array_key_exists($test_lesson->lesson_id, $highest_result)) {
-                        $highest_result_reading = $highest_result[$test_lesson->lesson_id];
-                    }
-                    else {
-                        $highest_result_reading = 99999;
-                    }
-                    ?>
-                    @include('utils.contentGrid',['lesson' => $test_lesson, 'detailTypeQuestionOfQuiz' => json_decode($detailTypeQuestionOfQuiz), 'quiz_id' => $quiz_id, 'highest_result_reading' => $highest_result_reading])
-                @endforeach
+
             </div>
         </div>
     </div>

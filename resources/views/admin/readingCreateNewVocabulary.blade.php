@@ -7,7 +7,7 @@
  */
 ?>
 
-@extends('layout.masterNoMenu')
+@extends('layout.masterNoMenuAdmin')
 @section('meta-title')
     Reading - Create New Vocabulary
 @endsection

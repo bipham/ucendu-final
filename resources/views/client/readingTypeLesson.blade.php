@@ -8,7 +8,7 @@
 //dd($lessons);
 //dd($test_lessons);
 ?>
-@extends('layout.masterNoFooter')
+@extends('layout.masterNoFooterClient')
 @section('meta-title')
     @if($type_lesson_id == 2 )
         Mix Test

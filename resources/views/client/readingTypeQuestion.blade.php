@@ -7,7 +7,7 @@
  */
 //dd($type_question->introduction);
 ?>
-@extends('layout.masterNoFooter')
+@extends('layout.masterNoFooterClient')
 @section('meta-title')
     {!! $type_question->name !!}
 @endsection

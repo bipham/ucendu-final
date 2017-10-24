@@ -1404,3 +1404,58 @@ h2.title-post {
 .breadcrumb-header .breadcrumb a:focus, a:hover {
 	color: #5cb85c;
 }
+
+.cke_button__checkbox_quiz_label {
+	display: inline !important;
+}
+
+.cke_button__checkbox_quiz {
+	border: 1px solid #0636bb !important;
+	margin: 0 10px !important;
+	background: #ffd805 !important;
+	padding: 5px !important;
+}
+
+.cke_button__select_quiz_label {
+	display: inline !important;
+}
+
+.cke_button__select_quiz {
+	border: 1px solid #0636bb !important;
+	margin: 0 10px !important;
+	background: #ff5c3a !important;
+	padding: 5px !important;
+}
+
+.cke_button__radio_quiz_label {
+	display: inline !important;
+}
+
+.cke_button__radio_quiz {
+	border: 1px solid #0636bb !important;
+	margin: 0 10px !important;
+	background: #2dff59 !important;
+	padding: 5px !important;
+}
+
+.cke_button__input_quiz_label {
+	display: inline !important;
+	color: red;
+}
+
+.cke_button__input_quiz {
+	border: 1px solid #0636bb !important;
+	margin: 0 10px !important;
+	background: yellow !important;
+	padding: 5px !important;
+}
+
+
+.cke_button_disabled {
+	background: inherit !important;
+	border: none !important;
+}
+
+.cke_button_disabled .cke_button_label{
+	color: #cccc;
+}

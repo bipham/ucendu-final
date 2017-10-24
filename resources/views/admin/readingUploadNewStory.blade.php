@@ -6,7 +6,7 @@
  * Time: 10:38 AM
  */
 ?>
-@extends('layout.masterNoMenu')
+@extends('layout.masterNoMenuAdmin')
 @section('meta-title')
     Reading - Upload new story
 @endsection
