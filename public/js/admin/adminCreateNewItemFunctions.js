@@ -9,13 +9,13 @@ function checkStepPost() {
         });
         return false;
     }
-    else if (img_name == '') {
-        bootbox.alert({
-            message: "Please select image feature!",
-            backdrop: true
-        });
-        return false;
-    }
+    // else if (img_name == '') {
+    //     bootbox.alert({
+    //         message: "Please select image feature!",
+    //         backdrop: true
+    //     });
+    //     return false;
+    // }
     else if (CKEDITOR.instances["contentPost"].getData() == '') {
         bootbox.alert({
             message: "Please enter the content of post!",

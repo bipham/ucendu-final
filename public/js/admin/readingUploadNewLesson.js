@@ -189,34 +189,31 @@ $( document ).ready(function() {
                                                     answer_key +
                                                 '</div>' +
                                             '</button>' +
-                                            '<div class="keywords-show ' + listClassKeyword[qnumber] + '" id="keywordArea-' + qnumber +'"> ' +
-                                                '<span class="keywords-area-title">' +
+                                            '<div class="explain-show' + '" id="explain-' + qnumber +'"> ' +
+                                                '<button type="button" class="btn btn-primary btn-show-explanation show-explanation-' + qnumber + '" data-qnumber="' + qnumber + '" data-qorder="' + qorder + '" data-type-question="' + list_type_questions[qnumber] + '">' +
                                                     '<i class="fa fa-key" aria-hidden="true"></i>' +
-                                                    '&nbsp;Keywords' +
-                                                '</span>' +
-                                                '<span class="keywords-area">' +
-                                                    listKeyword[qnumber] +
-                                                '</span>' +
+                                                    ' Explanation' +
+                                                '</button>' +
                                             '</div>' +
                                         '</div>' +
-                                        '<div class="solution-tools locate-highlight-tool">' +
-                                            '<a class="btn btn-xs btn-outline-warning btn-locate-highlight" data-qnumber="' + qnumber +'" onclick="scrollToHighlight(' + qorder + ')">' +
-                                                '<i class="fa fa-map-marker" aria-hidden="true"></i>' +
-                                                '&nbsp;Locate' +
-                                            '</a>' +
-                                        '</div>' +
-                                        '<div class="solution-tools locate-comment-tool">' +
-                                            '<a class="btn btn-xs btn-outline-primary btn-show-comments" data-qnumber="' + qnumber +'" data-toggle="collapse" href="#commentArea-' + qnumber + '" aria-expanded="false" aria-controls="commentArea-' + qnumber + '" onclick="showComments(' + qnumber + ')">' +
-                                                '<i class="fa fa-question" aria-hidden="true"></i>' +
-                                                '&nbsp;Comments' +
-                                            '</a>' +
-                                        '</div>' +
-                                        '<div class="collapse collage-comments collapse-custom" id="commentArea-' + qnumber +'"> ' +
-                                            '<div class="card card-header comments-area-title">QUESTION & ANSWER:' +
-                                            '</div>' +
-                                            '<div class="card card-block comments-area">' +
-                                            '</div>' +
-                                        '</div>' +
+                                        // '<div class="solution-tools locate-highlight-tool">' +
+                                        //     '<a class="btn btn-xs btn-outline-warning btn-locate-highlight" data-qnumber="' + qnumber +'" onclick="scrollToHighlight(' + qorder + ')">' +
+                                        //         '<i class="fa fa-map-marker" aria-hidden="true"></i>' +
+                                        //         '&nbsp;Locate' +
+                                        //     '</a>' +
+                                        // '</div>' +
+                                        // '<div class="solution-tools locate-comment-tool">' +
+                                        //     '<a class="btn btn-xs btn-outline-primary btn-show-comments" data-qnumber="' + qnumber +'" data-toggle="collapse" href="#commentArea-' + qnumber + '" aria-expanded="false" aria-controls="commentArea-' + qnumber + '" onclick="showComments(' + qnumber + ')">' +
+                                        //         '<i class="fa fa-question" aria-hidden="true"></i>' +
+                                        //         '&nbsp;Comments' +
+                                        //     '</a>' +
+                                        // '</div>' +
+                                        // '<div class="collapse collage-comments collapse-custom" id="commentArea-' + qnumber +'"> ' +
+                                        //     '<div class="card card-header comments-area-title">QUESTION & ANSWER:' +
+                                        //     '</div>' +
+                                        //     '<div class="card card-block comments-area">' +
+                                        //     '</div>' +
+                                        // '</div>' +
                                     '</div>');
         });
         $('#pr-quiz input').each(function () {

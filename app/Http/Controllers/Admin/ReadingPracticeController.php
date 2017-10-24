@@ -54,11 +54,13 @@ class ReadingPracticeController extends Controller
         $current_lesson_id = $readingLessonService->getTheCurrentLessonId(Config('constants.type_lesson.practice'));
 
         //Function save img:
-        $readingImageService = new ReadingImageService();
-        $image_feature = $readingImageService->saveImageToLocal($img_name_no_ext, $img_url, $img_extension, $current_lesson_id);
+        if ($img_name_no_ext != '') {
+            $readingImageService = new ReadingImageService();
+            $image_feature = $readingImageService->saveImageToLocal($img_name_no_ext, $img_url, $img_extension, $current_lesson_id);
+        }
 
         //Save Practice Lesson to DB:
-        $lesson_id = $readingLessonService->addNewReadingLesson(Config('constants.type_lesson.practice'), $title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id);
+        $lesson_id = $readingLessonService->addNewReadingLesson(Config('constants.type_lesson.practice'), $title, $level_user_id, $content_lesson, $content_highlight, $image_feature = null, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id);
 
         //Save questions - answers:
         if ($lesson_id != 'fail-order') {
