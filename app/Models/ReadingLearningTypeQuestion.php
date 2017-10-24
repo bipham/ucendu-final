@@ -22,6 +22,10 @@ class ReadingLearningTypeQuestion extends Model
         return $this->hasMany('App\Models\reading_question_learnings', 'learning_type_question_id');
     }
 
+    public function getLearningOfTypeQuestion($type_question_id) {
+        return $this->where('status', 1)->where('type_question_id', $type_question_id)->orderBy('step_section', 'asc')->select('title_section', 'icon', 'step_section')->get()->all();
+    }
+
     public function createNewLearningTypeQuestion ($type_question_id, $title_section, $step_section, $view_layout, $icon, $content_section, $left_content, $right_content) {
         if ($this->where('type_question_id', $type_question_id)->where('title_section', $title_section)->exists()) {
             // level found
