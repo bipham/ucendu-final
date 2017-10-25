@@ -15,7 +15,7 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
     config.height = '500';
-    config.extraPlugins = 'select_quiz,checkbox_quiz,radio_quiz,input_quiz';
+    config.extraPlugins = 'select_quiz,checkbox_quiz,radio_quiz,input_quiz,html5video';
     config.allowedContent = true;
     config.filebrowserBrowseUrl = '/public/libs/ckfinder/ckfinder.html';
     config.filebrowserImageBrowseUrl = '/public/libs/ckfinder/ckfinder.html?type=Images';

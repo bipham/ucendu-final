@@ -65,7 +65,7 @@ CKEDITOR.dialog.add( 'radio_quizDialog', function( editor ) {
                 data_ques++;
                 $('.upload-page-custom').data('idquestion', data_ques);
                 question_number_input++;
-                value_radio_option = '';
+                value_radio_option = 'A';
                 in_question = false;
                 in_radio_question = false;
             }

@@ -49,22 +49,20 @@
                             @endforeach
                         </select>
                     </div>
-                    <form>
-                        <div class="form-group">
-                            <div class="show-oreder">
-                                <div class="title-list-order">List ordered</div>
-                                <ul class="list-ordered list-ordered-{!! $lesson->id !!}">
-                                    @foreach($all_orders as $ordered)
-                                        <li>{!! $ordered->order_lesson !!}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            <label for="order-lesson-{!! $lesson->id !!}">
-                                Order lesson
-                            </label>
-                            <input type="number" min="1" name="order-lesson-{!! $lesson->id !!}" class="form-control" placeholder="Order number" required id="orderLesson{!! $lesson->id !!}" value="{!! $lesson->order_lesson !!}">
+                    <div class="form-group">
+                        <div class="show-order">
+                            <div class="title-list-order">List ordered</div>
+                            <ul class="list-ordered list-ordered-{!! $lesson->id !!}">
+                                @foreach($all_orders as $ordered)
+                                    <li>{!! $ordered->order_lesson !!}</li>
+                                @endforeach
+                            </ul>
                         </div>
-                    </form>
+                        <label for="order-lesson-{!! $lesson->id !!}">
+                            Order lesson
+                        </label>
+                        <input type="number" min="1" name="order-lesson-{!! $lesson->id !!}" class="form-control" placeholder="Order number" required id="orderLesson{!! $lesson->id !!}" value="{!! $lesson->order_lesson !!}">
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

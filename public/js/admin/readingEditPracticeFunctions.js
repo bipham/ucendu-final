@@ -92,7 +92,7 @@ function editQuizLesson() {
         var qnumber = $(this).data('qnumber');
         if (jQuery.inArray(qnumber, listAnswer_source) == -1) {
             listAnswer_source[qnumber] = $('.explain-area-' + qnumber + ' .key-answer').html();
-            listKeyword_source[qnumber] = $('#keywordArea-' + qnumber + ' .keywords-area').html();
+            listKeyword_source[qnumber] = $('#explain-' + qnumber + ' .explanation').html();
             if (listKeyword_source[qnumber] == 'No_keywords') {
                 listClassKeyword[qnumber] = 'hidden-class';
                 listKeyword_source[qnumber] = '';
@@ -130,7 +130,7 @@ $( document ).ready(function() {
                             '<input class="answer-q answer-' + qorder + '" data-qnumber="' + qnumber + '" />' +
                             '</div>' +
                             '<div class="enter-keyword row-enter-custom">' +
-                            '<div class="title-row-enter">Keyword ' + qorder + ': </div>' +
+                            '<div class="title-row-enter">Explanation ' + qorder + ': </div>' +
                             '<textarea class="input-keyword keyword-' + qorder + '" data-qnumber="' + qnumber + '"></textarea>' +
                             '</div>' +
                             '</div>');
@@ -183,6 +183,9 @@ $( document ).ready(function() {
                                     '<i class="fa fa-key" aria-hidden="true"></i>' +
                                     ' Explanation' +
                                 '</button>' +
+                                '<div class="hidden explanation">' +
+                                    listKeyword[qnumber] +
+                                '</div>' +
                             '</div>' +
                         '</div>' +
                     // '<div class="solution-tools locate-highlight-tool">' +
@@ -212,6 +215,7 @@ $( document ).ready(function() {
                 $(this).attr('disabled', 'disabled');
             });
             content_answer_quiz =  $('#pr-quiz').html();
+            console.log(content_answer_quiz);
         }
         else {
             bootbox.alert({
@@ -219,6 +223,7 @@ $( document ).ready(function() {
                 backdrop: true
             });
         }
+        console.log(JSON.stringify(listKeyword));
     });
 
     $('.btn-back-edit-answer').click(function () {

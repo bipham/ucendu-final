@@ -55,6 +55,7 @@
                         <ul class="sub-menu sub-level-two collapse" id="learning-{!! $lesson->id !!}">
                             <?php
                             $all_learnings = $readingLearningTypeQuestionService->getLearningOfTypeQuestion($lesson->id);
+//                            var_dump($all_learnings);
                             ?>
                             @foreach($all_learnings as $learning)
                                 <li>{!! $learning->title_section !!}</li>
@@ -66,6 +67,7 @@
                         <ul class="sub-menu sub-level-two collapse" id="practice-{!! $lesson->id !!}">
                             <?php
                             $all_practices = $readingLessonService->getLessonsByTypeQuestionId(Config('constants.type_lesson.practice'), $lesson->id);
+//                            var_dump($all_practices);
                             ?>
                             @foreach($all_practices as $practice)
                                 <li>{!! $practice->title !!}</li>
@@ -76,4 +78,4 @@
             </ul>
         </div>
     </div>
-</div>
+</div>c

@@ -19,7 +19,7 @@ class CreateReadingQuestionLearningsTable extends Migration
             $table->integer('type_question_id')->unsigned();
             $table->integer('question_custom_id')->unsigned();
             $table->string('answer');
-            $table->string('keyword')->nullable();
+            $table->text('keyword')->nullable();
 //            $table->foreign('type_question_id')->references('id')->on('reading_type_questions')->onDelete('cascade');
             $table->boolean('status')->default(1);
             $table->timestamps();

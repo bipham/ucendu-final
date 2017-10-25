@@ -22,7 +22,7 @@
             <div class="card content-post-area card-step-area">
                 <div class="card-header">
                     <h3 class="text-left">
-                        READING PRACTICE
+                        INPUT CONTENT - READING PRACTICE
                     </h3>
                 </div>
                 <div class="card-block">
@@ -83,7 +83,7 @@
             <div class="card content-quiz-area card-step-area">
                 <div class="card-header">
                     <h3 class="text-left">
-                        READING PRACTICE - STEP 2
+                        INPUT QUESTION - READING PRACTICE
                     </h3>
                 </div>
                 <div class="card-block">
@@ -98,6 +98,12 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <div class="show-order">
+                            <div class="title-list-order">List ordered</div>
+                            <ul class="list-ordered">
+
+                            </ul>
+                        </div>
                         <label for="order_lesson">
                             Step section
                         </label>
@@ -127,58 +133,46 @@
             </div>
         </div>
         <div class="row step-answer-key hidden-class">
-            <div class="col-md-8 card preview-content-quiz">
-                <div class="card-header">
-                    <h3 class="text-left">
-                        Nội dung câu hỏi:
-                    </h3>
+            <div class="page-upload row">
+                <div class="inner-page-upload panel-container col-md-8">
+                    <div class="upload-left-panel-custom panel-left upload-panel-top card highlight-sandbox col-md-8">
+                        <div class="card-header">
+                            <h3 class="text-left">
+                                Highlight đáp án!
+                            </h3>
+                        </div>
+                        <div class="card-block">
+                            <div id="sandbox"> </div>
+                        </div>
+                    </div>
+                    <div class="splitter">
+                    </div>
+                    <div class="splitter-horizontal">
+                    </div>
+                    <div class="upload-right-panel-custom panel-right upload-panel-bottom active-quiz card preview-content-quiz">
+                        <div class="card-header">
+                            <h3 class="text-left">
+                                Nội dung câu hỏi:
+                            </h3>
+                        </div>
+                        <div class="card-block">
+                        </div>
+                    </div>
                 </div>
-                <div class="card-block">
-                </div>
-            </div>
-            <div class="col-md-4 card answer-key-area">
-                <div class="card-header">
-                    <h3 class="text-left">
-                        Đáp án:
-                    </h3>
-                </div>
-                <div class="card-block">
-                    <div class="answer-area">
+                <div class="col-md-4 card answer-key-area">
+                    <div class="card-header">
+                        <h3 class="text-left">
+                            Đáp án:
+                        </h3>
+                    </div>
+                    <div class="card-block">
+                        <div class="answer-area">
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="control-step-area">
                 <button type="button" class="btn btn-success btn-prev-step-quiz btn-custom-step">
-                    Prev
-                </button>
-                <button type="button" class="btn btn-success btn-next-step-highlight btn-custom-step">
-                    Next
-                </button>
-            </div>
-        </div>
-        <div class="row step-highlight-answer hidden-class">
-            <div class="col-md-8 card highlight-sandbox">
-                <div class="card-header">
-                    <h3 class="text-left">
-                        Highlight đáp án!
-                    </h3>
-                </div>
-                <div class="card-block">
-                    <div id="sandbox"> </div>
-                </div>
-            </div>
-            <div class="col-md-4 card remove-tool-area">
-                <div class="card-header">
-                    <h3 class="text-left">
-                        Remove highlight!
-                    </h3>
-                </div>
-                <div class="card-block remove-highlight-area">
-
-                </div>
-            </div>
-            <div class="control-step-area">
-                <button type="button" class="btn btn-success btn-prev-step-answer btn-custom-step">
                     Prev
                 </button>
                 <button type="button" class="btn btn-success btn-next-step-preview btn-custom-step">
@@ -209,7 +203,7 @@
                 </div>
             </div>
             <div class="control-step-area">
-                <button type="button" class="btn btn-success btn-prev-step-highlight btn-custom-step">
+                <button type="button" class="btn btn-success btn-prev-step-answer btn-custom-step">
                     Prev
                 </button>
                 <button type="submit" class="btn btn-danger btn-finish-steps btn-custom-step">

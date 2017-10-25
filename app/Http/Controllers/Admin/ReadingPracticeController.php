@@ -79,7 +79,7 @@ class ReadingPracticeController extends Controller
         $readingQuestionLessonService = new ReadingQuestionLessonService();
         $last_question_custom_id = $readingQuestionLessonService->getTheLastQuestionCustomId();
         $readingLessonService = new ReadingLessonService();
-        $lesson = $readingLessonService->getLessonDetailById(Config('constants.type_lesson.practice'), $lesson_id);
+        $lesson = $readingLessonService->getLessonDetailForAdminById(Config('constants.type_lesson.practice'), $lesson_id);
 //        dd($lesson);
         return view('admin.readingEditPracticeLesson',compact('last_question_custom_id', 'lesson'));
     }

@@ -8,9 +8,8 @@ var content_answer_quiz = '';
 var limit_time = 0;
 var level_user_id = 0;
 var order_lesson = 0;
-var cate_selected = '';
 var type_question = '';
-var option_list_questions = '';
+var all_ordered_elements = '';
 var type_lesson = 1;
 var title_post = '';
 var img_url = '';
@@ -30,7 +29,7 @@ var listHl = [];
 var noti = false;
 var sandbox = document.getElementById('sandbox');
 var boolRemove = false;
-var ajaxGetListTypeQuestion = baseUrl + '/getTypeQuestion';
+
 var ajaxUploadFinish = baseUrl + '/createNewReadingPractice';
 
 var hltr = new TextHighlighter(sandbox, {
@@ -53,7 +52,7 @@ var hltr = new TextHighlighter(sandbox, {
         $('.highlight-' + i).attr('id', idClass);
         console.log('div: ' + $('.remove-ans-' + i).length);
         if ($('.remove-ans-' + i).length == 0) {
-            $('.remove-highlight-area').append('<div class="remove-ans-' + i + '">Remove highlight for anwser ' + i + ': <button class="btn btn-info remove" data-removeid="' + i + '">Remove</button></div>');
+            $('.remove-highlight-area-' + i).append('<div class="remove-ans-' + i + '">Remove highlight for anwser ' + i + ': <button class="btn btn-info remove" data-removeid="' + i + '">Remove</button></div>');
         }
     },
     onRemoveHighlight: function (hl) {
@@ -78,6 +77,31 @@ $( document ).ready(function() {
     content_quiz = CKEDITOR.instances["contentQuiz"].getData();
     $('.btn-next-step-quiz').click(function () {
         title_post = $('input#itemname').val();
+        type_question_id = $('#list_type_questions').val().trim();
+        var ajaxGetAllOrdered = baseUrl + '/getAllOrdered/1-' + type_question_id;
+        var current_order_lesson = 1;
+        $.ajax({
+            type: "GET",
+            url: ajaxGetAllOrdered,
+            dataType: "json",
+            // data: {},
+            success: function (data) {
+                $('#loading').hide();
+                $('.list-ordered').html('');
+                jQuery.each( data.all_orders, function( key_order, order ) {
+                    $('.list-ordered').append('<li>' + order.order_lesson + '</li>');
+                    current_order_lesson = order.order_lesson + 1;
+                });
+                $('#order_lesson').val(current_order_lesson);
+            },
+            error: function (data) {
+                $('#loading').hide();
+                bootbox.alert({
+                    message: "Get ordered fail!",
+                    backdrop: true
+                });
+            }
+        });
         var checkDataStepPost = checkStepPost();
         if (checkDataStepPost) {
             $('.step-content-post').addClass('hidden-class');
@@ -113,8 +137,10 @@ $( document ).ready(function() {
                             '<input class="answer-q answer-' + qorder + '" data-qnumber="' + qnumber + '" />' +
                             '</div>' +
                             '<div class="enter-keyword row-enter-custom">' +
-                            '<div class="title-row-enter">Keyword ' + qorder + ': </div>' +
+                            '<div class="title-row-enter">Explanation ' + qorder + ': </div>' +
                             '<textarea class="input-keyword keyword-' + qorder + '" data-qnumber="' + qnumber + '"></textarea>' +
+                            '</div>' +
+                            '<div class="card-block remove-highlight-area-' + qorder + '">' +
                             '</div>' +
                             '</div>');
                     }
@@ -134,6 +160,11 @@ $( document ).ready(function() {
                     backdrop: true
                 });
             }
+            if (content_post != CKEDITOR.instances["contentPost"].getData()) {
+                content_post = CKEDITOR.instances["contentPost"].getData();
+                $('.remove-highlight-area').html('');
+                $('#sandbox').html(content_post);
+            }
         }
     });
 
@@ -142,20 +173,74 @@ $( document ).ready(function() {
         $('.step-answer-key').addClass('hidden-class');
     });
 
-    $('.btn-next-step-highlight').click(function () {
-        type_question_id = $('#list_type_questions').val().trim();
+    $('.btn-prev-step-answer').click(function () {
+        $('.step-answer-key').removeClass('hidden-class');
+        $('.step-preview-post').addClass('hidden-class');
+        $('.answer-highlight').removeClass('hidden-highlight');
+        $('.answer-highlight').removeClass('highlighting');
+        $('#pr-post').html('');
+        $('#pr-quiz').html('');
+    });
+
+    $('.btn-next-step-preview').click(function () {
         var checkDataStepAnswer = checkStepAnswer();
-        console.log('list type: ' + JSON.stringify(list_type_questions));
-        console.log('list answer: ' + JSON.stringify(listAnswer));
-        console.log('list keyword: ' + JSON.stringify(listKeyword));
         if (checkDataStepAnswer) {
-            $('.step-highlight-answer').removeClass('hidden-class');
+            content_highlight = $('#sandbox').html();
+            $('.step-preview-post').removeClass('hidden-class');
             $('.step-answer-key').addClass('hidden-class');
-            if (content_post != CKEDITOR.instances["contentPost"].getData()) {
-                content_post = CKEDITOR.instances["contentPost"].getData();
-                $('.remove-highlight-area').html('');
-                $('#sandbox').html(content_post);
-            }
+            $('#pr-post').html(content_highlight);
+            $('.answer-highlight').addClass('hidden-highlight');
+            $('#pr-quiz').html(content_quiz);
+            $('#pr-quiz .last-option').each(function () {
+                var qnumber = $(this).data('qnumber');
+                var qorder = $(this).attr('name');
+                qorder = qorder.match(/\d+/);
+                var answer_key = $('.answer-' + qorder).val();
+                $(this).parent().after( '<div class="explain-area explain-' + qorder + ' explain-area-' + qnumber + '" data-qnumber="' + qnumber + '" data-qorder="' + qorder + '" data-type-question="' + list_type_questions[qnumber] + '">' +
+                    '<div class="show-answer">' +
+                    '<button type="button" class="btn btn-danger btn-show-answer">Answer ' + qorder + ' ' +
+                    '<div class="badge badge-pill key-answer">' +
+                    answer_key +
+                    '</div>' +
+                    '</button>' +
+                    '<div class="explain-show' + '" id="explain-' + qnumber +'"> ' +
+                    '<button type="button" class="btn btn-primary btn-show-explanation show-explanation-' + qnumber + '" data-qnumber="' + qnumber + '" data-qorder="' + qorder + '" data-type-question="' + list_type_questions[qnumber] + '">' +
+                    '<i class="fa fa-key" aria-hidden="true"></i>' +
+                    ' Explanation' +
+                    '</button>' +
+                    '<div class="hidden explanation">' +
+                    listKeyword[qnumber] +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    // '<div class="solution-tools locate-highlight-tool">' +
+                    //     '<a class="btn btn-xs btn-outline-warning btn-locate-highlight" data-qnumber="' + qnumber +'" onclick="scrollToHighlight(' + qorder + ')">' +
+                    //         '<i class="fa fa-map-marker" aria-hidden="true"></i>' +
+                    //         '&nbsp;Locate' +
+                    //     '</a>' +
+                    // '</div>' +
+                    // '<div class="solution-tools locate-comment-tool">' +
+                    //     '<a class="btn btn-xs btn-outline-primary btn-show-comments" data-qnumber="' + qnumber +'" data-toggle="collapse" href="#commentArea-' + qnumber + '" aria-expanded="false" aria-controls="commentArea-' + qnumber + '" onclick="showComments(' + qnumber + ')">' +
+                    //         '<i class="fa fa-question" aria-hidden="true"></i>' +
+                    //         '&nbsp;Comments' +
+                    //     '</a>' +
+                    // '</div>' +
+                    // '<div class="collapse collage-comments collapse-custom" id="commentArea-' + qnumber +'"> ' +
+                    //     '<div class="card card-header comments-area-title">QUESTION & ANSWER:' +
+                    //     '</div>' +
+                    //     '<div class="card card-block comments-area">' +
+                    //     '</div>' +
+                    // '</div>' +
+                    '</div>');
+            });
+            $('#pr-quiz input').each(function () {
+                $(this).attr('disabled', 'disabled');
+            });
+            $('#pr-quiz select').each(function () {
+                $(this).attr('disabled', 'disabled');
+            });
+            content_answer_quiz =  $('#pr-quiz').html();
+            content_highlight = $('#pr-post').html();
         }
         else {
             bootbox.alert({
@@ -163,76 +248,6 @@ $( document ).ready(function() {
                 backdrop: true
             });
         }
-    });
-
-    $('.btn-prev-step-answer').click(function () {
-        $('.step-answer-key').removeClass('hidden-class');
-        $('.step-highlight-answer').addClass('hidden-class');
-    });
-
-    $('.btn-next-step-preview').click(function () {
-        content_highlight = $('#sandbox').html();
-        $('.step-preview-post').removeClass('hidden-class');
-        $('.step-highlight-answer').addClass('hidden-class');
-        $('#pr-post').html(content_highlight);
-        $('.answer-highlight').addClass('hidden-highlight');
-        $('#pr-quiz').html(content_quiz);
-        $('#pr-quiz .last-option').each(function () {
-            var qnumber = $(this).data('qnumber');
-            var qorder = $(this).attr('name');
-            qorder = qorder.match(/\d+/);
-            var answer_key = $('.answer-' + qorder).val();
-            $(this).parent().after( '<div class="explain-area explain-' + qorder + ' explain-area-' + qnumber + '" data-qnumber="' + qnumber + '" data-qorder="' + qorder + '" data-type-question="' + list_type_questions[qnumber] + '">' +
-                                        '<div class="show-answer">' +
-                                            '<button type="button" class="btn btn-danger btn-show-answer">Answer ' + qorder + ' ' +
-                                                '<div class="badge badge-pill key-answer">' +
-                                                    answer_key +
-                                                '</div>' +
-                                            '</button>' +
-                                            '<div class="explain-show' + '" id="explain-' + qnumber +'"> ' +
-                                                '<button type="button" class="btn btn-primary btn-show-explanation show-explanation-' + qnumber + '" data-qnumber="' + qnumber + '" data-qorder="' + qorder + '" data-type-question="' + list_type_questions[qnumber] + '">' +
-                                                    '<i class="fa fa-key" aria-hidden="true"></i>' +
-                                                    ' Explanation' +
-                                                '</button>' +
-                                            '</div>' +
-                                        '</div>' +
-                                        // '<div class="solution-tools locate-highlight-tool">' +
-                                        //     '<a class="btn btn-xs btn-outline-warning btn-locate-highlight" data-qnumber="' + qnumber +'" onclick="scrollToHighlight(' + qorder + ')">' +
-                                        //         '<i class="fa fa-map-marker" aria-hidden="true"></i>' +
-                                        //         '&nbsp;Locate' +
-                                        //     '</a>' +
-                                        // '</div>' +
-                                        // '<div class="solution-tools locate-comment-tool">' +
-                                        //     '<a class="btn btn-xs btn-outline-primary btn-show-comments" data-qnumber="' + qnumber +'" data-toggle="collapse" href="#commentArea-' + qnumber + '" aria-expanded="false" aria-controls="commentArea-' + qnumber + '" onclick="showComments(' + qnumber + ')">' +
-                                        //         '<i class="fa fa-question" aria-hidden="true"></i>' +
-                                        //         '&nbsp;Comments' +
-                                        //     '</a>' +
-                                        // '</div>' +
-                                        // '<div class="collapse collage-comments collapse-custom" id="commentArea-' + qnumber +'"> ' +
-                                        //     '<div class="card card-header comments-area-title">QUESTION & ANSWER:' +
-                                        //     '</div>' +
-                                        //     '<div class="card card-block comments-area">' +
-                                        //     '</div>' +
-                                        // '</div>' +
-                                    '</div>');
-        });
-        $('#pr-quiz input').each(function () {
-            $(this).attr('disabled', 'disabled');
-        });
-        $('#pr-quiz select').each(function () {
-            $(this).attr('disabled', 'disabled');
-        });
-        content_answer_quiz =  $('#pr-quiz').html();
-        content_highlight = $('#pr-post').html();
-    });
-
-    $('.btn-prev-step-highlight').click(function () {
-        $('.step-preview-post').addClass('hidden-class');
-        $('.step-highlight-answer').removeClass('hidden-class');
-        $('.answer-highlight').removeClass('hidden-highlight');
-        $('.answer-highlight').removeClass('highlighting');
-        $('#pr-post').html('');
-        $('#pr-quiz').html('');
     });
 
     $('.btn-finish-steps').click(function () {

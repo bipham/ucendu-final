@@ -34,7 +34,6 @@
 {{--@include('layout.menuHeaderReading')--}}
 <div role="main" class="main main-page">
     {{--@yield('banner-page')--}}
-    @include('layout.tabContentReading')
 
     @yield('top-information')
 

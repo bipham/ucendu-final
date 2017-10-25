@@ -139,10 +139,28 @@ class ReadingLessonService {
         return $result;
     }
 
-    public function getLessonDetailById($type_lesson_id, $lesson_id) {
+    public function getLessonDetailForAdminById($type_lesson_id, $lesson_id) {
         switch ($type_lesson_id) {
             case 1:
-                $result = $this->_readingPracticeLessonModel->getDetailPracticeLesson($lesson_id);
+                $result = $this->_readingPracticeLessonModel->getDetailPracticeLessonForAdminEdit($lesson_id);
+                break;
+            case 2:
+                $result = $this->_readingMiniTestLessonModel->getTheCurrentLessonId();
+                break;
+            case 3:
+                $result = $this->_readingMixTestLessonModel->getTheCurrentLessonId();
+                break;
+            case 4:
+                $result = $this->_readingFullTestLessonModel->getTheCurrentLessonId();
+                break;
+        }
+        return $result;
+    }
+
+    public function getLessonDetailForClientTestById($type_lesson_id, $lesson_id) {
+        switch ($type_lesson_id) {
+            case 1:
+                $result = $this->_readingPracticeLessonModel->getDetailPracticeLessonForClientTest($lesson_id);
                 break;
             case 2:
                 $result = $this->_readingMiniTestLessonModel->getTheCurrentLessonId();

@@ -85,6 +85,7 @@ Route::group(['domain' => 'admin.{nameDomain}'], function () {
 
     //********** For Reading Others *************/
     Route::get('getStepSection',['as'=>'getStepSection','uses'=>'Admin\TypeQuestionController@getStepSection']);
+    Route::get('getAllOrdered/{type_lesson_id}-{type_question_id}',['as'=>'getAllOrdered','uses'=>'Admin\ReadingLessonController@getAllOrdered']);
     Route::get('/', function () {
         return view('admin.welcome');
     });
@@ -113,12 +114,9 @@ Route::group(['domain'=>'{nameDomain}'], function () {
 
     Route::group(['prefix'=>'reading/{level_id}'],function () {
         Route::get('',['as'=>'reading/{level_id}','uses'=>'Client\ReadingLessonController@index']);
-//        Route::any('tai-khoan',                             array('as'=>'CustomerAccount',                  'uses'=>'Client\CustomerController@account'));
-        Route::get('readingLesson/{lesson}',                array('as'=>'reading.readingLesson',            'uses'=>'Client\ReadingLessonController@readingLessonDetail'));
-        Route::get('readingTypeQuestion/{typeQuestion}',['as'=>'reading.readingTypeQuestion','uses'=>'Client\ReadingLessonController@readingTypeQuestion']);
-        Route::get('readingTypeLesson/{typeLesson}',['as'=>'reading.readingTypeLesson','uses'=>'Client\ReadingLessonController@readingTypeLesson']);
+        Route::get('readingLesson/{type_lesson_id}/{lesson_id}',                array('as'=>'reading.readingLesson',            'uses'=>'Client\ReadingLessonController@readingLessonDetail'));
         Route::get('resultReading',['as'=>'resultReading','uses'=>'Client\ResultController@getResultQuiz']);
-        Route::get('solutionLesson/{lesson_id}-{quiz_id}',['as'=>'solutionLesson','uses'=>'Client\ResultController@getSolutionLesson']);
+        Route::get('solutionLesson/{type_lesson_id}/{lesson_id}',['as'=>'solutionLesson','uses'=>'Client\ReadingResultController@getSolutionLesson']);
         Route::get('readingViewSolutionLesson/{lesson_id}-{quiz_id}',['as'=>'readingViewSolutionLesson','uses'=>'Client\ResultController@getReadingViewSolutionLesson']);
     });
 

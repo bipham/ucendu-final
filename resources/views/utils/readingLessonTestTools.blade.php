@@ -6,7 +6,7 @@
  * Time: 12:37 PM
  */
 ?>
-<div class="reading-tool-lesson-quiz hidden">
+<div class="reading-tool-lesson-quiz">
     <button type="button" class="btn btn-danger btn-tool-sidebar btn-submit-modal btn-custom" data-toggle="modal" data-target="#readingSubmitQuizModal">
         Submit
         <i class="fa fa-paper-plane icon-reading-tool-sidebar" aria-hidden="true"></i>
@@ -18,7 +18,7 @@
         <i class="fa fa-info icon-reading-tool-sidebar" aria-hidden="true"></i>
     </button>
 
-    <a href="{{url('/reading/readingViewSolutionLesson/' . $lesson_detail->id . '-' . $lesson_quiz->id)}}" class="btn btn-success btn-tool-sidebar  btn-test-overview">
+    <a href="{{url('/reading/readingViewSolutionLesson/' . $lesson->id . '-' . $lesson->id)}}" class="btn btn-success btn-tool-sidebar  btn-test-overview">
         Solution
         <i class="fa fa-key icon-reading-tool-sidebar" aria-hidden="true"></i>
     </a>
@@ -43,7 +43,7 @@
 
                 <div class="container-fluid">
                     <div class="row row-review-answer">
-                        @for($i = 1; $i <= $lesson_quiz->total_questions; $i++)
+                        @for($i = 1; $i <= $lesson->total_questions; $i++)
                             <div class="col-md-3 review-question-quiz review-question-<?php echo $i; ?>">
                                 <div class="input-group">
                                     <span class="input-group-btn">

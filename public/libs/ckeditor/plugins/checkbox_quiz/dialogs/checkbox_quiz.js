@@ -64,7 +64,7 @@ CKEDITOR.dialog.add( 'checkbox_quizDialog', function( editor ) {
                 data_ques++;
                 $('.upload-page-custom').data('idquestion', data_ques);
                 question_number_input++;
-                value_checkbox_option = '';
+                value_checkbox_option = 'A';
                 in_question = false;
                 in_checkbox_question = false;
             }

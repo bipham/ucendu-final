@@ -101,7 +101,11 @@ class ReadingPracticeLesson extends Model
         return $this->where('type_question_id', $type_question_id)->orderBy('order_lesson','asc')->select('order_lesson')->get()->all();
     }
 
-    public function getDetailPracticeLesson($lesson_id) {
+    public function getDetailPracticeLessonForAdminEdit($lesson_id) {
         return $this->where('status', 1)->where('id', $lesson_id)->select('id', 'content_lesson', 'content_highlight', 'content_quiz', 'content_answer_quiz', 'type_question_id')->get()->first();
+    }
+
+    public function getDetailPracticeLessonForClientTest($lesson_id) {
+        return $this->where('status', 1)->where('id', $lesson_id)->select('id', 'title', 'content_lesson', 'content_quiz', 'total_questions', 'type_question_id')->get()->first();
     }
 }

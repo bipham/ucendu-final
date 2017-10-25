@@ -83,4 +83,10 @@ class ReadingLessonController extends Controller
 
         return json_encode(['result' => 'success']);
     }
+
+    public function getAllOrdered($domain, $type_lesson_id, $type_question_id) {
+        $readingLessonService = new ReadingLessonService();
+        $all_orders = $readingLessonService->getAllOrderLessonByTypeQuestionId($type_lesson_id, $type_question_id);
+        return json_encode(['all_orders' => $all_orders]);
+    }
 }

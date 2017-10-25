@@ -41,7 +41,7 @@
 
 </div>
 
-@include('layout.footer')
+{{--@include('layout.footer')--}}
 <script src="{{asset('public/libs/tether/tether.min.js')}}"></script>
 <script src="{{asset('public/libs/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('public/libs/bootstrap/js/bootstrap.min.js')}}"></script>
