@@ -86,9 +86,18 @@
                             ?>
                             @foreach($all_practices as $practice)
                                 <li class="@if($practice->id == $lesson_id_current) current-step @endif">
-                                    <a href="{{url('/reading/' . $level_lesson_id . '-basic/readingLesson/' . config('constants.type_lesson.practice') . '-practice/' . $practice->id . '-practice-1')}}">
-                                        {!! $practice->title !!}
-                                    </a>
+                                    <span class="pull-left title-lesson-menu">
+                                        <a href="{{url('/reading/' . $level_lesson_id . '-level/readingLesson/' . config('constants.type_lesson.practice') . '-practice/' . $practice->id . '-practice-1')}}">
+                                            {!! $practice->title !!}
+                                        </a>
+                                    </span>
+                                    <span class="pull-right tools-area-menu">
+                                        <a href="{{url('/reading/'. $current_level_lesson->id . '-level/readingViewSolutionLesson/' . config('constants.type_lesson.practice')  . 'practice-' . $practice->id . $practice->title)}}" class="badge badge-success link-solution-lesson">
+                                            <i class="fa fa-key" aria-hidden="true"></i> Solution
+                                        </a>
+                                        <i class="fa fa-pencil icon-head-title-custom" aria-hidden="true"></i>
+                                        <i class="fa fa-leanpub icon-head-title-custom" aria-hidden="true"></i>
+                                    </span>
                                 </li>
                             @endforeach
                         </ul>

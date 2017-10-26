@@ -25,7 +25,7 @@
 
 @section('content')
     <div class="container solution-detail-page page-custom">
-        @include('utils.readingSolutionTables', ['lesson' => $lesson, 'correct_answers' => $correct_answer, 'list_answered' => $list_answer])
+        @include('utils.readingViewResultTables')
         <input type="hidden" name="_token" value="{!!csrf_token()!!}">
         <h4 class="title-solution-detail-section">
             Solution Detail

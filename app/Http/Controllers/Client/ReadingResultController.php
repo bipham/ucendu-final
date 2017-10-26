@@ -9,6 +9,17 @@ use App\Services\ReadingResultService;
 
 class ReadingResultController extends Controller
 {
+    //Ajax function get result after user submit:
+    public function getResultReadingLesson($domain, $level_lesson_id, $type_lesson_id, $lesson_id) {
+        $list_answered = $_GET['list_answer'];
+        $readingResultService = new ReadingResultService();
+        $readingLessonService = new ReadingLessonService();
+        //Get correct answer:
+        $correct_answer = $readingResultService->getResultLesson($type_lesson_id, $lesson_id, $list_answered);
+        $total_questions = $readingLessonService->getTotalQuestionByLessonId($type_lesson_id, $lesson_id);
+        return json_encode(['correct_answer' => $correct_answer, 'total_questions' => $total_questions]);
+    }
+
     public function getReadingViewResultLesson($domain, $string_level_lesson, $string_type_lesson, $string_lesson) {
         //Get para:
         $level_lesson_id = getIdFromLink($string_level_lesson);
@@ -38,13 +49,20 @@ class ReadingResultController extends Controller
         }
     }
 
-    public function getResultReadingLesson($domain, $level_lesson_id, $type_lesson_id, $lesson_id) {
-        $list_answered = $_GET['list_answer'];
-        $readingResultService = new ReadingResultService();
+    public function getReadingViewSolutionLesson($domain, $string_level_lesson, $string_type_lesson, $string_lesson) {
+        //Get para:
+        $level_lesson_id = getIdFromLink($string_level_lesson);
+        $type_lesson_id = getIdFromLink($string_type_lesson);
+        $lesson_id_current = getIdFromLink($string_lesson);
         $readingLessonService = new ReadingLessonService();
-        //Get correct answer:
-        $correct_answer = $readingResultService->getResultLesson($type_lesson_id, $lesson_id, $list_answered);
-        $total_questions = $readingLessonService->getTotalQuestionByLessonId($type_lesson_id, $lesson_id);
-        return json_encode(['correct_answer' => $correct_answer, 'total_questions' => $total_questions]);
+        $lesson = $readingLessonService->getLessonDetailForClientSolutionById($type_lesson_id, $lesson_id_current);
+        $title_current_step = $lesson->title;
+        $type_question_id_current = $lesson->type_question_id;
+        if ($lesson->typeQuestion->level_lesson_id == $level_lesson_id) {
+            return view('client.readingViewSolutionLesson', compact('lesson_id_current', 'level_lesson_id', 'lesson', 'title_current_step', 'type_question_id_current', 'type_lesson_id'));
+        }
+        else {
+            return abort(404);
+        }
     }
 }
