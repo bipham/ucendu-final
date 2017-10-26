@@ -31,9 +31,9 @@
                     </div>
                     <div class="form-group">
                         <select class="form-control" id="levelUser" name="level" >
-                            <option value="1">User</option>
-                            <option value="0">Admin</option>
-                            <option value="2">Supporter</option>
+                            @foreach($all_level_users as $level_user)
+                                <option value="{!! $level_user->id !!}">{!! $level_user->level !!}</option>
+                            @endforeach
                         </select>
                     </div>
                     <CENTER>

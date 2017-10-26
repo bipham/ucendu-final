@@ -6,21 +6,13 @@
  * Time: 12:01 AM
  */
 ?>
-<footer class="navbar-fixed-bottom panel-footer navbar-account">
-    <div class="footer-bottom footer-navigation">
-        <div class="row-fluid row-footer">
-            <div class="section-info col-md-4">
-                <div class="show-current-step">
-
-                </div>
-            </div>
-            <div class="section-button col-md-4">
-
-            </div>
-            <div class="section-helper col-md-4">
-
-            </div>
-        </div>
+<footer class="navbar-fixed-bottom footer-navigation-fixed panel-footer navbar-account">
+    <div class="show-current-step" onclick="toggleLeftMenu()">
+        <i class="fa fa-times icon-hide-left-menu hidden" aria-hidden="true"></i>
+        <i class="fa fa-bars icon-show-left-menu" aria-hidden="true"></i>
+        <span class="title-step">
+            {!! $title_current_step !!}
+        </span>
     </div>
     <!--/.footer-bottom-->
 </footer>

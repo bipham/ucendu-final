@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{asset('public/css/my-style.css')}}"/>
     <link rel="stylesheet" href="{{asset('public/css/client/readingFooterNavigation.css')}}"/>
     <link rel="stylesheet" href="{{asset('public/css/client/responsive.css')}}"/>
+    <link rel="stylesheet" href="{{asset('public/css/client/readingClient.css')}}"/>
     <link rel="stylesheet" href="{{asset('public/libs/toolbar/jquery.toolbar.css')}}" />
     {{--<link rel="stylesheet" href="{{asset('public/libs/jcubic-splitter/css/jquery.splitter.css')}}" />--}}
     <script>
@@ -32,7 +33,7 @@
 <a href="#" id="shownoti" class="hidden">Hiển thị thông báo</a>
 <div class="overlay"></div>
 <div id="loading"></div>
-@include('layout.header')
+{{--@include('layout.header')--}}
 @include('layout.menuHeaderReading')
 <div role="main" class="main main-page">
     @yield('top-information')
@@ -41,7 +42,7 @@
 
 </div>
 {{--@include('utils.toolbarReadingLesson')--}}
-@include('utils.leftMenuReading', ['level_lesson_id' > $level_lesson_id]);
+@include('utils.leftMenuReading');
 @include('layout.footerNavigation')
 <script src="{{asset('public/libs/tether/tether.min.js')}}"></script>
 <script src="{{asset('public/libs/jquery/jquery.min.js')}}"></script>

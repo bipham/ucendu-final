@@ -39,6 +39,6 @@ class ReadingLevelLesson extends Model
     }
 
     public function getLevelLessonById($level_lesson_id) {
-        return $this->where('id', $level_lesson_id)->select('level')->get()->first();
+        return $this->where('id', $level_lesson_id)->select('id', 'level')->get()->first();
     }
 }

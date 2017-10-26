@@ -130,9 +130,10 @@
         max-width: 48%;
     }
     .container {
-        width: 95%;
+        width: 100%;
+        padding: 0;
     }
-    header .container {
+    #header .container {
         width: 60%;
     }
     .col-footer-custom {
@@ -210,12 +211,14 @@
 
 @media (min-width: 768px ) and (max-width: 992px) {
     .container {
-        width: 96%;
-    }
+        width: 100%;
+        padding: 0;
+     }
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
     .container {
-        width: 96%;
+        width: 100%;
+        padding: 0;
     }
 }
