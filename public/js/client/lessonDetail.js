@@ -10,6 +10,7 @@ var baseUrl = document.location.origin;
 var list_answer = {};
 var lesson_id = $('#lesson-content-area').data('lesson-id');
 var type_lesson_id = $('.lesson-detail-page').data('type-lesson-id');
+var level_lesson_id = $('.lesson-detail-page').data('level-lesson-id');
 $('.btn-submit-quiz').click(function () {
     submitReadingTest();
 });
@@ -98,21 +99,14 @@ function submitReadingTest() {
     if (Object.keys(list_answer).length == 0) {
         list_answer = 'emptyList';
     }
-    console.log(lesson_id);
-    var ajaxUrlResult = baseUrl + '/getResultReadingLesson/' + type_lesson_id + '-' + lesson_id;
+    var ajaxUrlResult = baseUrl + '/reading/' + level_lesson_id + '/getResultReadingLesson/' + type_lesson_id + '-' + lesson_id;
     $.ajax({
         type: "GET",
         url: ajaxUrlResult,
         dataType: "json",
         data: { list_answer: list_answer},
         success: function (data) {
-            console.log('sucess:', data);
-            var numberCorrect = data.correct_answer.length;
-            bootbox.alert({
-                message: "sucess!",
-                backdrop: true
-            });
-            // location.href= baseUrl + '/reading/solutionLesson/' + lesson_id + '-' +  + '?list_answer=' + JSON.stringify(list_answer) + '&correct_answer=' + JSON.stringify(data.correct_answer) + '&totalQuestion=' + data.totalQuestion;
+            location.href= baseUrl + '/reading/' + level_lesson_id + '/readingViewResultLesson/' + type_lesson_id + '-' + lesson_id + '?list_answer=' + JSON.stringify(list_answer) + '&correct_answer=' + JSON.stringify(data.correct_answer) + '&total_questions=' + data.total_questions;
         },
         error: function (data) {
             console.log('Error:', data);
@@ -131,11 +125,6 @@ function focusQuestion(i) {
         $('.right-panel-custom').animate({
             scrollTop: $(".question-"+i).offset().top - 150
         },1);
-
-        // $('html,body').animate({
-        //     scrollTop: body.offset().top - 150
-        // },500);
-
         $(".question-"+i)[0].focus();
     });
 }

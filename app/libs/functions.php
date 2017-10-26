@@ -80,7 +80,7 @@ function compressImage ($source_url, $destination_url, $quality = 75) {
 
 function checkAnswerByIdCustom($answer_key, $answer_extractly) {
     $answer_key = trim($answer_key);
-    $answer_solution = trim($answer_extractly[0]);
+    $answer_solution = trim($answer_extractly);
     if (strpos($answer_solution, '//') !== false) {
         $array_solution = explode("//", $answer_solution);
         foreach ($array_solution as $or_solution) {

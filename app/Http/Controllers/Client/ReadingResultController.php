@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\ReadingLessonService;
+use App\Services\ReadingResultService;
 
 class ReadingResultController extends Controller
 {
@@ -12,49 +13,38 @@ class ReadingResultController extends Controller
         //Get para:
         $level_lesson_id = getIdFromLink($string_level_lesson);
         $type_lesson_id = getIdFromLink($string_type_lesson);
-        $lesson_id = getIdFromLink($string_lesson);
-//        $totalQuestion = $_GET['totalQuestion'];
-//        $correct_answer = $_GET['correct_answer'];
-//        $list_answer = $_GET['list_answer'];
+        $lesson_id_current = getIdFromLink($string_lesson);
+        if (!empty($_GET)) {
+            $total_questions = $_GET['total_questions'];
+            $correct_answer = $_GET['correct_answer'];
+            $list_answer = $_GET['list_answer'];
+        }
+        else {
+            $total_questions = 0;
+            $correct_answer = [];
+            $list_answer = [];
+        }
+        $correct_answer = json_decode($correct_answer);
+        $list_answer = json_decode($list_answer);
         $readingLessonService = new ReadingLessonService();
-        $lesson = $readingLessonService->getLessonDetailForClientSolutionById($type_lesson_id, $lesson_id);
+        $lesson = $readingLessonService->getLessonDetailForClientSolutionById($type_lesson_id, $lesson_id_current);
+        $title_current_step = $lesson->title;
+        $type_question_id_current = $lesson->type_question_id;
         if ($lesson->typeQuestion->level_lesson_id == $level_lesson_id) {
-            return view('client.readingViewResultLesson', compact('level_lesson_id', 'lesson'));
+            return view('client.readingViewResultLesson', compact('lesson_id_current', 'level_lesson_id', 'lesson', 'correct_answer', 'total_questions', 'list_answer', 'title_current_step', 'type_question_id_current', 'type_lesson_id'));
         }
         else {
             return abort(404);
         }
     }
 
-    public function getResultReadingLesson($domain, $string_level_lesson, $string_type_lesson, $string_lesson) {
-        //Get para:
-        $level_lesson_id = getIdFromLink($string_level_lesson);
-        $type_lesson_id = getIdFromLink($string_type_lesson);
-        $lesson_id = getIdFromLink($string_lesson);
+    public function getResultReadingLesson($domain, $level_lesson_id, $type_lesson_id, $lesson_id) {
         $list_answered = $_GET['list_answer'];
-        $quizId = $_GET['quizId'];
-        $user_id = Auth::id();
-        $correct_answer = [];
-        $quizModel = new ReadingQuizz();
-        $questionModel = new ReadingQuestion();
-        $readingResultModel = new ReadingResult();
-        $list_answered_string = '';
-        $correct_answer_string = '';
-        if ($list_answered != 'emptyList') {
-            foreach ($list_answered as $qnumber => $answer_key) {
-                $list_answered_string .= $qnumber . '-' . $answer_key . '|';
-                $isCorrect = $questionModel->checkAnswerByIdCustom($qnumber, $answer_key);
-                if ($isCorrect) {
-                    array_push($correct_answer, $qnumber);
-                    $correct_answer_string .= $qnumber . '|';
-                }
-            }
-        }
-
-        $number_correct = sizeof($correct_answer);
-        $totalQuestion = $quizModel->getTotalQuestionByQuizId($quizId);
-        $saveResult = $readingResultModel->saveReadingResultOfUserId($user_id, $quizId, $correct_answer_string, $list_answered_string, $number_correct);
-
-        return json_encode(['correct_answer' => $correct_answer, 'totalQuestion' => $totalQuestion]);
+        $readingResultService = new ReadingResultService();
+        $readingLessonService = new ReadingLessonService();
+        //Get correct answer:
+        $correct_answer = $readingResultService->getResultLesson($type_lesson_id, $lesson_id, $list_answered);
+        $total_questions = $readingLessonService->getTotalQuestionByLessonId($type_lesson_id, $lesson_id);
+        return json_encode(['correct_answer' => $correct_answer, 'total_questions' => $total_questions]);
     }
 }

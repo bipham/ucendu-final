@@ -283,7 +283,7 @@ class ReadingLessonService {
                 $result = $this->_readingFullTestLessonModel->getTheCurrentLessonId();
                 break;
         }
-        return $result;
+        return $result['total_questions'];
     }
 }
 ?>

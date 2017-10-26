@@ -25,7 +25,7 @@
 
 @section('content')
     @include('utils.readingLessonTestTools',['lesson' => $lesson])
-    <div class="container lesson-detail-page page-custom" data-type-lesson-id="{!! $type_lesson_id !!}" data-type-question-id="{!! $type_question_id_current !!}">
+    <div class="container lesson-detail-page page-custom" data-level-lesson-id="{!! $level_lesson_id !!}" data-type-lesson-id="{!! $type_lesson_id !!}" data-type-question-id="{!! $type_question_id_current !!}">
         <input type="hidden" name="_token" value="{!!csrf_token()!!}">
         <div class="lesson-detail panel-container">
             <div class="left-panel-custom panel-left panel-top" id="lesson-content-area" data-lesson-id="{!! $lesson->id !!}">

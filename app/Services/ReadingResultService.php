@@ -29,17 +29,23 @@ class ReadingResultService
 
         }
         else {
-            foreach ($list_answered as $question_custom_id => $answer_key) {
-                $list_answered_string .= $question_custom_id . '-' . $answer_key . '|';
-                $answer_extractly = $this->_readingQuestionLessonModel->getAnswerExtractlyOfQuestion($question_custom_id);
-                $isCorrect = checkAnswerByIdCustom($answer_key, $answer_extractly['answer']);
-                if ($isCorrect) {
-                    array_push($correct_answer, $question_custom_id);
-                    $correct_answer_string .= $question_custom_id . '|';
+            if ($list_answered != 'emptyList') {
+                foreach ($list_answered as $question_custom_id => $answer_key) {
+                    $list_answered_string .= $question_custom_id . '-' . $answer_key . '|';
+                    $answer_extractly = $this->_readingQuestionLessonModel->getAnswerExtractlyOfQuestion($question_custom_id);
+                    $isCorrect = checkAnswerByIdCustom($answer_key, $answer_extractly['answer']);
+                    if ($isCorrect) {
+                        array_push($correct_answer, $question_custom_id);
+                        $correct_answer_string .= $question_custom_id . '|';
+                    }
                 }
+                $number_correct = sizeof($correct_answer);
+            }
+            else {
+                $number_correct = 0;
             }
         }
-        $number_correct = sizeof($correct_answer);
+
         //Save DB:
         $this->_readingResultLessonModel->saveReadingResultOfUserId($this->_adminId, $lesson_id, $type_lesson_id, $correct_answer_string, $list_answered_string, $number_correct);
         return $correct_answer;
