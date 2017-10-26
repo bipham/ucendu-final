@@ -49,7 +49,7 @@
                 <a href="{{url('editPracticeLessonReading/' . $lesson->id)}}">
                     <button type="button" class="btn btn-info btn-admin-custom btn-edit-lesson" data-id="{!! $lesson->id !!}">Edit</button>
                 </a>
-                <button class="btn btn-danger btn-admin-custom btn-del-lesson" data-id="{!! $lesson->id !!}" onclick="deleteReadingLesson({!! $lesson->id !!})">Del</button>
+                <button class="btn btn-danger btn-admin-custom btn-del-lesson" data-id="{!! $lesson->id !!}" onclick="deleteReadingLesson({!! $type_lesson_id !!},{!! $lesson->id !!})">Del</button>
             </td>
         </tr>
     @endforeach

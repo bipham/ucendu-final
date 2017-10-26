@@ -89,4 +89,10 @@ class ReadingLessonController extends Controller
         $all_orders = $readingLessonService->getAllOrderLessonByTypeQuestionId($type_lesson_id, $type_question_id);
         return json_encode(['all_orders' => $all_orders]);
     }
+
+    public function deleteLessonReading($domain, $type_lesson_id, $lesson_id) {
+        $readingLessonService = new ReadingLessonService();
+        $result = $readingLessonService->deleteLesson($type_lesson_id, $lesson_id);
+        return json_encode(['result' => 'success']);
+    }
 }

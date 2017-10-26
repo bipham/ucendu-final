@@ -44,7 +44,7 @@ $( document ).ready(function() {
     });
 });
 
-function deleteReadingLesson(id) {
+function deleteReadingLesson(type_lesson_id, lesson_id) {
     bootbox.confirm({
         title: "Delete Reading Lesson",
         message: "Do you want to delete this lesson?",
@@ -60,7 +60,7 @@ function deleteReadingLesson(id) {
         },
         callback: function (result) {
             if(result) {
-                var ajaxDelLessonReading = baseUrl + '/deleteLessonReading/' + id;
+                var ajaxDelLessonReading = baseUrl + '/deleteLessonReading/' + type_lesson_id + '-' + lesson_id;
                 $.ajax({
                     type: "GET",
                     url: ajaxDelLessonReading,
@@ -68,10 +68,10 @@ function deleteReadingLesson(id) {
                     // data: { },
                     success: function (data) {
                         bootbox.alert({
-                            message: "Delete lesson success! " + data.result,
+                            message: "Delete lesson success!",
                             backdrop: true,
                             callback: function(){
-                                location.href= baseUrl + '/listReadingLesson';
+                                location.href= baseUrl + '/managerReadingLesson';
                             }
                         });
                     },

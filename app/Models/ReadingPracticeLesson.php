@@ -113,4 +113,8 @@ class ReadingPracticeLesson extends Model
     public function getDetailPracticeLessonForClientSolution($lesson_id) {
         return $this->where('status', 1)->where('id', $lesson_id)->select('id', 'title', 'content_highlight', 'content_answer_quiz', 'total_questions', 'type_question_id')->get()->first();
     }
+
+    public function deletePracticeLesson($lesson_id) {
+        return $this->where('id', $lesson_id)->update(['status' => 0, 'updated_at' => Carbon::now()]);
+    }
 }
