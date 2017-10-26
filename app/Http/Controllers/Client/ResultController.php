@@ -2,47 +2,26 @@
 
 namespace App\Http\Controllers\Client;
 
-//use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\ReadingQuestion;
-use App\Models\ReadingQuizz;
-use App\Models\ReadingLesson;
-use App\Models\ReadingTypeQuestion;
-use App\Models\ReadingTypeQuestionOfQuiz;
-use App\Models\ReadingCategoryLesson;
-use App\Models\ReadingCategory;
-use App\Models\ReadingResult;
-use App\Models\ReadingLearningTypeQuestion;
-use Request;
 use Illuminate\Support\Facades\Auth;
+use App\Services\ReadingResultService;
+use App\Services\ReadingLessonService;
 
 class ResultController extends Controller
 {
-    public function getResultReadingLesson($domain) {
+    public function getResultReadingLesson($domain, $type_lesson_id, $lesson_id) {
         $list_answered = $_GET['list_answer'];
-        $quizId = $_GET['quizId'];
-        $user_id = Auth::id();
-        $correct_answer = [];
-        $quizModel = new ReadingQuizz();
-        $questionModel = new ReadingQuestion();
-        $readingResultModel = new ReadingResult();
-        $list_answered_string = '';
-        $correct_answer_string = '';
+        $readingResultService = new ReadingResultService();
+        $readingLessonService = new ReadingLessonService();
+        //Get correct answer:
         if ($list_answered != 'emptyList') {
-            foreach ($list_answered as $qnumber => $answer_key) {
-                $list_answered_string .= $qnumber . '-' . $answer_key . '|';
-                $isCorrect = $questionModel->checkAnswerByIdCustom($qnumber, $answer_key);
-                if ($isCorrect) {
-                    array_push($correct_answer, $qnumber);
-                    $correct_answer_string .= $qnumber . '|';
-                }
-            }
+            $correct_answer = $readingResultService->getResultLesson($type_lesson_id, $lesson_id, $list_answered);
         }
-
-        $number_correct = sizeof($correct_answer);
-        $totalQuestion = $quizModel->getTotalQuestionByQuizId($quizId);
-        $saveResult = $readingResultModel->saveReadingResultOfUserId($user_id, $quizId, $correct_answer_string, $list_answered_string, $number_correct);
-
+        else {
+            $correct_answer = [];
+        }
+        $totalQuestion = $readingLessonService->getTotalQuestionByLessonId($type_lesson_id, $lesson_id);
         return json_encode(['correct_answer' => $correct_answer, 'totalQuestion' => $totalQuestion]);
     }
 

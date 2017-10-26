@@ -7,9 +7,8 @@ $.ajaxSetup({
     }
 });
 var baseUrl = document.location.origin;
-var ajaxUrlResult = baseUrl + '/reading/resultReading';
 var list_answer = {};
-var lesson_id = $('#lesson-content-area').data('lesson_id');
+var lesson_id = $('#lesson-content-area').data('lesson-id');
 var type_lesson_id = $('.lesson-detail-page').data('type-lesson-id');
 $('.btn-submit-quiz').click(function () {
     submitReadingTest();
@@ -38,10 +37,6 @@ $('.question-quiz').on('keyup', function () {
         $('.answered-question-' + question_order).removeClass('answered');
     }
 });
-
-function bitest() {
-
-}
 
 function getAllAnswer() {
     $('#quiz-test-area .question-quiz').each(function () {
@@ -103,14 +98,20 @@ function submitReadingTest() {
     if (Object.keys(list_answer).length == 0) {
         list_answer = 'emptyList';
     }
+    console.log(lesson_id);
+    var ajaxUrlResult = baseUrl + '/getResultReadingLesson/' + type_lesson_id + '-' + lesson_id;
     $.ajax({
         type: "GET",
         url: ajaxUrlResult,
         dataType: "json",
-        data: { list_answer: list_answer, lesson_id: lesson_id},
+        data: { list_answer: list_answer},
         success: function (data) {
             console.log('sucess:', data);
             var numberCorrect = data.correct_answer.length;
+            bootbox.alert({
+                message: "sucess!",
+                backdrop: true
+            });
             // location.href= baseUrl + '/reading/solutionLesson/' + lesson_id + '-' +  + '?list_answer=' + JSON.stringify(list_answer) + '&correct_answer=' + JSON.stringify(data.correct_answer) + '&totalQuestion=' + data.totalQuestion;
         },
         error: function (data) {

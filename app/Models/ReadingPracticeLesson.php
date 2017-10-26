@@ -117,4 +117,8 @@ class ReadingPracticeLesson extends Model
     public function deletePracticeLesson($lesson_id) {
         return $this->where('id', $lesson_id)->update(['status' => 0, 'updated_at' => Carbon::now()]);
     }
+
+    public function getTotalQuestionOfPracticeLesson($lesson_id) {
+        return $this->where('id', $lesson_id)->select('total_questions')->get()->first();
+    }
 }
