@@ -25,6 +25,7 @@ class CreateReadingPracticeLessonsTable extends Migration
             $table->integer('total_questions');
             $table->integer('order_lesson');
             $table->integer('type_question_id')->nullable();
+            $table->integer('admin_responsibility')->unsigned();
 //            $table->integer('type_lesson_id')->default(1);
             $table->boolean('status')->default(1);
             $table->timestamps();

@@ -16,6 +16,7 @@ class CreateReadingLevelUsersTable extends Migration
         Schema::create('reading_level_users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('level')->unique();
+            $table->integer('admin_responsibility')->unsigned();
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

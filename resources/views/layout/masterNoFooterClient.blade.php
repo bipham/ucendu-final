@@ -34,7 +34,7 @@
 <div class="overlay"></div>
 <div id="loading"></div>
 {{--@include('layout.header')--}}
-@include('layout.menuHeaderReading')
+{{--@include('layout.menuHeaderReading')--}}
 <div role="main" class="main main-page">
     @yield('top-information')
 

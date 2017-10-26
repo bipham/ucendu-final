@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class CheckAdmin
 {
@@ -16,9 +16,7 @@ class CheckAdmin
      */
     public function handle($request, Closure $next)
     {
-//        dd();
-//        $user = Auth::user();
-        if(Auth::check() && Auth::user()->level == 0)
+        if(Auth::check() && Auth::user()->level_user_id == 1)
         {
             return $next($request);
         }

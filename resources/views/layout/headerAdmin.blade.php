@@ -30,7 +30,7 @@ $vocabulary_url = $home_url . '/vocabularyReading';
                 </a>
             </div>
             <div class="left-custom pull-right">
-                @include('utils.actionCenterUser')
+                {{--@include('utils.actionCenterUser')--}}
             </div>
         </div>
         <div class="header-bottom">

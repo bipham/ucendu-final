@@ -30,7 +30,7 @@
 <a href="#" id="shownoti" class="hidden">Hiển thị thông báo</a>
 <div class="overlay"></div>
 <div id="loading"></div>
-@include('layout.header')
+{{--@include('layout.header')--}}
 {{--@include('layout.menuHeaderReading')--}}
 <div role="main" class="main main-page">
     {{--@yield('banner-page')--}}

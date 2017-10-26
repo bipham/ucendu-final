@@ -10,7 +10,7 @@
     <div class="container">
         <div class="menu menu-reading">
             <div class="pull-right action-user-center-fixed">
-                @include('utils.actionCenterUser')
+                {{--@include('utils.actionCenterUser')--}}
             </div>
             <ul class="nav nav-tabs" id="myTabReading" role="tablist">
                 <li class="nav-item">

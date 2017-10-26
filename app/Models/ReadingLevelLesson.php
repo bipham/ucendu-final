@@ -8,7 +8,7 @@ class ReadingLevelLesson extends Model
 {
     protected $table = 'reading_level_lessons';
 
-    protected $fillable = ['level', 'status'];
+    protected $fillable = ['level', 'admin_responsibility', 'status'];
 
     public $timestamps = true;
 
@@ -17,7 +17,7 @@ class ReadingLevelLesson extends Model
         return $this->hasMany('App\Models\ReadingTypeQuestion', 'level_lesson_id');
     }
 
-    public function createNewLevelLesson($level) {
+    public function createNewLevelLesson($level, $admin_responsibility) {
         if ($this->where('level', '=', $level)->exists()) {
             // level found
             return 'fail';
@@ -25,6 +25,7 @@ class ReadingLevelLesson extends Model
         else {
             $new_level_lesson = new ReadingLevelLesson();
             $new_level_lesson->level = $level;
+            $new_level_lesson->admin_responsibility = $admin_responsibility;
             $new_level_lesson->save();
             return 'success';
         }

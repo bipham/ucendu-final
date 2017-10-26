@@ -9,7 +9,7 @@ class ReadingPracticeLesson extends Model
 {
     protected $table = 'reading_practice_lessons';
 
-    protected $fillable = ['title', 'level_user_id', 'content_lesson', 'content_highlight', 'image_feature', 'content_quiz', 'content_answer_quiz', 'total_questions', 'order_lesson', 'type_question_id', 'status'];
+    protected $fillable = ['title', 'level_user_id', 'content_lesson', 'content_highlight', 'image_feature', 'content_quiz', 'content_answer_quiz', 'total_questions', 'order_lesson', 'type_question_id', 'admin_responsibility', 'status'];
 
     public $timestamps = true;
 
@@ -27,7 +27,7 @@ class ReadingPracticeLesson extends Model
         return $this->orderBy('id', 'desc')->first();
     }
 
-    public function addNewPracticeLesson($title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id) {
+    public function addNewPracticeLesson($title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id, $admin_responsibility) {
         if ($this->where('type_question_id', $type_question_id)->where('order_lesson', $order_lesson)->exists()) {
             return 'fail-order';
         }
@@ -43,6 +43,7 @@ class ReadingPracticeLesson extends Model
             $new_reading_lesson->total_questions = $total_questions;
             $new_reading_lesson->order_lesson = $order_lesson;
             $new_reading_lesson->type_question_id = $type_question_id;
+            $new_reading_lesson->admin_responsibility = $admin_responsibility;
             $new_reading_lesson->save();
             return $new_reading_lesson->id;
         }
@@ -57,42 +58,42 @@ class ReadingPracticeLesson extends Model
         return $this->where('status',1)->where('type_question_id', $type_question_id)->orderBy('order_lesson','asc')->select('id', 'title', 'level_user_id', 'image_feature', 'order_lesson')->get()->all();
     }
 
-    public function updateTitlePracticeLesson($lesson_id, $title) {
+    public function updateTitlePracticeLesson($lesson_id, $title, $admin_responsibility) {
         if ($this->where('id', $lesson_id)->where('title', $title)->exists()) {
             return 'title-not-change';
         }
         else {
-            $this->where('id', $lesson_id)->update(['title' => $title, 'updated_at' => Carbon::now()]);
+            $this->where('id', $lesson_id)->update(['title' => $title, 'admin_responsibility' => $admin_responsibility, 'updated_at' => Carbon::now()]);
             return 'update-success';
         }
     }
 
-    public function updateContentPracticeLesson($lesson_id, $content_lesson, $content_highlight) {
-        $this->where('id', $lesson_id)->update(['content_lesson' => $content_lesson, 'content_highlight' => $content_highlight ,'updated_at' => Carbon::now()]);
+    public function updateContentPracticeLesson($lesson_id, $content_lesson, $content_highlight, $admin_responsibility) {
+        $this->where('id', $lesson_id)->update(['content_lesson' => $content_lesson, 'content_highlight' => $content_highlight, 'admin_responsibility' => $admin_responsibility, 'updated_at' => Carbon::now()]);
         return 'update-success';
     }
 
-    public function updateQuizPracticeLesson($lesson_id, $content_quiz, $content_answer_quiz, $total_questions) {
-        $this->where('id', $lesson_id)->update(['content_quiz' => $content_quiz, 'content_answer_quiz' => $content_answer_quiz, 'total_questions' => $total_questions,'updated_at' => Carbon::now()]);
+    public function updateQuizPracticeLesson($lesson_id, $content_quiz, $content_answer_quiz, $total_questions, $admin_responsibility) {
+        $this->where('id', $lesson_id)->update(['content_quiz' => $content_quiz, 'content_answer_quiz' => $content_answer_quiz, 'total_questions' => $total_questions, 'admin_responsibility' => $admin_responsibility, 'updated_at' => Carbon::now()]);
         return 'update-success';
     }
 
-    public function updateLevelUserPracticeLesson($lesson_id, $level_user_id) {
+    public function updateLevelUserPracticeLesson($lesson_id, $level_user_id, $admin_responsibility) {
         if ($this->where('id', $lesson_id)->where('level_user_id', $level_user_id)->exists()) {
             return 'level-user-not-change';
         }
         else {
-            $this->where('id', $lesson_id)->update(['level_user_id' => $level_user_id, 'updated_at' => Carbon::now()]);
+            $this->where('id', $lesson_id)->update(['level_user_id' => $level_user_id, 'admin_responsibility' => $admin_responsibility, 'updated_at' => Carbon::now()]);
             return 'update-success';
         }
     }
 
-    public function updateBasicInfoPracticeLesson($lesson_id, $type_question_id, $order_lesson) {
+    public function updateBasicInfoPracticeLesson($lesson_id, $type_question_id, $order_lesson, $admin_responsibility) {
         if ($this->where('type_question_id', $type_question_id)->where('order_lesson', $order_lesson)->exists()) {
             return 'order-fail';
         }
         else {
-            $this->where('id', $lesson_id)->update(['type_question_id' => $type_question_id, 'order_lesson' => $order_lesson, 'updated_at' => Carbon::now()]);
+            $this->where('id', $lesson_id)->update(['type_question_id' => $type_question_id, 'order_lesson' => $order_lesson, 'admin_responsibility' => $admin_responsibility, 'updated_at' => Carbon::now()]);
             return 'update-success';
         }
     }

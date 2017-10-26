@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReadingUsersTable extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateReadingUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('reading_users', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username', 60)->unique();
             $table->string('email')->unique();
             $table->string('password', 60);
-            $table->tinyInteger('level_user_id')->default(0);
+            $table->tinyInteger('level_user_id')->default(2);
             $table->string('fullname')->nullable();
             $table->string('address')->nullable();
             $table->string('city',100)->nullable();
@@ -27,6 +27,7 @@ class CreateReadingUsersTable extends Migration
             $table->date('dob')->nullable();
             $table->string('avatar')->nullable();
             $table->tinyInteger('activated')->default(0);
+            $table->integer('admin_responsibility')->unsigned();
             $table->boolean('status')->default(1);
 //            $table->foreign('level_user_id')->references('id')->on('reading_level_users')->onDelete('cascade');
             $table->rememberToken();
@@ -41,6 +42,6 @@ class CreateReadingUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reading_users');
+        Schema::dropIfExists('users');
     }
 }

@@ -8,7 +8,7 @@ class ReadingLearningTypeQuestion extends Model
 {
     protected $table = 'reading_learning_type_questions';
 
-    protected $fillable = ['type_question_id', 'step_section', 'title_section', 'view_layout', 'icon', 'content_section', 'left_content', 'right_content', 'status'];
+    protected $fillable = ['type_question_id', 'step_section', 'title_section', 'view_layout', 'icon', 'content_section', 'left_content', 'right_content', 'admin_responsibility', 'status'];
 
     public $timestamps = true;
 
@@ -26,7 +26,7 @@ class ReadingLearningTypeQuestion extends Model
         return $this->where('status', 1)->where('type_question_id', $type_question_id)->orderBy('step_section', 'asc')->select('title_section', 'icon', 'step_section')->get()->all();
     }
 
-    public function createNewLearningTypeQuestion ($type_question_id, $title_section, $step_section, $view_layout, $icon, $content_section, $left_content, $right_content) {
+    public function createNewLearningTypeQuestion ($type_question_id, $title_section, $step_section, $view_layout, $icon, $content_section, $left_content, $right_content, $admin_responsibility) {
         if ($this->where('type_question_id', $type_question_id)->where('title_section', $title_section)->exists()) {
             // level found
             return 'fail-title';
@@ -44,6 +44,7 @@ class ReadingLearningTypeQuestion extends Model
             $new_learning_type_question->right_content = $right_content;
             $new_learning_type_question->icon = $icon;
             $new_learning_type_question->content_section = $content_section;
+            $new_learning_type_question->admin_responsibility = $admin_responsibility;
             $new_learning_type_question->save();
             return $new_learning_type_question->id;
         }

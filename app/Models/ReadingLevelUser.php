@@ -8,7 +8,7 @@ class ReadingLevelUser extends Model
 {
     protected $table = 'reading_level_users';
 
-    protected $fillable = ['level', 'status'];
+    protected $fillable = ['level', 'admin_responsibility', 'status'];
 
     public $timestamps = true;
 
@@ -17,7 +17,7 @@ class ReadingLevelUser extends Model
         return $this->hasMany('App\Models\ReadingPracticeLesson', 'level_user_id');
     }
 
-    public function createNewLevelUser($level) {
+    public function createNewLevelUser($level, $admin_responsibility) {
 
         if ($this->where('level', '=', $level)->exists()) {
             // level found
@@ -26,6 +26,7 @@ class ReadingLevelUser extends Model
         else {
             $new_level_user = new ReadingLevelUser();
             $new_level_user->level = $level;
+            $new_level_user->admin_responsibility = $admin_responsibility;
             $new_level_user->save();
             return 'success';
         }

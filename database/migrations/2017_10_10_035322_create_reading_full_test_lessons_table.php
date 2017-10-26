@@ -33,6 +33,7 @@ class CreateReadingFullTestLessonsTable extends Migration
             $table->integer('total_questions');
             $table->integer('limit_time')->default(60);
             $table->integer('order_lesson');
+            $table->integer('admin_responsibility')->unsigned();
 //            $table->integer('type_lesson_id')->default(4);
             $table->boolean('status')->default(1);
             $table->timestamps();

@@ -25,6 +25,7 @@ class CreateReadingMiniTestLessonsTable extends Migration
             $table->text('content_answer_quiz');
             $table->integer('total_questions');
             $table->integer('order_lesson');
+            $table->integer('admin_responsibility')->unsigned();
 //            $table->integer('type_lesson_id')->default(2);
             $table->boolean('status')->default(1);
             $table->timestamps();

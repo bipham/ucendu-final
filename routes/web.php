@@ -35,7 +35,7 @@ Route::get('markAllNotificationAsRead',['as'=>'markAllNotificationAsRead','uses'
  *
  *********************************************************/
 
-Route::group(['domain' => 'admin.{nameDomain}'], function () {
+Route::group(['domain' => 'admin.{nameDomain}', 'middleware' => ['adminAuth']], function () {
     //************ For Reading Lesson *************
     Route::get('createNewReadingPractice',['as'=>'getCreateNewReadingPractice','uses'=>'Admin\ReadingPracticeController@getCreateNewReadingPractice']);
     Route::post('createNewReadingPractice',['as'=>'postCreateNewReadingPractice','uses'=>'Admin\ReadingPracticeController@postCreateNewReadingPractice']);
@@ -99,7 +99,7 @@ Route::group(['domain' => 'admin.{nameDomain}'], function () {
  *
  *
  *********************************************************/
-Route::group(['domain'=>'{nameDomain}'], function () {
+Route::group(['domain'=>'{nameDomain}', 'middleware' => ['clientAuth']], function () {
     Route::get('/', function () {
         return view('client.welcome');
     });

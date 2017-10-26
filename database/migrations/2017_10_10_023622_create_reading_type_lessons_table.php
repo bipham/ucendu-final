@@ -17,6 +17,7 @@ class CreateReadingTypeLessonsTable extends Migration
         Schema::create('reading_type_lessons', function (Blueprint $table) {
             $table->increments('id');
             $table->string('type_lesson')->unique();
+            $table->integer('admin_responsibility')->unsigned();
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

@@ -24,6 +24,7 @@ class CreateReadingLearningTypeQuestionsTable extends Migration
             $table->text('content_section')->nullable();
             $table->text('left_content')->nullable();
             $table->text('right_content')->nullable();
+            $table->integer('admin_responsibility')->unsigned();
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

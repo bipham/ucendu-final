@@ -5,12 +5,14 @@ use App\Models\ReadingMiniTestLesson;
 use App\Models\ReadingMixTestLesson;
 use App\Models\ReadingFullTestLesson;
 use phpDocumentor\Reflection\Types\Null_;
+use Illuminate\Support\Facades\Auth;
 
 class ReadingLessonService {
     private $_readingPracticeLessonModel;
     private $_readingMiniTestLessonModel;
     private $_readingMixTestLessonModel;
     private $_readingFullTestLessonModel;
+    private $_adminId;
 
     public function __construct()
     {
@@ -18,6 +20,7 @@ class ReadingLessonService {
         $this->_readingMiniTestLessonModel = new ReadingMiniTestLesson();
         $this->_readingMixTestLessonModel = new ReadingMixTestLesson();
         $this->_readingFullTestLessonModel = new ReadingFullTestLesson();
+        $this->_adminId = Auth::id();
     }
 
     public function getTheCurrentLessonId($type_lesson_id) {
@@ -47,7 +50,7 @@ class ReadingLessonService {
     public function addNewReadingLesson($type_lesson_id, $title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id) {
         switch ($type_lesson_id) {
             case 1:
-                $result = $this->_readingPracticeLessonModel->addNewPracticeLesson($title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id);
+                $result = $this->_readingPracticeLessonModel->addNewPracticeLesson($title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id, $this->_adminId);
                 break;
             case 2:
                 $result = $this->_readingMiniTestLessonModel->addNewReadingLesson();
@@ -88,7 +91,7 @@ class ReadingLessonService {
     public function updateTitleLesson($type_lesson_id, $lesson_id, $title) {
         switch ($type_lesson_id) {
             case 1:
-                $result = $this->_readingPracticeLessonModel->updateTitlePracticeLesson($lesson_id, $title);
+                $result = $this->_readingPracticeLessonModel->updateTitlePracticeLesson($lesson_id, $title, $this->_adminId);
                 break;
             case 2:
                 $result = $this->_readingMiniTestLessonModel->getTheCurrentLessonId();
@@ -106,7 +109,7 @@ class ReadingLessonService {
     public function updateLevelUserLesson($type_lesson_id, $lesson_id, $level_user_id) {
         switch ($type_lesson_id) {
             case 1:
-                $result = $this->_readingPracticeLessonModel->updateLevelUserPracticeLesson($lesson_id, $level_user_id);
+                $result = $this->_readingPracticeLessonModel->updateLevelUserPracticeLesson($lesson_id, $level_user_id, $this->_adminId);
                 break;
             case 2:
                 $result = $this->_readingMiniTestLessonModel->getTheCurrentLessonId();
@@ -124,7 +127,7 @@ class ReadingLessonService {
     public function updateBasicInfoLesson($type_lesson_id, $lesson_id, $type_question_id, $order_lesson) {
         switch ($type_lesson_id) {
             case 1:
-                $result = $this->_readingPracticeLessonModel->updateBasicInfoPracticeLesson($lesson_id, $type_question_id, $order_lesson);
+                $result = $this->_readingPracticeLessonModel->updateBasicInfoPracticeLesson($lesson_id, $type_question_id, $order_lesson, $this->_adminId);
                 break;
             case 2:
                 $result = $this->_readingMiniTestLessonModel->getTheCurrentLessonId();
@@ -196,7 +199,7 @@ class ReadingLessonService {
     public function updateContentLesson($type_lesson_id, $lesson_id, $content_lesson, $content_highlight) {
         switch ($type_lesson_id) {
             case 1:
-                $result = $this->_readingPracticeLessonModel->updateContentPracticeLesson($lesson_id, $content_lesson, $content_highlight);
+                $result = $this->_readingPracticeLessonModel->updateContentPracticeLesson($lesson_id, $content_lesson, $content_highlight, $this->_adminId);
                 break;
             case 2:
                 $result = $this->_readingMiniTestLessonModel->getTheCurrentLessonId();
@@ -214,7 +217,7 @@ class ReadingLessonService {
     public function updateQuizLesson($type_lesson_id, $lesson_id, $content_quiz, $content_answer_quiz, $total_questions) {
         switch ($type_lesson_id) {
             case 1:
-                $result = $this->_readingPracticeLessonModel->updateQuizPracticeLesson($lesson_id, $content_quiz, $content_answer_quiz, $total_questions);
+                $result = $this->_readingPracticeLessonModel->updateQuizPracticeLesson($lesson_id, $content_quiz, $content_answer_quiz, $total_questions, $this->_adminId);
                 break;
             case 2:
                 $result = $this->_readingMiniTestLessonModel->getTheCurrentLessonId();

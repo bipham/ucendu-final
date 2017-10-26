@@ -19,10 +19,10 @@
     <link rel="stylesheet" href="{{asset('public/css/client/responsive.css')}}"/>
     <link rel="stylesheet" href="{{asset('public/libs/toolbar/jquery.toolbar.css')}}" />
     {{--<link rel="stylesheet" href="{{asset('public/libs/jcubic-splitter/css/jquery.splitter.css')}}" />--}}
-    <script>
-        var current_user = {!! json_encode(Auth::user()) !!};
+    {{--<script>--}}
+        {{--var current_user = {!! json_encode(Auth::user()) !!};--}}
         {{--var current_user_name = {!! json_encode((array)Auth::user()->id) !!};--}}
-    </script>
+    {{--</script>--}}
     @yield('css')
 </head>
 <body data-hijacking="on" data-animation="parallax">

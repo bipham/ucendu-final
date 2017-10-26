@@ -17,6 +17,7 @@ class CreateReadingLevelLessonsTable extends Migration
             $table->increments('id');
             $table->string('level')->unique();
             $table->text('introduction')->nullable();
+            $table->integer('admin_responsibility')->unsigned();
             $table->boolean('status')->default(1);
             $table->timestamps();
         });
