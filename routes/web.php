@@ -115,8 +115,8 @@ Route::group(['domain'=>'{nameDomain}'], function () {
     Route::group(['prefix'=>'reading/{level_id}'],function () {
         Route::get('',['as'=>'reading/{level_id}','uses'=>'Client\ReadingLessonController@index']);
         Route::get('readingLesson/{type_lesson_id}/{lesson_id}',                array('as'=>'reading.readingLesson',            'uses'=>'Client\ReadingLessonController@readingLessonDetail'));
-        Route::get('resultReading',['as'=>'resultReading','uses'=>'Client\ResultController@getResultQuiz']);
-        Route::get('solutionLesson/{type_lesson_id}/{lesson_id}',['as'=>'solutionLesson','uses'=>'Client\ReadingResultController@getSolutionLesson']);
+        Route::get('getResultReadingLesson',['as'=>'getResultReadingLesson','uses'=>'Client\ResultController@getResultReadingLesson']);
+        Route::get('readingViewResultLesson/{type_lesson_id}/{lesson_id}',['as'=>'readingViewResultLesson','uses'=>'Client\ReadingResultController@getReadingViewResultLesson']);
         Route::get('readingViewSolutionLesson/{lesson_id}-{quiz_id}',['as'=>'readingViewSolutionLesson','uses'=>'Client\ResultController@getReadingViewSolutionLesson']);
     });
 

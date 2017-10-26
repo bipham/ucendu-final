@@ -108,4 +108,8 @@ class ReadingPracticeLesson extends Model
     public function getDetailPracticeLessonForClientTest($lesson_id) {
         return $this->where('status', 1)->where('id', $lesson_id)->select('id', 'title', 'content_lesson', 'content_quiz', 'total_questions', 'type_question_id')->get()->first();
     }
+
+    public function getDetailPracticeLessonForClientSolution($lesson_id) {
+        return $this->where('status', 1)->where('id', $lesson_id)->select('id', 'title', 'content_highlight', 'content_answer_quiz', 'total_questions', 'type_question_id')->get()->first();
+    }
 }

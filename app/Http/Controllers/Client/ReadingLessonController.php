@@ -22,7 +22,7 @@ class ReadingLessonController extends Controller
         $readingLessonService = new ReadingLessonService();
         $lesson = $readingLessonService->getLessonDetailForClientTestById($type_lesson_id, $lesson_id);
         if ($lesson->typeQuestion->level_lesson_id == $level_lesson_id) {
-            return view('client.readingLessonDetail', compact('level_lesson_id', 'lesson'));
+            return view('client.readingLessonDetail', compact('level_lesson_id', 'lesson', 'type_lesson_id'));
         }
         else {
             return abort(404);

@@ -9,8 +9,8 @@ $.ajaxSetup({
 var baseUrl = document.location.origin;
 var ajaxUrlResult = baseUrl + '/reading/resultReading';
 var list_answer = {};
-var quizId = $('#quiz-test-area').data('quizid');
-var lessonId = $('#lesson-content-area').data('lessonid');
+var lesson_id = $('#lesson-content-area').data('lesson_id');
+var type_lesson_id = $('.lesson-detail-page').data('type-lesson-id');
 $('.btn-submit-quiz').click(function () {
     submitReadingTest();
 });
@@ -101,27 +101,17 @@ function submitReadingTest() {
     list_answer = {};
     getAllAnswer();
     if (Object.keys(list_answer).length == 0) {
-        console.log('list answer: ' + Object.keys(list_answer).length);
         list_answer = 'emptyList';
     }
-    console.log('list answer: ' + JSON.stringify(list_answer));
-    console.log('quizId: ' + quizId);
     $.ajax({
         type: "GET",
         url: ajaxUrlResult,
         dataType: "json",
-        data: { list_answer: list_answer, quizId: quizId},
+        data: { list_answer: list_answer, lesson_id: lesson_id},
         success: function (data) {
             console.log('sucess:', data);
             var numberCorrect = data.correct_answer.length;
-            location.href= baseUrl + '/reading/solutionLesson/' + lessonId + '-' + quizId + '?list_answer=' + JSON.stringify(list_answer) + '&correct_answer=' + JSON.stringify(data.correct_answer) + '&totalQuestion=' + data.totalQuestion;
-            // bootbox.alert({
-            //     message: "Result: " + numberCorrect + "/" + data.totalQuestion,
-            //     callback: function(){
-            //         location.href= baseUrl + '/solutionLesson/' + lessonId + '-' + quizId + '?list_answer=' + JSON.stringify(list_answer) + '&correct_answer=' + JSON.stringify(data.correct_answer) + '&totalQuestion=' + data.totalQuestion;
-            //     }
-            // });
-
+            // location.href= baseUrl + '/reading/solutionLesson/' + lesson_id + '-' +  + '?list_answer=' + JSON.stringify(list_answer) + '&correct_answer=' + JSON.stringify(data.correct_answer) + '&totalQuestion=' + data.totalQuestion;
         },
         error: function (data) {
             console.log('Error:', data);
