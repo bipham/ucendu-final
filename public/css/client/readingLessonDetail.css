@@ -81,7 +81,7 @@ img.img-overlay-quiz {
 
 .reading-tool-lesson-quiz {
     position: fixed;
-    z-index: 99999;
+    z-index: 999;
     bottom: 10%;
     right: 0;
 }
@@ -124,10 +124,6 @@ img.img-overlay-quiz {
 
 .btn-focus-question {
     cursor: pointer;
-}
-
-.lesson-detail.panel-container {
-    top: 75px;
 }
 
 .right-panel-custom span {
