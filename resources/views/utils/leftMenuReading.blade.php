@@ -29,7 +29,9 @@
         <div class="body-left-menu">
             <div class="top-menu">
                 <h3 class="level-lesson-current">
-                    {!! $current_level_lesson->level !!}
+                    <a href="{{url('/reading/'. $current_level_lesson->id . '-level/')}}">
+                        {!! $current_level_lesson->level !!}
+                    </a>
                 </h3>
                 <div class="dropdown list-level-lesson">
                     <span class="fa-stack fa-lg select-level-lesson" data-toggle="dropdown">
