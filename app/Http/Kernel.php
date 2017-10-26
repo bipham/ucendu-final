@@ -47,7 +47,7 @@ class Kernel extends HttpKernel
             'checkActivated',
         ],
         'clientAuth' => [
-            'auth',
+            'checkClient',
             'checkActivated',
         ]
     ];
@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'checkAdmin'=>\App\Http\Middleware\CheckAdmin::class,
+        'checkClient'=>\App\Http\Middleware\CheckClient::class,
         'checkActivated'=>\App\Http\Middleware\CheckActivated::class,
     ];
 }

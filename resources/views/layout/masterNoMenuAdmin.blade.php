@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{asset('public/css/my-style.css')}}"/>
     <link rel="stylesheet" href="{{asset('public/css/client/responsive.css')}}"/>
     <link rel="stylesheet" href="{{asset('public/libs/toolbar/jquery.toolbar.css')}}" />
+    <link rel="stylesheet" href="{{asset('public/css/admin/admin-style.css')}}">
     {{--<link rel="stylesheet" href="{{asset('public/libs/jcubic-splitter/css/jquery.splitter.css')}}" />--}}
     {{--<script>--}}
         {{--var current_user = {!! json_encode(Auth::user()) !!};--}}

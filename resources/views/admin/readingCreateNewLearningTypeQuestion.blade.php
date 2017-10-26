@@ -11,7 +11,6 @@
     Reading - Create New Learning Type Question
 @endsection
 @section('css')
-    <link rel="stylesheet" href="{{asset('public/css/admin/admin-style.css')}}">
     <link rel="stylesheet" href="{{asset('public/css/admin/upload.css')}}">
     <script src="/public/libs/ckeditor/ckeditor.js"></script>
 @endsection

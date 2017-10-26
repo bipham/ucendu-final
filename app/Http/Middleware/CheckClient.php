@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class CheckClient
 {
@@ -16,10 +16,12 @@ class CheckClient
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check() && Auth::user()->level == 0)
+//        dd(Auth::check());
+        if(Auth::check())
         {
             return $next($request);
-        }else{
+        }
+        else{
             Auth::logout();
             $message = ['flash_level'=>'warning message-custom','flash_message'=>'You not have permission!!!'];
             return redirect()->Route('getLogin')->with($message);
