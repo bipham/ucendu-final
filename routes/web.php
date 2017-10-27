@@ -37,17 +37,26 @@ Route::get('markAllNotificationAsRead',['as'=>'markAllNotificationAsRead','uses'
 
 Route::group(['domain' => 'admin.{nameDomain}', 'middleware' => ['adminAuth']], function () {
     //************ For Reading Lesson *************
-    Route::get('createNewReadingPractice',['as'=>'getCreateNewReadingPractice','uses'=>'Admin\ReadingPracticeController@getCreateNewReadingPractice']);
-    Route::post('createNewReadingPractice',['as'=>'postCreateNewReadingPractice','uses'=>'Admin\ReadingPracticeController@postCreateNewReadingPractice']);
+    Route::get('createNewReadingLesson/{type_lesson_id}',['as'=>'getCreateNewReadingLesson','uses'=>'Admin\ReadingLessonController@getCreateNewReadingLesson']);
+    Route::post('createNewReadingLesson/{type_lesson_id}',['as'=>'postCreateNewReadingLesson','uses'=>'Admin\ReadingLessonController@postCreateNewReadingLesson']);
+
     Route::get('createNewLevelLesson',['as'=>'getCreateNewLevelLesson','uses'=>'Admin\ReadingLevelLessonController@getCreateNewLevelLesson']);
     Route::post('createNewLevelLesson',['as'=>'postCreateNewLevelLesson','uses'=>'Admin\ReadingLevelLessonController@postCreateNewLevelLesson']);
+
     Route::get('deleteLessonReading/{type_lesson_id}-{lesson_id}',['as'=>'deleteLessonReading','uses'=>'Admin\ReadingLessonController@deleteLessonReading']);
+
     Route::get('editPracticeLessonReading/{lesson_id}',['as'=>'getEditPracticeLessonReading','uses'=>'Admin\ReadingPracticeController@getEditPracticeLessonReading']);
+
     Route::post('updateContentLessonReading/{type_lesson_id}-{lesson_id}',['as'=>'updateContentLessonReading','uses'=>'Admin\ReadingLessonController@updateContentLessonReading']);
+
     Route::post('updateQuizReading/{type_lesson_id}-{lesson_id}',['as'=>'updateQuizReading','uses'=>'Admin\ReadingLessonController@updateQuizReading']);
+
     Route::get('managerReadingLesson',['as'=>'managerReadingLesson','uses'=>'Admin\ReadingLessonController@managerReadingLesson']);
+
     Route::post('updateTitleLesson/{type_lesson_id}-{lesson_id}',['as'=>'updateTitleLesson','uses'=>'Admin\ReadingLessonController@updateTitleLesson']);
+
     Route::post('updateBasicInfoLesson/{type_lesson_id}-{lesson_id}',['as'=>'updateBasicInfoLesson','uses'=>'Admin\ReadingLessonController@updateBasicInfoLesson']);
+
     Route::post('updateLevelUserLesson/{type_lesson_id}-{lesson_id}',['as'=>'updateLevelUserLesson','uses'=>'Admin\ReadingLessonController@updateLevelUserLesson']);
 
     //********** For Reading Question *************

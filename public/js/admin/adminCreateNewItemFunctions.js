@@ -48,6 +48,16 @@ function checkStepQuiz() {
         });
         return false;
     }
+    else if (limit_time == 0) {
+        if (type_lesson_id > 1) {
+            bootbox.alert({
+                message: "Please enter limit time!",
+                backdrop: true
+            });
+            return false;
+        }
+        else return true;
+    }
     else return true;
 }
 

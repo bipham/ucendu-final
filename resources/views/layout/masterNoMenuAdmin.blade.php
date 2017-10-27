@@ -55,10 +55,10 @@
 <script src="{{asset('public/js/admin/adminVariableSetup.js')}}"></script>
 <script language="JavaScript">
     <!--
-    var dictionaries = "ev_ve";
+//    var dictionaries = "ev_ve";
     // -->
 </script>
-<script language="JavaScript1.2" src="http://vndic.net/js/vndic.js" type='text/javascript'></script>
+{{--<script language="JavaScript1.2" src="http://vndic.net/js/vndic.js" type='text/javascript'></script>--}}
 <script language="JavaScript">
     $('.btn-toolbar').toolbar({
         content: '#toolbar-options',

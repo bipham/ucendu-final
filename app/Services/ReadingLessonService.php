@@ -47,13 +47,13 @@ class ReadingLessonService {
         return $last_lesson_id;
     }
 
-    public function addNewReadingLesson($type_lesson_id, $title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id) {
+    public function addNewReadingLesson($type_lesson_id, $title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id, $limit_time) {
         switch ($type_lesson_id) {
             case 1:
                 $result = $this->_readingPracticeLessonModel->addNewPracticeLesson($title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id, $this->_adminId);
                 break;
             case 2:
-                $result = $this->_readingMiniTestLessonModel->addNewReadingLesson();
+                $result = $this->_readingMiniTestLessonModel->addNewMiniTest($title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id, $limit_time, $this->_adminId);
                 break;
             case 3:
                 $result = $this->_readingMixTestLessonModel->addNewReadingLesson();
@@ -73,10 +73,10 @@ class ReadingLessonService {
     public function getAllOrderLessonByTypeQuestionId($type_lesson_id, $type_question_id) {
         switch ($type_lesson_id) {
             case 1:
-                $result = $this->_readingPracticeLessonModel->getAllOrderLessonByTypeQuestionId($type_question_id);
+                $result = $this->_readingPracticeLessonModel->getAllOrderPracticeLessonByTypeQuestionId($type_question_id);
                 break;
             case 2:
-                $result = $this->_readingMiniTestLessonModel->getTheCurrentLessonId();
+                $result = $this->_readingMiniTestLessonModel->getAllOrderMiniTestTypeQuestionId($type_question_id);
                 break;
             case 3:
                 $result = $this->_readingMixTestLessonModel->getTheCurrentLessonId();

@@ -26,7 +26,10 @@
                     <a class="nav-link" href="{{url('/createNewTypeQuestion')}}">New_type_question</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url('/createNewReadingPractice')}}">New_practice_lesson</a>
+                    <a class="nav-link" href="{{url('/createNewReadingLesson/1practice')}}">New_practice_lesson</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('/createNewReadingLesson/2miniTest')}}">New_mini_test</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('/managerReadingLesson')}}">Manager_lesson</a>

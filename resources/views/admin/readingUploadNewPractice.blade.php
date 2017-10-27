@@ -16,7 +16,7 @@
     <script src="/public/libs/ckeditor/ckeditor.js"></script>
 @endsection
 @section('content')
-    <div class="container upload-page-custom container-page-custom" data-idquestion="{!! $last_question_custom_id !!}">
+    <div class="container upload-page-custom upload-new-leson-page container-page-custom" data-idquestion="{!! $last_question_custom_id !!}" data-type-lesson-id="{!! $type_lesson_id !!}">
         <input type="hidden" name="_token" value="{!!csrf_token()!!}">
         <div class="row step-content-post">
             <div class="card content-post-area card-step-area">
@@ -94,7 +94,9 @@
                         </label>
                         <select class="form-control" id="list_level_users" name="list_level_users" >
                             @foreach($all_level_users as $level_user)
-                                <option value="{!! $level_user->id !!}">{!! $level_user->level !!}</option>
+                                @if($level_user->id > 1)
+                                    <option value="{!! $level_user->id !!}">{!! $level_user->level !!}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
@@ -109,6 +111,12 @@
                             Step section
                         </label>
                         <input type="number" class="form-control" min="1" value="" placeholder="Order 0" id="order_lesson" name="order_lesson" required>
+                    </div>
+                    <div class="form-group @if($type_lesson_id == 1) hidden @endif">
+                        <label for="limit_time">
+                            Limit Time!
+                        </label>
+                        <input type="number" name="limit_time" class="form-control" required id="limit_time" value="0">
                     </div>
                     <div class="form-group">
                         <label for="content">

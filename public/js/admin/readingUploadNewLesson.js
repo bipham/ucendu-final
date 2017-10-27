@@ -30,7 +30,8 @@ var noti = false;
 var sandbox = document.getElementById('sandbox');
 var boolRemove = false;
 
-var ajaxUploadFinish = baseUrl + '/createNewReadingPractice';
+var type_lesson_id = $('.upload-new-leson-page').data('type-lesson-id');
+var ajaxUploadFinish = baseUrl + '/createNewReadingLesson/' + type_lesson_id;
 
 var hltr = new TextHighlighter(sandbox, {
     onBeforeHighlight: function (range) {
@@ -78,7 +79,7 @@ $( document ).ready(function() {
     $('.btn-next-step-quiz').click(function () {
         title_post = $('input#itemname').val();
         type_question_id = $('#list_type_questions').val().trim();
-        var ajaxGetAllOrdered = baseUrl + '/getAllOrdered/1-' + type_question_id;
+        var ajaxGetAllOrdered = baseUrl + '/getAllOrdered/' + type_lesson_id + '-' + type_question_id;
         var current_order_lesson = 1;
         $.ajax({
             type: "GET",
@@ -117,6 +118,7 @@ $( document ).ready(function() {
     $('.btn-next-step-answer').click(function () {
         level_user_id = $('#list_level_users').val().trim();
         order_lesson = $('#order_lesson').val().trim();
+        limit_time = $('#limit_time').val().trim();
         var checkDataStepQuiz = checkStepQuiz(level_user_id, order_lesson);
         if (checkDataStepQuiz) {
             if ((content_quiz != CKEDITOR.instances["contentQuiz"].getData()) || (type_lesson != $('#typeLesson').val()) ) {
@@ -256,7 +258,7 @@ $( document ).ready(function() {
             type: "POST",
             url: ajaxUploadFinish,
             dataType: "json",
-            data: { level_user_id: level_user_id, order_lesson: order_lesson, type_question_id: type_question_id, img_url: img_url, img_name_no_ext: img_name_no_ext, img_extension: img_extension, title_post: title_post, list_answer: listAnswer, content_post: content_post, content_highlight: content_highlight, content_quiz: content_quiz, content_answer_quiz: content_answer_quiz, list_type_questions: list_type_questions, listKeyword: listKeyword },
+            data: { level_user_id: level_user_id, order_lesson: order_lesson, type_question_id: type_question_id, img_url: img_url, img_name_no_ext: img_name_no_ext, img_extension: img_extension, title_post: title_post, list_answer: listAnswer, content_post: content_post, content_highlight: content_highlight, content_quiz: content_quiz, content_answer_quiz: content_answer_quiz, list_type_questions: list_type_questions, listKeyword: listKeyword, limit_time: limit_time },
             success: function (data) {
                 $('#loading').hide();
                 if (data.result == 'fail-order') {
@@ -267,10 +269,10 @@ $( document ).ready(function() {
                 }
                 else {
                     bootbox.alert({
-                        message: 'Create new practice lesson success!',
+                        message: 'Create new lesson success!',
                         backdrop: true,
                         callback: function(){
-                            location.href= baseUrl + '/createNewReadingPractice';
+                            location.href= baseUrl + '/createNewReadingLesson/' + type_lesson_id;
                         }
                     });
                 }
