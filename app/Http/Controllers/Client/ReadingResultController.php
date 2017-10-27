@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\ReadingLessonService;
 use App\Services\ReadingResultService;
+use App\Services\ReadingStatusLearningOfUserService;
 
 class ReadingResultController extends Controller
 {
@@ -14,9 +15,14 @@ class ReadingResultController extends Controller
         $list_answered = $_GET['list_answer'];
         $readingResultService = new ReadingResultService();
         $readingLessonService = new ReadingLessonService();
+        $readingStatusLearningOfUserService = new ReadingStatusLearningOfUserService();
         //Get correct answer:
-        $correct_answer = $readingResultService->getResultLesson($type_lesson_id, $lesson_id, $list_answered);
         $total_questions = $readingLessonService->getTotalQuestionByLessonId($type_lesson_id, $lesson_id);
+        $step_lesson = $readingLessonService->getCurrentStepOfLesson($type_lesson_id, $lesson_id);
+//        $type_question_id
+        $highest_current_step = $readingStatusLearningOfUserService->getHighestCurrentStep($type_lesson_id, $lesson_id);
+        $correct_answer = $readingResultService->getResultLesson($type_lesson_id, $lesson_id, $list_answered);
+        $readingResultService->checkNextStepLesson($type_lesson_id, $lesson_id, $correct_answer, $total_questions, $step_lesson);
         return json_encode(['correct_answer' => $correct_answer, 'total_questions' => $total_questions]);
     }
 

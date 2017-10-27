@@ -93,9 +93,6 @@ class ReadingLessonController extends Controller
         $all_level_lessons = $readingLevelLessonService->getAllLevelLesson();
         $readingLessonService = new ReadingLessonService();
         $lessons = $readingLessonService->getAllLesson();
-//        foreach ($lessons['practice'] as $lesson) {
-////            dd($lesson->typeQuestion->levelLesson->level);
-//        }
         $readingLevelUserService = new ReadingLevelUserService();
         $all_level_users = $readingLevelUserService->getAllLevelUser();
         return view('admin.readingManagerLessons', compact('lessons', 'all_level_lessons', 'all_level_users'));

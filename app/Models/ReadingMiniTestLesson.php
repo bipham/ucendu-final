@@ -52,4 +52,8 @@ class ReadingMiniTestLesson extends Model
     public function getAllOrderMiniTestTypeQuestionId($type_question_id) {
         return $this->where('type_question_id', $type_question_id)->orderBy('order_lesson','asc')->select('order_lesson')->get()->all();
     }
+
+    public function getAllMiniTest() {
+        return $this->where('status',1)->orderBy('updated_at','desc')->select('id', 'title', 'level_user_id', 'image_feature', 'order_lesson', 'type_question_id')->get()->all();
+    }
 }

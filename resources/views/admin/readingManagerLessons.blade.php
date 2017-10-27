@@ -37,7 +37,7 @@
                 @include('components.tables.practiceTable',['lessons' => $lessons['practice']])
             </div>
             <div class="tab-pane fade" id="miniTestLesson" role="tabpanel" aria-labelledby="mini-test-tab">
-
+                @include('components.tables.practiceTable',['lessons' => $lessons['mini_test']])
             </div>
             <div class="tab-pane fade" id="mixTestLesson" role="tabpanel" aria-labelledby="mix-test-tab">
 

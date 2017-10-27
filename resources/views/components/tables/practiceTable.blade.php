@@ -16,6 +16,7 @@
         <th>Level lesson </th>
         <th>Order lesson </th>
         <th>Level user </th>
+        <th>Created At </th>
         <th>Action </th>
     </tr>
     </thead>
@@ -44,6 +45,9 @@
             </td>
             <td>
                 @include('components.modals.editLevelUserLessonModal', ['$lesson' => $lesson, 'all_level_users' => $all_level_users, 'type_lesson_id' => $type_lesson_id])
+            </td>
+            <td>
+                {!! $lesson->created_at !!}
             </td>
             <td>
                 <a href="{{url('editPracticeLessonReading/' . $lesson->id)}}">

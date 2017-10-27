@@ -3,6 +3,7 @@
 use App\Models\ReadingResultLesson;
 use App\Models\ReadingQuestionLesson;
 use App\Models\ReadingQuestionLearning;
+use App\Models\ReadingStatusLearningOfUser;
 use Illuminate\Support\Facades\Auth;
 
 class ReadingResultService
@@ -10,6 +11,7 @@ class ReadingResultService
     private $_readingResultLessonModel;
     private $_readingQuestionLessonModel;
     private $_readingQuestionLearningModel;
+    private $_readingStatusLearningOfUsergModel;
     private $_adminId;
 
     public function __construct()
@@ -17,6 +19,7 @@ class ReadingResultService
         $this->_readingResultLessonModel = new ReadingResultLesson();
         $this->_readingQuestionLessonModel = new ReadingQuestionLesson();
         $this->_readingQuestionLearningModel = new ReadingQuestionLearning();
+        $this->_readingStatusLearningOfUsergModel = new ReadingStatusLearningOfUser();
         $this->_adminId = Auth::id();
     }
 
@@ -49,6 +52,12 @@ class ReadingResultService
         //Save DB:
         $this->_readingResultLessonModel->saveReadingResultOfUserId($this->_adminId, $lesson_id, $type_lesson_id, $correct_answer_string, $list_answered_string, $number_correct);
         return $correct_answer;
+    }
+
+    public function checkNextStepLesson($type_lesson_id, $lesson_id, $correct_answer, $total_questions, $step_current) {
+        if ($correct_answer >= ($total_questions/2)) {
+//            $this->_readingStatusLearningOfUsergModel->updateNextStep
+        }
     }
 }
 ?>

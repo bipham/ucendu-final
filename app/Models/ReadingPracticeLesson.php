@@ -51,7 +51,7 @@ class ReadingPracticeLesson extends Model
     }
 
     public function getAllPracticeLesson() {
-        return $this->where('status',1)->orderBy('updated_at','desc')->select('id', 'title', 'level_user_id', 'image_feature', 'order_lesson', 'type_question_id')->get()->all();
+        return $this->where('status',1)->orderBy('updated_at','desc')->select('id', 'title', 'level_user_id', 'image_feature', 'order_lesson', 'type_question_id', 'created_at')->get()->all();
     }
 
     public function getPracticesByTypeQuestionId($type_question_id) {
@@ -120,5 +120,9 @@ class ReadingPracticeLesson extends Model
 
     public function getTotalQuestionOfPracticeLesson($lesson_id) {
         return $this->where('id', $lesson_id)->select('total_questions')->get()->first();
+    }
+
+    public function getCurrentStepOfPracticeLesson($lesson_id) {
+        return $this->where('id', $lesson_id)->select('order_lesson')->get()->first();
     }
 }
