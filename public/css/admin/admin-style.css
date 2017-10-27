@@ -9,3 +9,9 @@
 .container {
     width: 95%;
 }
+
+.list-ordered li {
+    list-style: none;
+    display: inline;
+    margin: 0px 10px;
+}

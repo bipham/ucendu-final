@@ -73,8 +73,8 @@ class ReadingPracticeLesson extends Model
         return 'update-success';
     }
 
-    public function updateQuizPracticeLesson($lesson_id, $content_quiz, $content_answer_quiz, $total_questions, $admin_responsibility) {
-        $this->where('id', $lesson_id)->update(['content_quiz' => $content_quiz, 'content_answer_quiz' => $content_answer_quiz, 'total_questions' => $total_questions, 'admin_responsibility' => $admin_responsibility, 'updated_at' => Carbon::now()]);
+    public function updateQuizPracticeLesson($lesson_id, $content_highlight, $content_quiz, $content_answer_quiz, $total_questions, $admin_responsibility) {
+        $this->where('id', $lesson_id)->update(['content_highlight' => $content_highlight, 'content_quiz' => $content_quiz, 'content_answer_quiz' => $content_answer_quiz, 'total_questions' => $total_questions, 'admin_responsibility' => $admin_responsibility, 'updated_at' => Carbon::now()]);
         return 'update-success';
     }
 

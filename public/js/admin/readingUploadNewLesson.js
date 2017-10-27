@@ -140,7 +140,7 @@ $( document ).ready(function() {
                             '<div class="title-row-enter">Explanation ' + qorder + ': </div>' +
                             '<textarea class="input-keyword keyword-' + qorder + '" data-qnumber="' + qnumber + '"></textarea>' +
                             '</div>' +
-                            '<div class="card-block remove-highlight-area-' + qorder + '">' +
+                            '<div class="remove-highlight-area-' + qorder + '">' +
                             '</div>' +
                             '</div>');
                     }

@@ -214,10 +214,10 @@ class ReadingLessonService {
         return $result;
     }
 
-    public function updateQuizLesson($type_lesson_id, $lesson_id, $content_quiz, $content_answer_quiz, $total_questions) {
+    public function updateQuizLesson($type_lesson_id, $lesson_id, $content_highlight, $content_quiz, $content_answer_quiz, $total_questions) {
         switch ($type_lesson_id) {
             case 1:
-                $result = $this->_readingPracticeLessonModel->updateQuizPracticeLesson($lesson_id, $content_quiz, $content_answer_quiz, $total_questions, $this->_adminId);
+                $result = $this->_readingPracticeLessonModel->updateQuizPracticeLesson($lesson_id, $content_highlight, $content_quiz, $content_answer_quiz, $total_questions, $this->_adminId);
                 break;
             case 2:
                 $result = $this->_readingMiniTestLessonModel->getTheCurrentLessonId();

@@ -11,6 +11,7 @@ var lesson_id = $('.upload-page-custom').data('lesson-id');
 var quiz_id = $('.upload-page-custom').data('quiz-id');
 var ajaxUpdateContentLessonReading = baseUrl + '/updateContentLessonReading/1-' + lesson_id;
 var content_highlight_lesson = '';
+var content_highlight = '';
 var type_question_id = 0;
 var content_quiz = '';
 var listQ = [];
@@ -27,28 +28,33 @@ var list_Q_old = [];
 
 //Edit Content
 function editContentLesson() {
-    $('.preview-lesson').toggleClass('hidden');
-    $('.edit-content-lesson').toggleClass('hidden');
+    $('.preview-lesson').addClass('hidden');
+    $('.btn-edit-content-lesson').addClass('hidden-class');
+    $('.btn-edit-quiz-lesson').addClass('hidden-class');
+    $('.edit-quiz-lesson').remove();
+    $('.edit-content-lesson').removeClass('hidden');
+
     content_lesson_source = CKEDITOR.instances["contentLesson"].getData().trim();
 }
 
 function editHighlightLesson() {
     if (content_lesson_source != CKEDITOR.instances["contentLesson"].getData().trim()) {
         content_lesson_source = CKEDITOR.instances["contentLesson"].getData().trim();
-        $('.remove-highlight-area').html('');
+        $('.card-block.remove-highlight-area').html('');
         $('#sandbox').html(content_lesson_source);
     }
     else {
-        $('.remove-highlight-area').html('');
+        $('.hl-btn-content-area.remove-highlight-area').html('');
         $('#sandbox .answer-highlight').each(function () {
             $(this).removeClass('hidden-highlight');
             var class_highlight_order = $(this)[0].classList[1].match(/\d+/);
             if ($('.remove-ans-' + class_highlight_order[0] ).length == 0 ) {
-                $('.remove-highlight-area').append('' +
+                $('.card-block.remove-highlight-area').append('' +
                     '<div class="remove-ans-' + class_highlight_order[0] + '">Remove highlight for anwser ' + class_highlight_order[0] + ': <button class="btn btn-info remove" data-removeid="' + class_highlight_order[0] + '">Remove</button></div>'
                 );
             }
         });
+        content_highlight = $('#sandbox-quiz').html();
     }
     $('.edit-highlight').toggleClass('hidden');
     $('.edit-content').toggleClass('hidden');
@@ -86,8 +92,14 @@ function stepEditContentLesson() {
 }
 
 function editQuizLesson() {
-    $('.preview-lesson').toggleClass('hidden');
-    $('.edit-quiz-lesson').toggleClass('hidden');
+    $('.edit-content-lesson').remove();
+    $('.preview-lesson').addClass('hidden');
+    $('.edit-quiz-lesson').removeClass('hidden');
+    $('.btn-edit-content-lesson').addClass('hidden-class');
+    $('.btn-edit-quiz-lesson').addClass('hidden-class');
+
+    $('#sandbox-quiz .answer-highlight').removeClass('hidden-highlight');
+
     $('#solution-area .question-quiz').each(function () {
         var qnumber = $(this).data('qnumber');
         if (jQuery.inArray(qnumber, listAnswer_source) == -1) {
@@ -133,6 +145,8 @@ $( document ).ready(function() {
                             '<div class="title-row-enter">Explanation ' + qorder + ': </div>' +
                             '<textarea class="input-keyword keyword-' + qorder + '" data-qnumber="' + qnumber + '"></textarea>' +
                             '</div>' +
+                            '<div class="remove-highlight-area-' + qorder + '">' +
+                            '</div>' +
                             '</div>');
                     }
                     if (jQuery.inArray(qnumber, listAnswer_source) == -1) {
@@ -141,6 +155,15 @@ $( document ).ready(function() {
                     }
                 });
             }
+            $('#sandbox-quiz .answer-highlight').each(function () {
+                $(this).removeClass('hidden-highlight');
+                var class_highlight_order = $(this)[0].classList[1].match(/\d+/);
+                if ($('.remove-ans-' + class_highlight_order[0] ).length == 0 ) {
+                    $('.remove-highlight-area-' + class_highlight_order[0]).append('' +
+                        '<div class="remove-ans-' + class_highlight_order[0] + '">Remove highlight for anwser ' + class_highlight_order[0] + ': <button class="btn btn-info remove" data-removeid="' + class_highlight_order[0] + '">Remove</button></div>'
+                    );
+                }
+            });
             if (listQ.length > 0) {
                 $('.edit-quiz').toggleClass('hidden');
                 $('.edit-answer').toggleClass('hidden');
@@ -163,8 +186,11 @@ $( document ).ready(function() {
         type_question_id = $('.upload-page-custom').data('type-question-id');
         var checkDataStepAnswer = checkStepAnswer();
         if (checkDataStepAnswer) {
+            content_highlight = $('#sandbox-quiz').html();
             $('.preview-edit-lesson').toggleClass('hidden');
             $('.edit-answer').toggleClass('hidden');
+            $('#pr-post').html(content_highlight);
+            $('#sandbox-quiz .answer-highlight').addClass('hidden-highlight');
             $('#pr-quiz').html(content_quiz);
             $('#pr-quiz .last-option').each(function () {
                 var qnumber = $(this).data('qnumber');
@@ -215,7 +241,7 @@ $( document ).ready(function() {
                 $(this).attr('disabled', 'disabled');
             });
             content_answer_quiz =  $('#pr-quiz').html();
-            console.log(content_answer_quiz);
+            content_highlight = $('#pr-post').html();
         }
         else {
             bootbox.alert({
@@ -223,10 +249,10 @@ $( document ).ready(function() {
                 backdrop: true
             });
         }
-        console.log(JSON.stringify(listKeyword));
     });
 
     $('.btn-back-edit-answer').click(function () {
+        $('#sandbox-quiz').html(content_highlight);
         $('.preview-edit-lesson').toggleClass('hidden');
         $('.edit-answer').toggleClass('hidden');
     });
@@ -236,7 +262,7 @@ $( document ).ready(function() {
             type: "POST",
             url: ajaxUpdateQuizReadingReading,
             dataType: "json",
-            data: { list_Q_old: list_Q_old, list_answer: listAnswer, content_quiz: content_quiz, content_answer_quiz: content_answer_quiz, type_question_id: type_question_id, listKeyword: listKeyword},
+            data: { list_Q_old: list_Q_old, list_answer: listAnswer, content_highlight: content_highlight, content_quiz: content_quiz, content_answer_quiz: content_answer_quiz, type_question_id: type_question_id, listKeyword: listKeyword},
             success: function (data) {
                 bootbox.alert({
                     message: "Update quiz success!",

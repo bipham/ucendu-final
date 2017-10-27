@@ -79,6 +79,7 @@
                 </button>
             </div>
         </div>
+        {{--Input Question--}}
         <div class="row step-content-quiz hidden-class">
             <div class="card content-quiz-area card-step-area">
                 <div class="card-header">

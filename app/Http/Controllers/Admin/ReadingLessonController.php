@@ -58,6 +58,7 @@ class ReadingLessonController extends Controller
     }
 
     public function updateQuizReading($domain, $type_lesson_id, $lesson_id) {
+        $content_highlight = $_POST['content_highlight'];
         $content_quiz = $_POST['content_quiz'];
         $content_answer_quiz = $_POST['content_answer_quiz'];
         $list_answer = $_POST['list_answer'];
@@ -68,7 +69,7 @@ class ReadingLessonController extends Controller
 
         //Save quiz - answers:
         $readingLessonService = new ReadingLessonService();
-        $readingLessonService->updateQuizLesson($type_lesson_id, $lesson_id, $content_quiz, $content_answer_quiz, $total_questions);
+        $readingLessonService->updateQuizLesson($type_lesson_id, $lesson_id, $content_highlight, $content_quiz, $content_answer_quiz, $total_questions);
 
         //Delete old-question:
         $readingQuestionLessonService = new ReadingQuestionLessonService();

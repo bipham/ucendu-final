@@ -79,7 +79,7 @@
                             Remove highlight!
                         </h3>
                     </div>
-                    <div class="card-block remove-highlight-area">
+                    <div class="card-block hl-btn-content-area remove-highlight-area">
 
                     </div>
                 </div>
@@ -110,25 +110,43 @@
                 </div>
             </div>
             <div class="row edit-answer hidden">
-                <div class="type-only-question-area full-width-class">
-                </div>
-                <div class="col-md-8 card preview-content-quiz">
-                    <div class="card-header">
-                        <h3 class="text-left">
-                            Nội dung câu hỏi:
-                        </h3>
+                <div class="page-upload row">
+                    <div class="inner-page-upload panel-container col-md-8">
+                        <div class="upload-left-panel-custom panel-left upload-panel-top card highlight-sandbox col-md-8">
+                            <div class="card-header">
+                                <h3 class="text-left">
+                                    Highlight đáp án!
+                                </h3>
+                            </div>
+                            <div class="card-block">
+                                <div id="sandbox-quiz">
+                                    {!! $lesson->content_highlight !!}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="splitter">
+                        </div>
+                        <div class="splitter-horizontal">
+                        </div>
+                        <div class="upload-right-panel-custom panel-right upload-panel-bottom active-quiz card preview-content-quiz">
+                            <div class="card-header">
+                                <h3 class="text-left">
+                                    Nội dung câu hỏi:
+                                </h3>
+                            </div>
+                            <div class="card-block">
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-block">
-                    </div>
-                </div>
-                <div class="col-md-4 card answer-key-area">
-                    <div class="card-header">
-                        <h3 class="text-left">
-                            Đáp án:
-                        </h3>
-                    </div>
-                    <div class="card-block">
-                        <div class="answer-area">
+                    <div class="col-md-4 card answer-key-area">
+                        <div class="card-header">
+                            <h3 class="text-left">
+                                Đáp án:
+                            </h3>
+                        </div>
+                        <div class="card-block">
+                            <div class="answer-area">
+                            </div>
                         </div>
                     </div>
                 </div>
