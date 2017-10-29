@@ -38,6 +38,7 @@ class User extends Model
         $new_user->avatar = $avatar;
         $new_user->remember_token = $remember_token;
         $new_user->admin_responsibility = $admin_responsibility;
+        $new_user->activated = 1;
         $new_user->save();
         return true;
     }
