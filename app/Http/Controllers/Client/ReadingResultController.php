@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Models\ReadingPracticeLesson;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\ReadingLessonService;
@@ -15,14 +16,9 @@ class ReadingResultController extends Controller
         $list_answered = $_GET['list_answer'];
         $readingResultService = new ReadingResultService();
         $readingLessonService = new ReadingLessonService();
-        $readingStatusLearningOfUserService = new ReadingStatusLearningOfUserService();
         //Get correct answer:
         $total_questions = $readingLessonService->getTotalQuestionByLessonId($type_lesson_id, $lesson_id);
-        $step_lesson = $readingLessonService->getCurrentStepOfLesson($type_lesson_id, $lesson_id);
-//        $type_question_id
-        $highest_current_step = $readingStatusLearningOfUserService->getHighestCurrentStep($type_lesson_id, $lesson_id);
         $correct_answer = $readingResultService->getResultLesson($type_lesson_id, $lesson_id, $list_answered);
-        $readingResultService->checkNextStepLesson($type_lesson_id, $lesson_id, $correct_answer, $total_questions, $step_lesson);
         return json_encode(['correct_answer' => $correct_answer, 'total_questions' => $total_questions]);
     }
 
@@ -44,9 +40,18 @@ class ReadingResultController extends Controller
         $correct_answer = json_decode($correct_answer);
         $list_answer = json_decode($list_answer);
         $readingLessonService = new ReadingLessonService();
+        $readingStatusLearningOfUserService = new ReadingStatusLearningOfUserService();
         $lesson = $readingLessonService->getLessonDetailForClientSolutionById($type_lesson_id, $lesson_id_current);
+        $step_lesson_current = $readingLessonService->getCurrentStepOfLesson($type_lesson_id, $lesson_id_current);
+        if ($type_lesson_id > 2) {
+            $type_question_id_current = 0;
+        }
+        else {
+            $type_question_id_current = $lesson->type_question_id;
+        }
+        $readingStatusLearningOfUserService->checkNextStepLesson($level_lesson_id, $type_lesson_id, $type_question_id_current, $correct_answer, $total_questions, $step_lesson_current);
+
         $title_current_step = $lesson->title;
-        $type_question_id_current = $lesson->type_question_id;
         if ($lesson->typeQuestion->level_lesson_id == $level_lesson_id) {
             return view('client.readingViewResultLesson', compact('lesson_id_current', 'level_lesson_id', 'lesson', 'correct_answer', 'total_questions', 'list_answer', 'title_current_step', 'type_question_id_current', 'type_lesson_id'));
         }

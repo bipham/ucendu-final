@@ -53,11 +53,5 @@ class ReadingResultService
         $this->_readingResultLessonModel->saveReadingResultOfUserId($this->_adminId, $lesson_id, $type_lesson_id, $correct_answer_string, $list_answered_string, $number_correct);
         return $correct_answer;
     }
-
-    public function checkNextStepLesson($type_lesson_id, $lesson_id, $correct_answer, $total_questions, $step_current) {
-        if ($correct_answer >= ($total_questions/2)) {
-//            $this->_readingStatusLearningOfUsergModel->updateNextStep
-        }
-    }
 }
 ?>
