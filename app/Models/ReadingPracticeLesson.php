@@ -55,7 +55,7 @@ class ReadingPracticeLesson extends Model
     }
 
     public function getPracticesByTypeQuestionId($type_question_id) {
-        return $this->where('status',1)->where('type_question_id', $type_question_id)->orderBy('order_lesson','asc')->select('id', 'title', 'level_user_id', 'image_feature', 'order_lesson')->get()->all();
+        return $this->where('status',1)->where('type_question_id', $type_question_id)->orderBy('order_lesson','asc')->select('id', 'title', 'level_user_id', 'image_feature', 'order_lesson', 'total_questions')->get()->all();
     }
 
     public function updateTitlePracticeLesson($lesson_id, $title, $admin_responsibility) {
@@ -124,5 +124,9 @@ class ReadingPracticeLesson extends Model
 
     public function getCurrentStepOfPracticeLesson($lesson_id) {
         return $this->where('id', $lesson_id)->select('order_lesson')->get()->first();
+    }
+
+    public function checkVipPracticeLesson($lesson_id) {
+        return $this->where('id', $lesson_id)->select('level_user_id')->get()->first();
     }
 }

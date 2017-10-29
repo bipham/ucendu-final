@@ -12,6 +12,7 @@ class ReadingLessonService {
     private $_readingMixTestLessonModel;
     private $_readingFullTestLessonModel;
     private $_adminId;
+    private $_levelUser;
 
     public function __construct()
     {
@@ -20,6 +21,7 @@ class ReadingLessonService {
         $this->_readingMixTestLessonModel = new ReadingMixTestLesson();
         $this->_readingFullTestLessonModel = new ReadingFullTestLesson();
         $this->_adminId = Auth::id();
+        $this->_levelUser = Auth::user()->level_user_id;
     }
 
     public function getTheCurrentLessonId($type_lesson_id) {
@@ -302,6 +304,27 @@ class ReadingLessonService {
                 break;
         }
         return $result['order_lesson'];
+    }
+
+    public function checkVipLesson($type_lesson_id, $lesson_id) {
+        switch ($type_lesson_id) {
+            case 1:
+                $level_user_of_lesson = $this->_readingPracticeLessonModel->checkVipPracticeLesson($lesson_id);
+                break;
+            case 2:
+                $level_user_of_lesson = $this->_readingMiniTestLessonModel->getTheCurrentLessonId();
+                break;
+            case 3:
+                $level_user_of_lesson = $this->_readingMixTestLessonModel->getTheCurrentLessonId();
+                break;
+            case 4:
+                $level_user_of_lesson = $this->_readingFullTestLessonModel->getTheCurrentLessonId();
+                break;
+        }
+        if ($level_user_of_lesson['level_user_id'] > $this->_levelUser) {
+            return true;
+        }
+        else return false;
     }
 }
 ?>

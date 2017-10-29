@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Services\ReadingLessonService;
 use App\Services\ReadingResultService;
 use App\Services\ReadingStatusLearningOfUserService;
+use Illuminate\Support\Facades\Auth;
 
 class ReadingResultController extends Controller
 {

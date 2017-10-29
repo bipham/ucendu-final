@@ -16,7 +16,6 @@ class UcenduUserService
 
     public function createNewUser($username, $email, $password, $level_user_id, $avatar, $remember_token)
     {
-//        dd($this->_adminId);
         return $this->_readingUserModel->createNewUser($username, $email, $password, $level_user_id, $avatar, $remember_token, $this->_adminId);
     }
 }

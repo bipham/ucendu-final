@@ -33,4 +33,8 @@ class ReadingResultLesson extends Model
             return 'success';
         }
     }
+
+    public function getHighestScorePracticeLesson($user_id, $type_lesson_id, $lesson_id) {
+        return $this->where('user_id', $user_id)->where('type_lesson_id', $type_lesson_id)->where('lesson_id', $lesson_id)->select('highest_correct', 'correct_answer')->get()->first();
+    }
 }

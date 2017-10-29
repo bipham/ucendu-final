@@ -53,5 +53,9 @@ class ReadingResultService
         $this->_readingResultLessonModel->saveReadingResultOfUserId($this->_adminId, $lesson_id, $type_lesson_id, $correct_answer_string, $list_answered_string, $number_correct);
         return $correct_answer;
     }
+
+    public function getHighestScoreLesson($type_lesson_id, $lesson_id) {
+        return $highest_score = $this->_readingResultLessonModel->getHighestScorePracticeLesson($this->_adminId, $type_lesson_id, $lesson_id);
+    }
 }
 ?>

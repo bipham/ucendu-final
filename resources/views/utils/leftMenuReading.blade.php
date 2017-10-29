@@ -14,6 +14,8 @@
         $readingLessonService = new App\Services\ReadingLessonService();
         $readingLearningTypeQuestionService = new App\Services\ReadingLearningTypeQuestionService();
         $readingLevelLessonService = new App\Services\ReadingLevelLessonService();
+        $readingStatusLearningOfUserService = new App\Services\ReadingStatusLearningOfUserService();
+        $readingResultService = new App\Services\ReadingResultService();
         $all_level_lessons = $readingLevelLessonService->getAllLevelLesson();
         $current_level_lesson = $readingLevelLessonService->getLevelLessonById($level_lesson_id);
         $all_lessons = $readingTypeQuestionService->getAllTypeQuestionById($level_lesson_id);
@@ -83,21 +85,47 @@
                         <ul class="sub-menu sub-level-two collapse @if(config('constants.type_lesson.practice') == $type_lesson_id) show type-current @endif" id="practice-{!! $lesson->id !!}">
                             <?php
                             $all_practices = $readingLessonService->getLessonsByTypeQuestionId(Config('constants.type_lesson.practice'), $lesson->id);
+                            $highest_step = $readingStatusLearningOfUserService->getHighestStepLessonService($current_level_lesson->id, $lesson->id, config('constants.type_lesson.practice'));
                             ?>
                             @foreach($all_practices as $practice)
-                                <li class="@if($practice->id == $lesson_id_current) current-step @endif">
-                                    <span class="pull-left title-lesson-menu">
-                                        <a href="{{url('/reading/' . $level_lesson_id . '-level/readingLesson/' . config('constants.type_lesson.practice') . '-practice/' . $practice->id . '-practice-1')}}">
+                                 <?php
+                                    $check_vip = $readingLessonService->checkVipLesson(config('constants.type_lesson.practice'), $practice->id);
+                                    $highest_score = $readingResultService->getHighestScoreLesson(config('constants.type_lesson.practice'), $practice->id);
+                                 ?>
+                                <li class="item-lesson @if($practice->id == $lesson_id_current) current-step @endif @if($practice->order_lesson > $highest_step) disabled-lesson @endif">
+                                    @if($check_vip)
+                                        <span class="pull-left title-lesson-menu">
                                             {!! $practice->title !!}
-                                        </a>
-                                    </span>
-                                    <span class="pull-right tools-area-menu">
-                                        <a href="{{url('/reading/'. $current_level_lesson->id . '-level/readingViewSolutionLesson/' . config('constants.type_lesson.practice')  . 'practice-' . $practice->id . $practice->title)}}" class="badge badge-success link-solution-lesson">
-                                            <i class="fa fa-key" aria-hidden="true"></i> Solution
-                                        </a>
-                                        <i class="fa fa-pencil icon-head-title-custom" aria-hidden="true"></i>
-                                        <i class="fa fa-leanpub icon-head-title-custom" aria-hidden="true"></i>
-                                    </span>
+                                        </span>
+                                        <span class="pull-right tools-area-menu">
+                                            <a href="#" class="badge badge-pill badge-danger link-upgrade-user">
+                                                VIP
+                                            </a>
+                                        </span>
+                                    @elseif($practice->order_lesson > $highest_step)
+                                        <span class="pull-left title-lesson-menu">
+                                            {!! $practice->title !!}
+                                        </span>
+                                        <span class="pull-right tools-area-menu">
+                                            <i class="fa fa-lock" aria-hidden="true"></i>
+                                        </span>
+                                    @else
+                                        <span class="pull-left title-lesson-menu">
+                                            <a href="{{url('/reading/' . $level_lesson_id . '-level/readingLesson/' . config('constants.type_lesson.practice') . '-practice/' . $practice->id . '-practice-1')}}">
+                                                {!! $practice->title !!}
+                                            </a>
+                                        </span>
+                                        <span class="pull-right tools-area-menu">
+                                            <a href="{{url('/reading/'. $current_level_lesson->id . '-level/readingViewSolutionLesson/' . config('constants.type_lesson.practice')  . 'practice-' . $practice->id . $practice->title)}}" class="badge badge-success link-solution-lesson">
+                                                <i class="fa fa-key" aria-hidden="true"></i> Solution
+                                            </a>
+                                            @if($highest_score == null)
+                                                <i class="fa fa-unlock" aria-hidden="true"></i>
+                                            @else
+                                                <span class="badge badge-primary">{!! $highest_score->highest_correct !!}/{!! $practice->total_questions !!}</span>
+                                            @endif
+                                        </span>
+                                    @endif
                                 </li>
                             @endforeach
                         </ul>
