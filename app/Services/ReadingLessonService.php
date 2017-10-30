@@ -321,7 +321,7 @@ class ReadingLessonService {
                 $level_user_of_lesson = $this->_readingFullTestLessonModel->getTheCurrentLessonId();
                 break;
         }
-        if ($level_user_of_lesson['level_user_id'] > $this->_levelUser) {
+        if ($this->_levelUser != 1 && level_user_of_lesson['level_user_id'] > $this->_levelUser) {
             return true;
         }
         else return false;
