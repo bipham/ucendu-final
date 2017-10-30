@@ -16,6 +16,7 @@ class CreateReadingFullTestLessonsTable extends Migration
         Schema::create('reading_full_test_lessons', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
+            $table->integer('level_lesson_id')->unsigned();
             $table->integer('level_user_id')->unsigned();
             $table->text('content_lesson_first');
             $table->text('content_highlight_first');

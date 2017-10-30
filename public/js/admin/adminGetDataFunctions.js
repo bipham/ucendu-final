@@ -12,9 +12,11 @@ function getAllTypeQuestionByLevelLessonId(less_id) {
         data: { level_lesson_id: level_lesson_id },
         success: function (data) {
             $('#list_type_questions' + lessID).empty();
+            type_question_options = '';
             $.each(data.list_type_questions, function (index, type_question) {
-                $('#list_type_questions' + lessID).append('<option value="' + type_question.id + '">' + type_question.name + '</option>');
-            })
+                type_question_options += '<option value="' + type_question.id + '">' + type_question.name + '</option>';
+            });
+            $('#list_type_questions' + lessID).append(type_question_options);
         },
         error: function (data) {
             bootbox.alert({

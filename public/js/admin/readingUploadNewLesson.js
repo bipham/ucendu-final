@@ -7,9 +7,10 @@ var content_quiz = '';
 var content_answer_quiz = '';
 var limit_time = 0;
 var level_user_id = 0;
+var level_lesson_id = 0;
 var order_lesson = 0;
 var type_question = '';
-var all_ordered_elements = '';
+var type_question_options = '';
 var type_lesson = 1;
 var title_post = '';
 var img_url = '';
@@ -19,9 +20,11 @@ var img_extension = '';
 var listQ = [];
 var listAnswer = {};
 var listKeyword = {};
+var list_type_questions = {};
 var listClassKeyword = {};
 var listAnswer_source = {};
 var listKeyword_source = {};
+var list_type_questions_source = {};
 var type_question_id = '';
 var i = '';
 var idremove = '';
@@ -78,35 +81,50 @@ $( document ).ready(function() {
     content_quiz = CKEDITOR.instances["contentQuiz"].getData();
     $('.btn-next-step-quiz').click(function () {
         title_post = $('input#itemname').val();
-        type_question_id = $('#list_type_questions').val().trim();
-        var ajaxGetAllOrdered = baseUrl + '/getAllOrdered/' + type_lesson_id + '-' + type_question_id;
         var current_order_lesson = 1;
-        $.ajax({
-            type: "GET",
-            url: ajaxGetAllOrdered,
-            dataType: "json",
-            // data: {},
-            success: function (data) {
-                $('#loading').hide();
-                $('.list-ordered').html('');
-                jQuery.each( data.all_orders, function( key_order, order ) {
-                    $('.list-ordered').append('<li>' + order.order_lesson + '</li>');
-                    current_order_lesson = order.order_lesson + 1;
-                });
-                $('#order_lesson').val(current_order_lesson);
-            },
-            error: function (data) {
-                $('#loading').hide();
-                bootbox.alert({
-                    message: "Get ordered fail!",
-                    backdrop: true
-                });
+        level_lesson_id = $('#list_level').val().trim();
+        if (level_lesson_id == 0) {
+            bootbox.alert({
+                message: "Pls select level lesson!",
+                backdrop: true
+            });
+        }
+        else {
+            level_lesson_id = $('#list_level').val().trim();
+            if (type_lesson_id < 3) {
+                type_question_id = $('#list_type_questions').val().trim();
             }
-        });
-        var checkDataStepPost = checkStepPost();
-        if (checkDataStepPost) {
-            $('.step-content-post').addClass('hidden-class');
-            $('.step-content-quiz').removeClass('hidden-class');
+            else {
+                type_question_id = $('#list_level').val().trim();
+            }
+            var ajaxGetAllOrdered = baseUrl + '/getAllOrdered/' + type_lesson_id + '-' + type_question_id;
+            $.ajax({
+                type: "GET",
+                url: ajaxGetAllOrdered,
+                dataType: "json",
+                // data: {},
+                success: function (data) {
+                    $('#loading').hide();
+                    $('.list-ordered').html('');
+                    jQuery.each( data.all_orders, function( key_order, order ) {
+                        $('.list-ordered').append('<li>' + order.order_lesson + '</li>');
+                        current_order_lesson = order.order_lesson + 1;
+                    });
+                    $('#order_lesson').val(current_order_lesson);
+                },
+                error: function (data) {
+                    $('#loading').hide();
+                    bootbox.alert({
+                        message: "Get ordered fail!",
+                        backdrop: true
+                    });
+                }
+            });
+            var checkDataStepPost = checkStepPost();
+            if (checkDataStepPost) {
+                $('.step-content-post').addClass('hidden-class');
+                $('.step-content-quiz').removeClass('hidden-class');
+            }
         }
     });
 
@@ -132,23 +150,47 @@ $( document ).ready(function() {
                         listQ.push(qnumber);
                         var qorder = $(this).attr('name');
                         qorder = qorder.match(/\d+/);
-                        $('.answer-area').append(   '<div class="answer-key answer-enter-' + qnumber + '" data-qnumber="' + qnumber + '">' +
-                            '<h5 class="title-answer-for-question title-custom">Question ' + qorder + ':</h5>' +
-                            '<div class="enter-answer-key row-enter-custom">' +
-                            '<div class="title-row-enter">Answer ' + qorder + ': </div>' +
-                            '<input class="answer-q answer-' + qorder + '" data-qnumber="' + qnumber + '" />' +
-                            '</div>' +
-                            '<div class="enter-keyword row-enter-custom">' +
-                            '<div class="title-row-enter">Explanation ' + qorder + ': </div>' +
-                            '<textarea class="input-keyword keyword-' + qorder + '" data-qnumber="' + qnumber + '"></textarea>' +
-                            '</div>' +
-                            '<div class="remove-highlight-area-' + qorder + '">' +
-                            '</div>' +
-                            '</div>');
+                        if (type_lesson_id < 3) {
+                            $('.answer-area').append(   '<div class="answer-key answer-enter-' + qnumber + '" data-qnumber="' + qnumber + '">' +
+                                '<h5 class="title-answer-for-question title-custom">Question ' + qorder + ':</h5>' +
+                                '<div class="enter-answer-key row-enter-custom">' +
+                                '<div class="title-row-enter">Answer ' + qorder + ': </div>' +
+                                '<input class="answer-q answer-' + qorder + '" data-qnumber="' + qnumber + '" />' +
+                                '</div>' +
+                                '<div class="enter-keyword row-enter-custom">' +
+                                '<div class="title-row-enter">Explanation ' + qorder + ': </div>' +
+                                '<textarea class="input-keyword keyword-' + qorder + '" data-qnumber="' + qnumber + '"></textarea>' +
+                                '</div>' +
+                                '<div class="remove-highlight-area-' + qorder + '">' +
+                                '</div>' +
+                                '</div>');
+                        }
+                        else {
+                            $('.answer-area').append(   '<div class="answer-key answer-enter-' + qnumber + '" data-qnumber="' + qnumber + '">' +
+                                '<h5 class="title-answer-for-question title-custom">Question ' + qorder + ':</h5>' +
+                                '<div class="enter-answer-key row-enter-custom">' +
+                                '<div class="title-row-enter">Answer ' + qorder + ': </div>' +
+                                '<input class="answer-q answer-' + qorder + '" data-qnumber="' + qnumber + '" />' +
+                                '</div>' +
+                                '<div class="enter-keyword row-enter-custom">' +
+                                '<div class="title-row-enter">Explanation ' + qorder + ': </div>' +
+                                '<textarea class="input-keyword keyword-' + qorder + '" data-qnumber="' + qnumber + '"></textarea>' +
+                                '</div>' +
+                                '<div class="enter-type-question row-enter-custom">' +
+                                '<label for="select-type-question-' + qnumber + '" data-qnumber="' + qnumber + '"><strong>Chọn Loai cau hoi</strong></label> ' +
+                                '<select class="form-control single-type-question sl-type-question-' + qorder + '" data-qnumber="' + qnumber + '" name="select-type-question-' + qnumber + '"> ' +
+                                type_question_options +
+                                '</select>' +
+                                '</div>' +
+                                '<div class="remove-highlight-area-' + qorder + '">' +
+                                '</div>' +
+                                '</div>');
+                        }
                     }
                     if (jQuery.inArray(qnumber, listAnswer_source) == -1) {
                         $('input.answer-q[data-qnumber=' + qnumber + ']').val(listAnswer_source[qnumber]);
                         $('textarea.input-keyword[data-qnumber=' + qnumber + ']').val(listKeyword_source[qnumber]);
+                        $('.enter-type-question select[data-qnumber=' + qnumber + ']').val(list_type_questions_source[qnumber]);
                     }
                 });
             }
@@ -258,7 +300,7 @@ $( document ).ready(function() {
             type: "POST",
             url: ajaxUploadFinish,
             dataType: "json",
-            data: { level_user_id: level_user_id, order_lesson: order_lesson, type_question_id: type_question_id, img_url: img_url, img_name_no_ext: img_name_no_ext, img_extension: img_extension, title_post: title_post, list_answer: listAnswer, content_post: content_post, content_highlight: content_highlight, content_quiz: content_quiz, content_answer_quiz: content_answer_quiz, list_type_questions: list_type_questions, listKeyword: listKeyword, limit_time: limit_time },
+            data: { level_lesson_id: level_lesson_id, level_user_id: level_user_id, order_lesson: order_lesson, type_question_id: type_question_id, list_type_questions: list_type_questions, img_url: img_url, img_name_no_ext: img_name_no_ext, img_extension: img_extension, title_post: title_post, list_answer: listAnswer, content_post: content_post, content_highlight: content_highlight, content_quiz: content_quiz, content_answer_quiz: content_answer_quiz, list_type_questions: list_type_questions, listKeyword: listKeyword, limit_time: limit_time },
             success: function (data) {
                 $('#loading').hide();
                 if (data.result == 'fail-order') {

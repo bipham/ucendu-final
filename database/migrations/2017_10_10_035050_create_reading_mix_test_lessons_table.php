@@ -16,6 +16,7 @@ class CreateReadingMixTestLessonsTable extends Migration
         Schema::create('reading_mix_test_lessons', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
+            $table->integer('level_lesson_id')->unsigned();
             $table->integer('level_user_id')->unsigned();
             $table->text('content_lesson');
             $table->text('content_highlight');

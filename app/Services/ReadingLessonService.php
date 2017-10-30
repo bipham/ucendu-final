@@ -48,7 +48,7 @@ class ReadingLessonService {
         return $last_lesson_id;
     }
 
-    public function addNewReadingLesson($type_lesson_id, $title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id, $limit_time) {
+    public function addNewReadingLesson($level_lesson_id, $type_lesson_id, $title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id, $limit_time) {
         switch ($type_lesson_id) {
             case 1:
                 $result = $this->_readingPracticeLessonModel->addNewPracticeLesson($title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id, $this->_adminId);
@@ -57,7 +57,7 @@ class ReadingLessonService {
                 $result = $this->_readingMiniTestLessonModel->addNewMiniTest($title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id, $limit_time, $this->_adminId);
                 break;
             case 3:
-                $result = $this->_readingMixTestLessonModel->addNewReadingLesson();
+                $result = $this->_readingMixTestLessonModel->addNewMixTest($level_lesson_id, $title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $limit_time, $this->_adminId);
                 break;
             case 4:
                 $result = $this->_readingFullTestLessonModel->addNewReadingLesson();
@@ -78,10 +78,10 @@ class ReadingLessonService {
                 $result = $this->_readingPracticeLessonModel->getAllOrderPracticeLessonByTypeQuestionId($type_question_id);
                 break;
             case 2:
-                $result = $this->_readingMiniTestLessonModel->getAllOrderMiniTestTypeQuestionId($type_question_id);
+                $result = $this->_readingMiniTestLessonModel->getAllOrderMiniTestByTypeQuestionId($type_question_id);
                 break;
             case 3:
-                $result = $this->_readingMixTestLessonModel->getTheCurrentLessonId();
+                $result = $this->_readingMixTestLessonModel->getAllOrderMixTestByLevelLessonId($type_question_id);
                 break;
             case 4:
                 $result = $this->_readingFullTestLessonModel->getTheCurrentLessonId();
@@ -321,7 +321,7 @@ class ReadingLessonService {
                 $level_user_of_lesson = $this->_readingFullTestLessonModel->getTheCurrentLessonId();
                 break;
         }
-        if ($this->_levelUser != 1 && level_user_of_lesson['level_user_id'] > $this->_levelUser) {
+        if ($this->_levelUser != 1 && $level_user_of_lesson['level_user_id'] > $this->_levelUser) {
             return true;
         }
         else return false;

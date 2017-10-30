@@ -87,7 +87,21 @@ function checkStepAnswer() {
         }
         listKeyword[qnumber] = keywords_key;
 
-        list_type_questions[qnumber] = type_question_id;
+        var type_question_key = '';
+
+        if (type_lesson_id > 2) {
+            type_question_key = $('.sl-type-question-' + qorder).val();
+        }
+        else {
+            type_question_key = type_question_id;
+        }
+
+        if (type_question_key != null) {
+            list_type_questions[qnumber] = type_question_key;
+        }
+        else {
+            delete list_type_questions[qnumber];
+        }
     });
     if ((listQ.length == Object.keys(listAnswer).length) && (listQ.length  == Object.keys(list_type_questions).length)) {
         return true;
