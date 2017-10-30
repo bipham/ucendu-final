@@ -190,7 +190,7 @@ $( document ).ready(function() {
             $('.preview-edit-lesson').toggleClass('hidden');
             $('.edit-answer').toggleClass('hidden');
             $('#pr-post').html(content_highlight);
-            $('#sandbox-quiz .answer-highlight').addClass('hidden-highlight');
+            $('.answer-highlight').addClass('hidden-highlight');
             $('#pr-quiz').html(content_quiz);
             $('#pr-quiz .last-option').each(function () {
                 var qnumber = $(this).data('qnumber');
@@ -252,7 +252,8 @@ $( document ).ready(function() {
     });
 
     $('.btn-back-edit-answer').click(function () {
-        $('#sandbox-quiz').html(content_highlight);
+        $('.answer-highlight').removeClass('hidden-highlight');
+        $('.answer-highlight').removeClass('highlighting');
         $('.preview-edit-lesson').toggleClass('hidden');
         $('.edit-answer').toggleClass('hidden');
     });

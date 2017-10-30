@@ -14,6 +14,9 @@
             </div>
             <ul class="nav nav-tabs" id="myTabReading" role="tablist">
                 <li class="nav-item">
+                    <a class="nav-link" href="{{url('/createNewUser')}}">New_User</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{url('/createNewLearningTypeQuestion')}}">New_Learning</a>
                 </li>
                 <li class="nav-item">
