@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ChangePasswordRequest;
 use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Services\UcenduUserService;
 
 class UserController extends Controller
 {
@@ -15,10 +13,9 @@ class UserController extends Controller
     }
 
     public function postChangePassword (Request $request) {
-        $userModel = new User();
-//        dd($request);
+        $ucenduUserService = new UcenduUserService();
         $new_password = $request->password;
-        $userModel->changePasswordUser(Auth::id(), $new_password);
+        $ucenduUserService->updateNewPasswordOfUser($new_password);
         return redirect()->intended('/');
     }
 }

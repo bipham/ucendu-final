@@ -45,6 +45,6 @@ class ReadingMixTestLesson extends Model
     }
 
     public function getAllOrderMixTestByLevelLessonId($level_lesson_id) {
-        return $this->where('level_lesson_id', $level_lesson_id)->orderBy('order_lesson','asc')->select('order_lesson')->get()->all();
+        return $this->where('level_lesson_id', $level_lesson_id)->where('status', 1)->orderBy('order_lesson','asc')->select('order_lesson')->get()->all();
     }
 }

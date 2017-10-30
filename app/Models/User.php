@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Model
 {
@@ -38,8 +40,13 @@ class User extends Model
         $new_user->avatar = $avatar;
         $new_user->remember_token = $remember_token;
         $new_user->admin_responsibility = $admin_responsibility;
-        $new_user->activated = 1;
+//        $new_user->activated = 1;
         $new_user->save();
         return true;
+    }
+
+    public function updateNewPasswordOfUser($new_password, $user_id) {
+        $this->where('id', $user_id)->where('status', 1)->update(['password' => Hash::make($new_password), 'activated' => 1, 'updated_at' => Carbon::now()]);
+        return 'success';
     }
 }

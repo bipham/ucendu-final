@@ -18,5 +18,9 @@ class UcenduUserService
     {
         return $this->_readingUserModel->createNewUser($username, $email, $password, $level_user_id, $avatar, $remember_token, $this->_adminId);
     }
+
+    public function updateNewPasswordOfUser($new_password) {
+        return $this->_readingUserModel->updateNewPasswordOfUser($new_password, $this->_adminId);
+    }
 }
 ?>
