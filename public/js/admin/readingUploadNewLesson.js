@@ -9,6 +9,7 @@ var limit_time = 0;
 var level_user_id = 0;
 var level_lesson_id = 0;
 var order_lesson = 0;
+var order_paragraph = 0;
 var type_question = '';
 var type_question_options = '';
 var type_lesson = 1;
@@ -32,7 +33,9 @@ var listHl = [];
 var noti = false;
 var sandbox = document.getElementById('sandbox');
 var boolRemove = false;
-
+var isFinishTest = false;
+var lesson_id = 0;
+var last_lesson_id = $('.upload-new-leson-page').data('last-lesson-id');
 var type_lesson_id = $('.upload-new-leson-page').data('type-lesson-id');
 var ajaxUploadFinish = baseUrl + '/createNewReadingLesson/' + type_lesson_id;
 
@@ -80,7 +83,18 @@ $( document ).ready(function() {
     content_post = CKEDITOR.instances["contentPost"].getData();
     content_quiz = CKEDITOR.instances["contentQuiz"].getData();
     $('.btn-next-step-quiz').click(function () {
-        title_post = $('input#itemname').val();
+        if (type_lesson_id == 4) {
+            lesson_id = $("#list_lesson").val().trim();
+            title_post = $("#list_lesson option:selected").text().trim();
+            if (lesson_id == 0) {
+                bootbox.alert({
+                    message: "Pls create new full test!",
+                    backdrop: true
+                });
+                return false;
+            }
+        }
+        else title_post = $('input#itemname').val();
         var current_order_lesson = 1;
         level_lesson_id = $('#list_level').val().trim();
         if (level_lesson_id == 0) {
@@ -97,29 +111,65 @@ $( document ).ready(function() {
             else {
                 type_question_id = $('#list_level').val().trim();
             }
-            var ajaxGetAllOrdered = baseUrl + '/getAllOrdered/' + type_lesson_id + '-' + type_question_id;
-            $.ajax({
-                type: "GET",
-                url: ajaxGetAllOrdered,
-                dataType: "json",
-                // data: {},
-                success: function (data) {
-                    $('#loading').hide();
-                    $('.list-ordered').html('');
-                    jQuery.each( data.all_orders, function( key_order, order ) {
-                        $('.list-ordered').append('<li>' + order.order_lesson + '</li>');
-                        current_order_lesson = order.order_lesson + 1;
-                    });
-                    $('#order_lesson').val(current_order_lesson);
-                },
-                error: function (data) {
-                    $('#loading').hide();
-                    bootbox.alert({
-                        message: "Get ordered fail!",
-                        backdrop: true
-                    });
-                }
-            });
+            //Get ALl Order Para Full Test:
+            if (type_lesson_id == 4) {
+                var current_order_paragraph = 1;
+                var ajaxGetAllOrderParagraphOfFullTest = baseUrl + '/getAllOrderParagraphOfFullTest/' + lesson_id;
+                $.ajax({
+                    type: "GET",
+                    url: ajaxGetAllOrderParagraphOfFullTest,
+                    dataType: "json",
+                    // data: {},
+                    success: function (data) {
+                        $('#loading').hide();
+                        $('.list-ordered-paragraph').html('');
+                        isFinishTest = false;
+                        if (data.all_paragraph_orders.length >= 3) {
+                            isFinishTest = true;
+                        }
+                        else {
+                            jQuery.each( data.all_paragraph_orders, function( key_order_paragraph, order_paragraph ) {
+                                $('.list-ordered-paragraph').append('<li>' + order_paragraph.order_paragraph + '</li>');
+                                current_order_paragraph = order_paragraph.order_paragraph + 1;
+                            });
+                            $('#order_paragraph').val(current_order_paragraph);
+                        }
+                    },
+                    error: function (data) {
+                        $('#loading').hide();
+                        bootbox.alert({
+                            message: "Get ordered paragraph fail!",
+                            backdrop: true
+                        });
+                    }
+                });
+            }
+            else {
+                var ajaxGetAllOrdered = baseUrl + '/getAllOrdered/' + type_lesson_id + '-' + type_question_id;
+                $.ajax({
+                    type: "GET",
+                    url: ajaxGetAllOrdered,
+                    dataType: "json",
+                    // data: {},
+                    success: function (data) {
+                        $('#loading').hide();
+                        $('.list-ordered').html('');
+                        jQuery.each( data.all_orders, function( key_order, order ) {
+                            $('.list-ordered').append('<li>' + order.order_lesson + '</li>');
+                            current_order_lesson = order.order_lesson + 1;
+                        });
+                        $('#order_lesson').val(current_order_lesson);
+                    },
+                    error: function (data) {
+                        $('#loading').hide();
+                        bootbox.alert({
+                            message: "Get ordered fail!",
+                            backdrop: true
+                        });
+                    }
+                });
+            }
+
             var checkDataStepPost = checkStepPost();
             if (checkDataStepPost) {
                 $('.step-content-post').addClass('hidden-class');
@@ -137,6 +187,9 @@ $( document ).ready(function() {
         level_user_id = $('#list_level_users').val().trim();
         order_lesson = $('#order_lesson').val().trim();
         limit_time = $('#limit_time').val().trim();
+        if (type_lesson_id == 4) {
+            order_paragraph = $('#order_paragraph').val().trim();
+        }
         var checkDataStepQuiz = checkStepQuiz(level_user_id, order_lesson);
         if (checkDataStepQuiz) {
             if ((content_quiz != CKEDITOR.instances["contentQuiz"].getData()) || (type_lesson != $('#typeLesson').val()) ) {
@@ -300,14 +353,22 @@ $( document ).ready(function() {
             type: "POST",
             url: ajaxUploadFinish,
             dataType: "json",
-            data: { level_lesson_id: level_lesson_id, level_user_id: level_user_id, order_lesson: order_lesson, type_question_id: type_question_id, list_type_questions: list_type_questions, img_url: img_url, img_name_no_ext: img_name_no_ext, img_extension: img_extension, title_post: title_post, list_answer: listAnswer, content_post: content_post, content_highlight: content_highlight, content_quiz: content_quiz, content_answer_quiz: content_answer_quiz, list_type_questions: list_type_questions, listKeyword: listKeyword, limit_time: limit_time },
+            data: { lesson_id: lesson_id, order_paragraph: order_paragraph, level_lesson_id: level_lesson_id, level_user_id: level_user_id, order_lesson: order_lesson, type_question_id: type_question_id, img_url: img_url, img_name_no_ext: img_name_no_ext, img_extension: img_extension, title_post: title_post, list_answer: listAnswer, content_post: content_post, content_highlight: content_highlight, content_quiz: content_quiz, content_answer_quiz: content_answer_quiz, list_type_questions: list_type_questions, listKeyword: listKeyword, limit_time: limit_time },
             success: function (data) {
                 $('#loading').hide();
                 if (data.result == 'fail-order') {
-                    bootbox.alert({
-                        message: 'Order lesson is not available!',
-                        backdrop: true
-                    });
+                    if (type_lesson_id == 4) {
+                        bootbox.alert({
+                            message: 'Order paragraph is not available!',
+                            backdrop: true
+                        });
+                    }
+                    else {
+                        bootbox.alert({
+                            message: 'Order lesson is not available!',
+                            backdrop: true
+                        });
+                    }
                 }
                 else {
                     bootbox.alert({

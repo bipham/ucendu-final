@@ -38,6 +38,9 @@
                     <a class="nav-link" href="{{url('/createNewReadingLesson/3mixTest')}}">New_mix_test</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{url('/createNewReadingLesson/4fullTest')}}">New_full_test</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{url('/managerReadingLesson')}}">Manager_lesson</a>
                 </li>
             </ul>

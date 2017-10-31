@@ -36,6 +36,11 @@ Route::get('markAllNotificationAsRead',['as'=>'markAllNotificationAsRead','uses'
  *********************************************************/
 
 Route::group(['domain' => 'admin.{nameDomain}', 'middleware' => ['adminAuth']], function () {
+    //************ For Full Test ***************
+    Route::get('getListFullTestLessonUploaded/{level_lesson_id}', ['as' => 'getListFullTestLessonUploaded', 'uses' => 'Admin\ReadingFullTestController@getListFullTestLessonUploaded']);
+    Route::get('getAllOrderParagraphOfFullTest/{full_test_id}', ['as' => 'getAllOrderParagraphOfFullTest', 'uses' => 'Admin\ReadingFullTestController@getAllOrderParagraphOfFullTest']);
+    Route::get('createNewFullTest', ['as' => 'createNewFullTest', 'uses' => 'Admin\ReadingFullTestController@createNewFullTest']);
+
     //************ For Reading Lesson *************
     Route::get('createNewReadingLesson/{type_lesson_id}',['as'=>'getCreateNewReadingLesson','uses'=>'Admin\ReadingLessonController@getCreateNewReadingLesson']);
     Route::post('createNewReadingLesson/{type_lesson_id}',['as'=>'postCreateNewReadingLesson','uses'=>'Admin\ReadingLessonController@postCreateNewReadingLesson']);

@@ -24,6 +24,7 @@ class ReadingLessonController extends Controller
         $readingQuestionLessonServicee = new ReadingQuestionLessonService();
         $last_question_custom_id = $readingQuestionLessonServicee->getTheLastQuestionCustomId();
         $readingLevelUserService = new ReadingLevelUserService();
+        $readingLessonService = new ReadingLessonService();
         $all_level_users = $readingLevelUserService->getAllLevelUser();
         $type_lesson_id = getIdFromLink($type_lesson_id);
         switch ($type_lesson_id) {
@@ -37,6 +38,8 @@ class ReadingLessonController extends Controller
                 return view('admin.readingUploadNewMixTest', compact('type_lesson_id', 'last_question_custom_id', 'all_level_lessons', 'all_level_users'));
                 break;
             case 4:
+                $last_lesson_id = $readingLessonService->getTheLastLessonId($type_lesson_id);
+                return view('admin.readingUploadNewFullTest', compact('last_lesson_id', 'type_lesson_id', 'last_question_custom_id', 'all_level_lessons', 'all_level_users'));
                 break;
         }
     }
@@ -60,6 +63,8 @@ class ReadingLessonController extends Controller
         $title = $_POST['title_post'];
         $type_question_id = $_POST['type_question_id'];
         $level_user_id = $_POST['level_user_id'];
+        $lesson_id_create = $_POST['lesson_id'];
+        $order_paragraph = $_POST['order_paragraph'];
         $level_lesson_id = $_POST['level_lesson_id'];
         $order_lesson = $_POST['order_lesson'];
         $listKeyword = $_POST['listKeyword'];
@@ -67,7 +72,7 @@ class ReadingLessonController extends Controller
         $limit_time = $_POST['limit_time'];
         $total_questions = sizeof($list_answer);
         $readingLessonService = new ReadingLessonService();
-        $current_lesson_id = $readingLessonService->getTheCurrentLessonId($type_lesson_id);
+        $current_lesson_id = $readingLessonService->getTheLastLessonId($type_lesson_id);
         //Function save img:
         if ($img_name_no_ext != '') {
             $readingImageService = new ReadingImageService();
@@ -75,7 +80,7 @@ class ReadingLessonController extends Controller
         }
 
         //Save Lesson to DB:
-        $lesson_id = $readingLessonService->addNewReadingLesson($level_lesson_id, $type_lesson_id, $title, $level_user_id, $content_lesson, $content_highlight, $image_feature = null, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id, $limit_time);
+        $lesson_id = $readingLessonService->addNewReadingLesson($level_lesson_id, $lesson_id_create, $order_paragraph, $type_lesson_id, $title, $level_user_id, $content_lesson, $content_highlight, $image_feature = null, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id, $limit_time);
 
         //Save questions - answers:
         if ($lesson_id != 'fail-order') {

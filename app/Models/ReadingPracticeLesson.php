@@ -23,8 +23,8 @@ class ReadingPracticeLesson extends Model
         return $this->belongsTo('App\Models\ReadingLevelUser', 'level_user_id');
     }
 
-    public function getTheCurrentLessonId() {
-        return $this->orderBy('id', 'desc')->first();
+    public function getTheLastLessonId() {
+        return $this->select('id')->orderBy('id', 'desc')->first();
     }
 
     public function addNewPracticeLesson($title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $type_question_id, $admin_responsibility) {
@@ -89,7 +89,7 @@ class ReadingPracticeLesson extends Model
     }
 
     public function updateBasicInfoPracticeLesson($lesson_id, $type_question_id, $order_lesson, $admin_responsibility) {
-        if ($this->where('type_question_id', $type_question_id)->where('order_lesson', $order_lesson)->exists()) {
+        if ($this->where('type_question_id', $type_question_id)->where('order_lesson', $order_lesson)->where('status', 1)->exists()) {
             return 'order-fail';
         }
         else {

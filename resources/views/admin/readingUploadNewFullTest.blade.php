@@ -3,12 +3,20 @@
  * Created by PhpStorm.
  * User: nobikun1412
  * Date: 10/30/2017
+ * Time: 11:23 AM
+ */
+?>
+<?php
+/**
+ * Created by PhpStorm.
+ * User: nobikun1412
+ * Date: 10/30/2017
  * Time: 8:07 AM
  */
 ?>
 @extends('layout.masterNoMenuAdmin')
 @section('meta-title')
-    Upload new mix test!
+    Upload new full test!
 @endsection
 @section('css')
     <link rel="stylesheet" href="{{asset('public/css/admin/readingUploadNewLesson.css')}}">
@@ -16,7 +24,7 @@
     <script src="/public/libs/ckeditor/ckeditor.js"></script>
 @endsection
 @section('content')
-    <div class="container upload-page-custom upload-new-leson-page container-page-custom" data-idquestion="{!! $last_question_custom_id !!}" data-type-lesson-id="{!! $type_lesson_id !!}">
+    <div class="container upload-page-custom upload-new-leson-page container-page-custom" data-idquestion="{!! $last_question_custom_id !!}" data-type-lesson-id="{!! $type_lesson_id !!}" data-last-lesson-id="{!! $last_lesson_id !!}">
         <input type="hidden" name="_token" value="{!!csrf_token()!!}">
         <div class="row step-content-post">
             <div class="card content-post-area card-step-area">
@@ -31,7 +39,7 @@
                             <label for="list_level">
                                 Chon level lesson!
                             </label>
-                            <select class="form-control" id="list_level" name="list_level" onchange="getAllTypeQuestionByLevelLessonId()">
+                            <select class="form-control" id="list_level" name="list_level" onchange="getAllTypeQuestionFullTestByLevelLessonId()">
                                 <option value="0">Select level</option>
                                 @foreach($all_level_lessons as $level_lesson)
                                     <option value="{!! $level_lesson->id !!}">{!! $level_lesson->level !!}</option>
@@ -39,10 +47,79 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="itemname">
-                                Tên Bài Viết
+                            <label for="list_lesson">
+                                select lesson!
                             </label>
-                            <input type="text" name="itemname" class="form-control" placeholder="Điền vào đây" required id="itemname">
+                            <select class="form-control" id="list_lesson" name="list_lesson">
+                                <option value="0">Select level</option>
+                            </select>
+                        </div>
+                        <div class="form-group create-new-full-test">
+                            <label for="create_new_full_test">
+                                Hoặc tạo mới test!
+                            </label>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary btn-tool-vocabulary btn-create-new-title-full-test btn-custom" data-toggle="modal" data-target="#readingCreateNewTitleFullTest">
+                                Create New
+                                <i class="fa fa-info icon-tool-vocabulary" aria-hidden="true"></i>
+                            </button>
+                            <div class="modal fade" id="readingCreateNewTitleFullTest" tabindex="-1" role="dialog" aria-labelledby="readingCreateNewTitleFullTestLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">
+                                                Create New Full Test
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="new_title_full_test">
+                                                    Name Full Test
+                                                </label>
+                                                <input type="text" class="form-control" placeholder="Name Full Test" id="new_title_full_test" name="new_title_full_test" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="list_level_users">
+                                                    Chon Level User
+                                                </label>
+                                                <select class="form-control" id="list_level_users" name="list_level_users" >
+                                                    @foreach($all_level_users as $level_user)
+                                                        @if($level_user->id > 1)
+                                                            <option value="{!! $level_user->id !!}">{!! $level_user->level !!}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="show-order">
+                                                    <div class="title-list-order">List ordered</div>
+                                                    <ul class="list-ordered">
+                                                    </ul>
+                                                </div>
+                                                <label for="order_lesson">
+                                                    Step section
+                                                </label>
+                                                <input type="number" class="form-control" min="1" value="" placeholder="Order 0" id="order_lesson" name="order_lesson" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="limit_time">
+                                                    Limit Time!
+                                                </label>
+                                                <input type="number" name="limit_time" class="form-control" required id="limit_time" value="60">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-warning btn-finish-new-title-title-full-test" onclick="createNewFullTest()">
+                                                Create
+                                            </button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group form-upload-img-custom">
                             <label>Hình Đại Diện</label>
@@ -80,34 +157,16 @@
                 </div>
                 <div class="card-block">
                     <div class="form-group">
-                        <label for="list_level_users">
-                            Chon Level User
-                        </label>
-                        <select class="form-control" id="list_level_users" name="list_level_users" >
-                            @foreach($all_level_users as $level_user)
-                                @if($level_user->id > 1)
-                                    <option value="{!! $level_user->id !!}">{!! $level_user->level !!}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <div class="show-order">
-                            <div class="title-list-order">List ordered</div>
-                            <ul class="list-ordered">
+                        <div class="show-order-paragraph">
+                            <div class="title-list-order-paragraph">List ordered paragraph</div>
+                            <ul class="list-ordered-paragraph">
 
                             </ul>
                         </div>
-                        <label for="order_lesson">
-                            Step section
+                        <label for="order_paragraph">
+                            Order paragraph
                         </label>
-                        <input type="number" class="form-control" min="1" value="" placeholder="Order 0" id="order_lesson" name="order_lesson" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="limit_time">
-                            Limit Time!
-                        </label>
-                        <input type="number" name="limit_time" class="form-control" required id="limit_time" value="0">
+                        <input type="number" class="form-control" min="1" value="" max="3" placeholder="Order 0" id="order_paragraph" name="order_paragraph" required>
                     </div>
                     <div class="form-group">
                         <label for="content">
@@ -220,4 +279,3 @@
     <script src="{{asset('public/js/admin/readingUploadNewLesson.js')}}"></script>
     <script src="{{asset('public/js/client/readingSolutionDetail.js')}}"></script>
 @endsection
-

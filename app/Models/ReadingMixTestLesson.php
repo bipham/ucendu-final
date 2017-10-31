@@ -17,8 +17,8 @@ class ReadingMixTestLesson extends Model
         return $this->belongsTo('App\Models\ReadingLevelUser', 'level_user_id');
     }
 
-    public function getTheCurrentLessonId() {
-        return $this->orderBy('id', 'desc')->first();
+    public function getTheLastLessonId() {
+        return $this->select('id')->orderBy('id', 'desc')->first();
     }
 
     public function addNewMixTest($level_lesson_id, $title, $level_user_id, $content_lesson, $content_highlight, $image_feature, $content_quiz, $content_answer_quiz, $total_questions, $order_lesson, $limit_time, $admin_responsibility) {

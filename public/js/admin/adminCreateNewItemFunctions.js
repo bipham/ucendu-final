@@ -9,6 +9,13 @@ function checkStepPost() {
         });
         return false;
     }
+    else if (isFinishTest) {
+        bootbox.alert({
+            message: "This test was finished with 3 paragraphs, pls choose another test!",
+            backdrop: true
+        });
+        return false;
+    }
     // else if (img_name == '') {
     //     bootbox.alert({
     //         message: "Please select image feature!",
@@ -27,6 +34,15 @@ function checkStepPost() {
 }
 
 function checkStepQuiz() {
+    if (type_lesson_id == 4) {
+        if (order_paragraph > 3 || order_paragraph < 1) {
+            bootbox.alert({
+                message: "Please enter the order paragraph from 1 to 3!",
+                backdrop: true
+            });
+            return false;
+        }
+    }
     if (CKEDITOR.instances["contentQuiz"].getData() == '') {
         bootbox.alert({
             message: "Please enter the content of quiz!",
