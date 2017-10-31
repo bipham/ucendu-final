@@ -117,9 +117,10 @@ Route::group(['domain'=>'{nameDomain}', 'middleware' => ['clientAuth']], functio
     Route::get('/', function () {
         return view('client.welcome');
     });
-
+    //********** For Reading Solution *************
     Route::get('showComments/{question_id_custom}',['as'=>'showComments','uses'=>'Client\CommentQuestionController@getComments']);
-    Route::get('showKeywords/{question_id_custom}',['as'=>'showKeywords','uses'=>'Client\CommentQuestionController@getKeywords']);
+
+    Route::get('showExplanation/{question_id_custom}',['as'=>'showExplanation','uses'=>'Client\ReadingResultController@getExplanation']);
 
     Route::get('vocabularyReading',['as'=>'vocabularyReading','uses'=>'Client\ReadingVocabularyController@getVocabularyReading']);
 

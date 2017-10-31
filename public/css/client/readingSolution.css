@@ -410,6 +410,9 @@ input.reply-sub-cmt {
     top: 0;
     right: -500px;
     height: calc(100vh - 50px);
+    border: 2px solid #292b2c;
+    border-radius: 10px;
+    float: right;
 }
 
 .transform-right-custom-active {
@@ -420,4 +423,30 @@ input.reply-sub-cmt {
 .transform-scale-width-custom-active {
     float: left;
     width: calc(100% - 400px);
+}
+
+.header-area {
+    background: #5cb85c;
+    padding: 10px;
+}
+
+.explanation-detail {
+    padding: 10px;
+}
+
+.explanation-area {
+    margin-bottom: 20px;
+}
+
+.title-explanation {
+    display: inline-block;
+    text-align: center;
+    width: 330px;
+    color: white;
+    font-size: 16px;
+}
+
+.close-explanation {
+    font-size: 25px;
+    cursor: pointer;
 }

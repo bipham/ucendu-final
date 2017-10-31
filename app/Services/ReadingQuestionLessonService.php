@@ -28,5 +28,10 @@ class ReadingQuestionLessonService {
     public function deleteQuestionLesson($type_lesson_id, $lesson_id, $question_custom_id) {
         return $this->_readingQuestionLessonModel->deleteQuestionLesson($type_lesson_id, $lesson_id, $question_custom_id);
     }
+
+    public function getExplanation($question_custom_id) {
+        $explanation = $this->_readingQuestionLessonModel->getExplanation($question_custom_id);
+        return $explanation['keyword'];
+    }
 }
 ?>

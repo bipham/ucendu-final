@@ -56,4 +56,8 @@ class ReadingQuestionLesson extends Model
     public function getAnswerExtractlyOfQuestion($question_custom_id) {
         return $this->where('question_custom_id', $question_custom_id)->select('answer')->get()->first();
     }
+
+    public function getExplanation($question_custom_id) {
+        return $this->where('question_custom_id', $question_custom_id)->select('keyword')->get()->first();
+    }
 }

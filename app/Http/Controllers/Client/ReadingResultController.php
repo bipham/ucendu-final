@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Models\ReadingPracticeLesson;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\ReadingLessonService;
 use App\Services\ReadingResultService;
 use App\Services\ReadingStatusLearningOfUserService;
-use Illuminate\Support\Facades\Auth;
+use App\Services\ReadingQuestionLessonService;
 
 class ReadingResultController extends Controller
 {
@@ -76,5 +75,11 @@ class ReadingResultController extends Controller
         else {
             return abort(404);
         }
+    }
+
+    public function getExplanation($domain, $question_custom_id) {
+        $readingQuestionLessonService = new ReadingQuestionLessonService();
+        $explanation = $readingQuestionLessonService->getExplanation($question_custom_id);
+        return json_encode(['explanation' => $explanation]);
     }
 }
