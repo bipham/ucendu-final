@@ -31,7 +31,7 @@
         ?>
         <tr class="item_row item-lesson-{!! $lesson->id !!}">
             {{--<td><input type="checkbox" name="item-lesson" value="{!! $lesson->id !!}"></td>--}}
-            <td>{!! $key + 1 !!}</td>
+            <td>{!! $lesson->id !!}</td>
             <td>
                 @include('components.modals.editTitleLessonModal', ['$lesson' => $lesson, 'type_lesson_id' => $type_lesson_id])
             </td>
