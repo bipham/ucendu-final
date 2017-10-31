@@ -55,12 +55,15 @@ function timeago($date) {
         $diff = round($diff);
 
         if ($diff > 24) {
-//            return gmdate("d M Y H:i:s", $date);
             return date("d M Y",$timestamp);
-//            return $currentTime;
         }
         return $diff . " " . $strTime[$i] . " trước";
     }
+}
+
+function timeFormat($date) {
+    $timestamp = strtotime($date);
+    return date("d M Y",$timestamp);
 }
 
 function compressImage ($source_url, $destination_url, $quality = 75) {

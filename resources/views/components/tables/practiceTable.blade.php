@@ -9,8 +9,8 @@
 <table id="reading-list-lesson" class="table datatable display manager-lesson-table">
     <thead>
     <tr>
-        {{--<th><label><input class="select-all-lessons" name="all-lessons" type="checkbox" value="all"> Chọn</label></th>--}}
-        <th>STT </th>
+        <th><label><input class="select-all-lessons" name="all-lessons" type="checkbox" value="all"></label></th>
+        <th>ID </th>
         <th>Title </th>
         <th>Type question </th>
         <th>Level lesson </th>
@@ -28,9 +28,10 @@
         $readingLessonService = new App\Services\ReadingLessonService();
         $all_type_questions = $lesson->typeQuestion->levelLesson->typeQuestions()->get();
         $all_orders = $readingLessonService->getAllOrderLessonByTypeQuestionId($type_lesson_id, $lesson->typeQuestion->id);
+        $created_at = timeFormat($lesson->created_at);
         ?>
         <tr class="item_row item-lesson-{!! $lesson->id !!}">
-            {{--<td><input type="checkbox" name="item-lesson" value="{!! $lesson->id !!}"></td>--}}
+            <td><input type="checkbox" name="item-lesson" value="{!! $lesson->id !!}"></td>
             <td>{!! $lesson->id !!}</td>
             <td>
                 @include('components.modals.editTitleLessonModal', ['$lesson' => $lesson, 'type_lesson_id' => $type_lesson_id])
@@ -48,7 +49,7 @@
                 @include('components.modals.editLevelUserLessonModal', ['$lesson' => $lesson, 'all_level_users' => $all_level_users, 'type_lesson_id' => $type_lesson_id])
             </td>
             <td>
-                {!! $lesson->created_at !!}
+                {!! $created_at !!}
             </td>
             <td>
                 {!! $lesson->User->username !!}
