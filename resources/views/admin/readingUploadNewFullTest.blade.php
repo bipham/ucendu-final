@@ -30,7 +30,7 @@
             <div class="card content-post-area card-step-area">
                 <div class="card-header">
                     <h3 class="text-left">
-                        INPUT CONTENT - Mix Test
+                        INPUT CONTENT - FULL Test
                     </h3>
                 </div>
                 <div class="card-block">

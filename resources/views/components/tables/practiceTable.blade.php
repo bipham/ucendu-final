@@ -9,7 +9,7 @@
 <table id="reading-list-lesson" class="table datatable display manager-lesson-table">
     <thead>
     <tr>
-        <th><label><input class="select-all-lessons" name="all-lessons" type="checkbox" value="all"> Chọn</label></th>
+        {{--<th><label><input class="select-all-lessons" name="all-lessons" type="checkbox" value="all"> Chọn</label></th>--}}
         <th>STT </th>
         <th>Title </th>
         <th>Type question </th>
@@ -17,6 +17,7 @@
         <th>Order lesson </th>
         <th>Level user </th>
         <th>Created At </th>
+        <th>Admin </th>
         <th>Action </th>
     </tr>
     </thead>
@@ -29,7 +30,7 @@
         $all_orders = $readingLessonService->getAllOrderLessonByTypeQuestionId($type_lesson_id, $lesson->typeQuestion->id);
         ?>
         <tr class="item_row item-lesson-{!! $lesson->id !!}">
-            <td><input type="checkbox" name="item-lesson" value="{!! $lesson->id !!}"></td>
+            {{--<td><input type="checkbox" name="item-lesson" value="{!! $lesson->id !!}"></td>--}}
             <td>{!! $key + 1 !!}</td>
             <td>
                 @include('components.modals.editTitleLessonModal', ['$lesson' => $lesson, 'type_lesson_id' => $type_lesson_id])
@@ -48,6 +49,9 @@
             </td>
             <td>
                 {!! $lesson->created_at !!}
+            </td>
+            <td>
+                {!! $lesson->User->username !!}
             </td>
             <td>
                 <a href="{{url('editPracticeLessonReading/' . $lesson->id)}}">

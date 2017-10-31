@@ -1099,7 +1099,6 @@ Action Center User
 	border: 2px solid green;
 	border-radius: 10px;
 	position: relative;
-    /*text-align: justify;*/
 }
 
 .item-notification.no-read {
@@ -1438,4 +1437,12 @@ header#header-client-reading {
 
 .cke_button_disabled .cke_button_label{
 	color: #cccc;
+}
+
+.transform-custom {
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	-ms-transition: all 1s ease;
+	transition: all 1s ease;
 }

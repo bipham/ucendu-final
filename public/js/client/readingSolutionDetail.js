@@ -21,7 +21,7 @@ console.log('comment_id_noti ' + comment_id_noti);
 var mainUrl_tmp = baseUrl.substring(7);
 var adminBaseUrl = 'http://admin.' + mainUrl_tmp;
 
-$(document).on("keypress","input.reply-cmt",enterComment);
+// $(document).on("keypress","input.reply-cmt",enterComment);
 
 $(document).ready(function() {
     jQuery(function(){
@@ -30,4 +30,13 @@ $(document).ready(function() {
             $('#commentArea-' + question_id_noti).collapse();
         }
     });
+
+    $('.btn-show-explanation').click(function () {
+
+    });
 });
+
+function showExplanation(qnumber,qorder) {
+    $('.explanation-column').addClass('transform-right-custom-active') ;
+    $('.solution-detail').addClass('transform-scale-width-custom-active') ;
+}

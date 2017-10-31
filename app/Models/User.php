@@ -31,6 +31,11 @@ class User extends Model
         'password', 'remember_token',
     ];
 
+    public function practiceLessons()
+    {
+        return $this->hasMany('App\Models\ReadingPracticeLesson', 'admin_responsibility');
+    }
+
     public function createNewUser($username, $email, $password, $level_user_id, $avatar, $remember_token, $admin_responsibility) {
         $new_user = new User();
         $new_user->username = $username;

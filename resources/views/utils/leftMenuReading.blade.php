@@ -7,7 +7,7 @@
  */
 ?>
 
-<div class="nav-left-menu transform-left-custom">
+<div class="nav-left-menu transform-custom">
     <div class="menu-list">
         <?php
         $readingTypeQuestionService = new App\Services\ReadingTypeQuestionService();

@@ -205,7 +205,7 @@ $( document ).ready(function() {
                                 '</div>' +
                             '</button>' +
                             '<div class="explain-show' + '" id="explain-' + qnumber +'"> ' +
-                                '<button type="button" class="btn btn-primary btn-show-explanation show-explanation-' + qnumber + '" data-qnumber="' + qnumber + '" data-qorder="' + qorder + '" data-type-question="' + list_type_questions[qnumber] + '">' +
+                                '<button type="button" class="btn btn-primary btn-show-explanation show-explanation-' + qnumber + '" data-qnumber="' + qnumber + '" data-qorder="' + qorder + '" data-type-question="' + list_type_questions[qnumber] + '" onclick="showExplanation(' + qnumber + ',' + qorder + ')">' +
                                     '<i class="fa fa-key" aria-hidden="true"></i>' +
                                     ' Explanation' +
                                 '</button>' +

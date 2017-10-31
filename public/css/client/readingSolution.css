@@ -401,3 +401,23 @@ input.reply-sub-cmt {
 .time-out-current-cmt {
     background: rgba(233, 235, 238, 0.25);
 }
+
+.explanation-column {
+    width: 400px;
+    background: #ffff;
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    right: -500px;
+    height: calc(100vh - 50px);
+}
+
+.transform-right-custom-active {
+    position: relative;
+    right: 0;
+}
+
+.transform-scale-width-custom-active {
+    float: left;
+    width: calc(100% - 400px);
+}

@@ -30,7 +30,7 @@
         <h4 class="title-solution-detail-section">
             Solution Detail
         </h4>
-        <div class="solution-detail panel-container">
+        <div class="solution-detail panel-container transform-custom">
             <div class="left-panel-custom panel-left panel-top" id="lesson-highlight-area" data-lessonid="{!! $lesson->id !!}">
                 {!! $lesson->content_highlight !!}
             </div>

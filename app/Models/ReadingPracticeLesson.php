@@ -23,6 +23,11 @@ class ReadingPracticeLesson extends Model
         return $this->belongsTo('App\Models\ReadingLevelUser', 'level_user_id');
     }
 
+    public function User()
+    {
+        return $this->belongsTo('App\Models\User', 'admin_responsibility');
+    }
+
     public function getTheLastLessonId() {
         return $this->select('id')->orderBy('id', 'desc')->first();
     }
@@ -51,7 +56,7 @@ class ReadingPracticeLesson extends Model
     }
 
     public function getAllPracticeLesson() {
-        return $this->where('status',1)->orderBy('updated_at','desc')->select('id', 'title', 'level_user_id', 'image_feature', 'order_lesson', 'type_question_id', 'created_at')->get()->all();
+        return $this->where('status',1)->orderBy('updated_at','desc')->select('id', 'title', 'level_user_id', 'image_feature', 'order_lesson', 'type_question_id', 'created_at', 'admin_responsibility')->get()->all();
     }
 
     public function getPracticesByTypeQuestionId($type_question_id) {
