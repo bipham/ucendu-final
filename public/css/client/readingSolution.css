@@ -402,7 +402,7 @@ input.reply-sub-cmt {
 
 .explanation-column {
     width: 400px;
-    background: #ffff;
+    background: #fff;
     overflow: auto;
     position: fixed;
     top: 0;
