@@ -20,45 +20,45 @@ gulp.task('first-task', function(){
 
 // Compile Our CSS
 gulp.task('css-both', function () {
-    return gulp.src('resources/assets/dev/css/*.css')
+    return gulp.src('public/storage/css/*.css')
         .pipe(minifyCss())
         .pipe(gulp.dest('public/css/'));
 });
 
 gulp.task('css-admin', function () {
-    return gulp.src('resources/assets/dev/css/admin/*.css')
+    return gulp.src('public/storage/css/admin/*.css')
         .pipe(minifyCss())
         .pipe(gulp.dest('public/css/admin/'));
 });
 
 gulp.task('css-client', function () {
-    return gulp.src('resources/assets/dev/css/client/*.css')
+    return gulp.src('public/storage/css/client/*.css')
         .pipe(minifyCss())
         .pipe(gulp.dest('public/css/client/'));
 });
 
 // Compile Our JS
 gulp.task('js-both', function () {
-    return gulp.src('resources/assets/dev/js/*.js')
+    return gulp.src('public/storage/js/*.js')
         .pipe(uglify())
         .pipe(gulp.dest('public/js/'));
 });
 
 gulp.task('js-admin', function () {
-    return gulp.src('resources/assets/dev/js/admin/*.js')
+    return gulp.src('public/storage/js/admin/*.js')
         .pipe(uglify())
         .pipe(gulp.dest('public/js/admin/'));
 });
 
 gulp.task('js-client', function () {
-    return gulp.src('resources/assets/dev/js/client/*.js')
+    return gulp.src('public/storage/js/client/*.js')
         .pipe(uglify())
         .pipe(gulp.dest('public/js/client/'));
 });
 
 //Compress img:
 gulp.task('images-bg-header', function(){
-    return gulp.src('resources/assets/dev/imgs/background-header/*.+(png|jpg|jpeg|gif|svg)')
+    return gulp.src('public/storage/imgs/background-header/*.+(png|jpg|jpeg|gif|svg)')
         .pipe(imagemin([
             imagemin.gifsicle({interlaced: true}),
             imagemin.jpegtran({progressive: true}),
@@ -74,7 +74,7 @@ gulp.task('images-bg-header', function(){
 });
 
 gulp.task('images-banner-page', function(){
-    return gulp.src('resources/assets/dev/imgs/banner-page/*.+(png|jpg|jpeg|gif|svg)')
+    return gulp.src('public/storage/imgs/banner-page/*.+(png|jpg|jpeg|gif|svg)')
         .pipe(imagemin([
             imagemin.gifsicle({interlaced: true}),
             imagemin.jpegtran({progressive: true}),
@@ -90,7 +90,7 @@ gulp.task('images-banner-page', function(){
 });
 
 gulp.task('images-original', function(){
-    return gulp.src('resources/assets/dev/imgs/original/*.+(png|jpg|jpeg|gif|svg)')
+    return gulp.src('public/storage/imgs/original/*.+(png|jpg|jpeg|gif|svg)')
         .pipe(imagemin([
             imagemin.gifsicle({interlaced: true}),
             imagemin.jpegtran({progressive: true}),
@@ -107,24 +107,24 @@ gulp.task('images-original', function(){
 
 //Watch:
 gulp.task('watch', function() {
-    gulp.watch('resources/assets/dev/css/*.css', ['css-both']);
-    gulp.watch('resources/assets/dev/css/admin/*.css', ['css-admin']);
-    gulp.watch('resources/assets/dev/css/client/*.css', ['css-client']);
-    gulp.watch('resources/assets/dev/js/*.js', ['js-both']);
-    gulp.watch('resources/assets/dev/js/admin/*.js', ['js-admin']);
-    gulp.watch('resources/assets/dev/js/client/*.js', ['js-client']);
-    gulp.watch('resources/assets/dev/imgs/background-header/*.+(png|jpg|jpeg|gif|svg)', ['images-bg-header']);
-    gulp.watch('resources/assets/dev/imgs/banner-page/*.+(png|jpg|jpeg|gif|svg)', ['images-banner-page']);
-    gulp.watch('resources/assets/dev/imgs/original/*.+(png|jpg|jpeg|gif|svg)', ['images-original']);
+    gulp.watch('public/storage/css/*.css', ['css-both']);
+    gulp.watch('public/storage/css/admin/*.css', ['css-admin']);
+    gulp.watch('public/storage/css/client/*.css', ['css-client']);
+    gulp.watch('public/storage/js/*.js', ['js-both']);
+    gulp.watch('public/storage/js/admin/*.js', ['js-admin']);
+    gulp.watch('public/storage/js/client/*.js', ['js-client']);
+    gulp.watch('public/storage/imgs/background-header/*.+(png|jpg|jpeg|gif|svg)', ['images-bg-header']);
+    gulp.watch('public/storage/imgs/banner-page/*.+(png|jpg|jpeg|gif|svg)', ['images-banner-page']);
+    gulp.watch('public/storage/imgs/original/*.+(png|jpg|jpeg|gif|svg)', ['images-original']);
 });
 
 // Watch Files For Change:
 gulp.task('browser-sync', function () {
     var files = [
         'resources/views/**/*.php',
-        'resources/assets/dev/css/**/*.css',
-        'resources/assets/dev/imgs/**/*.*',
-        'resources/assets/dev/js/**/*.js'
+        'public/storage/css/**/*.css',
+        'public/storage/imgs/**/*.*',
+        'public/storage/js/**/*.js'
     ];
 
     browserSync.init(files, {

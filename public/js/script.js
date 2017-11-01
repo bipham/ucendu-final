@@ -1,1 +1,0 @@
-$(document).ready(function(){var e={lat:-34.397,lng:150.644},o=new google.maps.Map(document.getElementById("map"),{center:e,zoom:8}),a=(new google.maps.Marker({position:e,map:o,title:"Hello World!"}),{location:e,radius:"1500",types:["store"]});service=new google.maps.places.PlacesService(o),service.nearbySearch(a,function(e,o){console.log(e)})});
