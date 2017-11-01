@@ -42,6 +42,7 @@
                 {!! $lesson->content_answer_quiz !!}
             </div>
         </div>
+        @include('utils.readingExplanation')
     </div>
 @endsection
 

@@ -1,13 +1,1 @@
-var password = document.getElementById("password")
-  , confirm_password = document.getElementById("confirm_password");
-
-function validatePassword(){
-  if(password.value != confirm_password.value) {
-    confirm_password.setCustomValidity("Passwords không giống nhau");
-  } else {
-    confirm_password.setCustomValidity('');
-  }
-}
-
-password.onchange = validatePassword;
-confirm_password.onkeyup = validatePassword;
+function validatePassword(){password.value!=confirm_password.value?confirm_password.setCustomValidity("Passwords không giống nhau"):confirm_password.setCustomValidity("")}var password=document.getElementById("password"),confirm_password=document.getElementById("confirm_password");password.onchange=validatePassword,confirm_password.onkeyup=validatePassword;
