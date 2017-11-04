@@ -59,26 +59,17 @@
     READING IELTS
 @endsection
 
-@section('readingIntro')
+@section('content')
+    <div class="container">
+        <div class="content test-pusher" data-user-id="{{Auth::id()}}">
+            <input type="hidden" name="_token" value="{!!csrf_token()!!}">
+            <h1>Laravel & Pusher: Demo real-time web application.</h1>
+            <small>
+                Author: <a href="https://trungquandev.com/" target="__blank">https://trungquandev.com/</a>
+            </small><br><br>
 
-@endsection
-
-@section('readingPractice')
-    <div class="container reading-page page-custom">
-        <div class="list-reading-thumbnail">
-            <div class="row list-lesson-thumbnail">
-
-            </div>
-        </div>
-    </div>
-@endsection
-
-@section('readingTest')
-    <div class="container reading-page page-custom">
-        <div class="list-reading-thumbnail">
-            <div class="row list-lesson-thumbnail">
-
-            </div>
+            <p>Message preview:</p>
+            <ul id="messages" class="list-group"></ul>
         </div>
     </div>
 @endsection

@@ -21,7 +21,10 @@
             QUESTION & ANSWER:
         </div>
         <div class="card card-block comments-area">
-            saddsa
+
+        </div>
+        <div class="primary-comment">
+
         </div>
     </div>
 </div>

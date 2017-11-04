@@ -62,8 +62,31 @@ function timeago($date) {
 }
 
 function timeFormat($date) {
+    $date = \Carbon\Carbon::parse($date);
+
     $timestamp = strtotime($date);
-    return date("d M Y",$timestamp);
+
+    $humanTime = '';
+
+    if($date->isToday())
+    {
+        if($date->diffInHours() < 1)
+        {
+            $humanTime = $date->diffInMinutes().' minutes ago';
+        }
+        else{
+            $humanTime = $date->format('H:i').' today';
+        }
+    }
+    else if($date->isYesterday())
+    {
+        $humanTime = $date->format('H:i').' yesterday';
+    }
+    else{
+        $humanTime = date("d M Y",$timestamp);
+    }
+
+    return $humanTime;
 }
 
 function compressImage ($source_url, $destination_url, $quality = 75) {

@@ -1,1 +1,56 @@
-function readNotification(o,t){var n=baseUrl+"/readNotification/"+o+"--"+t;$.ajax({type:"GET",url:n,dataType:"json",success:function(o){console.log("Success:",o)},error:function(o){console.log("Error:",o)}})}var myId=$("#userNotiAction").data("user-id"),oldTotalNoti=$(".total-noti").html(),baseUrl=document.location.origin;console.log("ID: "+myId),console.log("oldTotalNoti: "+oldTotalNoti);var socket_connect=(baseUrl=document.location.origin)+":8890",socket=io.connect(socket_connect);socket.emit("updateSocket",myId),socket.on("commentNotification",function(o){console.log("data: "+o);var t=JSON.parse(o),n=t.user_cmt,i=t.readingLesson,e=baseUrl+"/reading/readingViewSolutionLesson/"+t.lesson_id+"-"+t.quiz_id+"?question="+t.question_id+"&comment="+t.comment_id,a=n.username+" commented on "+i.title+" lesson.",c="/storage/img/users/"+n.avatar,s=t.totalNoti;void 0===oldTotalNoti?($(".left-custom .print-number-noti").append('<sup class="total-noti">'+s+"</sup>"),$(".action-user-center-fixed .print-number-noti").append('<sup class="total-noti">'+s+"</sup>")):($(".left-custom sup.total-noti").html(s),$(".action-user-center-fixed sup.total-noti").html(s)),oldTotalNoti=s,"default"==Notification.permission?alert("Bạn phải cho phép thông báo trên trình duyệt mới có thể hiển thị nó."):(notify=new Notification("New notification from Ucendu!",{body:a,icon:c,tag:e}),notify.onclick=function(){window.open(this.tag,"_blank"),readNotification(0,t.noti_id),window.focus()})});
+/**
+ * Created by nobikun1412 on 27-May-17.
+ */
+// Notification.requestPermission();
+var baseUrl = document.location.origin;
+var user_id = $('.test-pusher').data('user-id');
+var private_connect = baseUrl + ':8890/private-room-' + user_id;
+var public_connect = baseUrl + ':8890?user_id=user_id';
+var socket_private = io.connect(private_connect);
+var socket_public = io.connect(public_connect);
+socket_public.emit('updateSocket', user_id);
+socket_public.on('commnent-noti:App\\Events\\CommentNotificationEvent', function (data) {
+   console.log('Data: ' + data);
+});
+socket_private.on('private-room-' + user_id + ':App\\Events\\TestCommentEvent', function (data) {
+    console.log('Data room: ' + data);
+    addMessageDemo(data)
+});
+//function add message
+function addMessageDemo(data) {
+    var liTag = $("<li class='list-group-item'></li>");
+    console.log(data);
+    liTag.html(data.message);
+    $('#messages').append(liTag);
+    notifyMe(data.message);
+}
+
+function notifyMe(message) {
+    if (!("Notification" in window)) {
+        alert("This browser does not support desktop notification");
+    }
+    else if (Notification.permission === "granted") {
+        var options = {
+            body: message,
+            icon: "/public/imgs/original/logo.jpg",
+            dir : "ltr"
+        };
+        var notification = new Notification("Ucendu",options);
+    }
+    else if (Notification.permission !== 'denied') {
+        Notification.requestPermission(function (permission) {
+            if (!('permission' in Notification)) {
+                Notification.permission = permission;
+            }
+
+            if (permission === "granted") {
+                var options = {
+                    body: message,
+                    icon: "/public/imgs/original/logo.jpg",
+                    dir : "ltr"
+                };
+                var notification = new Notification("Ucendu",options);
+            }
+        });
+    }
+}

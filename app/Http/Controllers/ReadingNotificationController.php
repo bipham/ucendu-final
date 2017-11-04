@@ -2,74 +2,51 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
+use App\Events\TestCommentEvent;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Models\ReadingCommentNotification;
-use App\Models\ReadingLesson;
-use App\Models\ReadingQuestionAndAnswer;
-use App\Models\ReadingQuizz;
-use App\Models\ReadingQuestion;
-use Request;
 use Illuminate\Support\Facades\Auth;
+use App\Events\CommentNotificationEvent;
+use App\Models\User;
 
 class ReadingNotificationController extends Controller
 {
-    public function getNotification($user_id) {
-        if (Request::ajax()) {
-            $readingCommentNotificationModel = new ReadingCommentNotification();
-            $readingLessonModel = new ReadingLesson();
-            $userModel = new User();
-            $readingQuestionAndAnswerModel = new ReadingQuestionAndAnswer();
-            $readingQuizzModel = new ReadingQuizz();
-            $readingQuestionModel = new ReadingQuestion();
+    public function getPusher(){
+        // gọi ra trang view demo-pusher.blade.php
+        return view("client.reading");
+    }
+    public function fireEvent(){
 
-            $result_notifications = [];
-            $list_notifications = $readingCommentNotificationModel->getAllNotificationByUserId($user_id);
+        event(new CommentNotificationEvent("Hi, I'm Bi send message to you message!"));
 
-            if (sizeof($list_notifications) != 0) {
-                foreach ($list_notifications as $index_noti => $notificationReading) {
-                    $strTimeAgo = timeago($notificationReading->updated_at);
-                    $array_notification['noti_updated'] = $strTimeAgo;
-                    $array_notification['read'] = $notificationReading->read;
-                    $array_notification['type_noti'] = $notificationReading->type_noti;
-                    $lesson_detail = $readingLessonModel->getLessonByCommentId($notificationReading->comment_id);
-                    $array_notification['lesson_title'] = $lesson_detail->title;
-                    $array_notification['image_lesson_feature'] = $lesson_detail->image_feature;
-                    $info_related = $readingQuestionAndAnswerModel->getInfoRelateCommentedById($notificationReading->comment_id);
-                    $question_id_commented = $readingQuestionModel->getQuestionIdCustomById($info_related->question_id);
-                    $user_detail = $userModel->getInfoBasicUserById($info_related->user_id);
-                    $array_notification['username_cmt'] = $user_detail->username;
-                    $array_notification['avatar_user'] = $user_detail->avatar;
-                    $array_notification['question_id'] = $question_id_commented->question_id_custom;
-                    $quiz_id = $readingQuizzModel->getQuizIdByLessonId($lesson_detail->id);
-                    $array_notification['lesson_id'] = $lesson_detail->id;
-                    $array_notification['quiz_id'] = $quiz_id->id;
-                    $array_notification['comment_id'] = $notificationReading->comment_id;
-                    $array_notification['noti_id'] = $notificationReading->id;
-                    array_push($result_notifications, $array_notification);
-                }
-            }
-            return json_encode(['list_notis' => $result_notifications]);
-        }
+        // Truyền message lên server Pusher
+        return "Message has been sent.";
     }
 
-    public function readNotification($type_noti, $id) {
-        if (Request::ajax()) {
-            $readingCommentNotificationModel = new ReadingCommentNotification();
-            if ($type_noti == 0) {
-                $type_notification = 'userCommentNotification';
+    public function testEvent(){
+        $users = User::all();
+        foreach ($users as $this_user) {
+            if ($this_user->id != Auth::id()) {
+                event(new TestCommentEvent("Hi, I'm " . Auth::user()->username . " send message to " . $this_user->username . "!", Auth::user(), $this_user->id));
             }
-            $result = $readingCommentNotificationModel->readNotificationById($id, $type_notification);
-            return json_encode(['ok' => $result]);
         }
+        // Truyền message lên server Pusher
+        return "Message has been sent.";
     }
 
-    public function markAllNotificationAsRead() {
-        if (Request::ajax()) {
-            $readingCommentNotificationModel = new ReadingCommentNotification();
-            $result = $readingCommentNotificationModel->readAllNotificationByUserId(Auth::id());
-            return json_encode(['ok' => $result]);
+    public function pusherAuth() {
+        if ( Auth::user() )
+        {
+            $pusher = new Pusher(env('PUSHER_APP_KEY'), env('PUSHER_APP_SECRET'), env('PUSHER_APP_ID'));
+            $socket_id = $_POST['socket_id'];
+            $channel_name = $_POST['channel_name'];
+            echo $pusher->presence_auth($_POST['channel_name'], $_POST['socket_id'], Auth::id());
         }
+        else
+        {
+            header('', true, 403);
+            echo( "Forbidden" );
+        }
+
     }
 }

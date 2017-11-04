@@ -15,9 +15,9 @@ class CreateReadingQuestionAndAnswerLessonsTable extends Migration
     {
         Schema::create('reading_question_and_answer_lessons', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('question_id')->unsigned();
+            $table->integer('question_custom_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->integer('reply_id')->unsigned()->default(0);
+            $table->integer('reply_comment_id')->unsigned()->default(0);
             $table->text('content_cmt');
             $table->boolean('status')->default(1);
             $table->boolean('private')->default(1);

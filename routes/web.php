@@ -117,16 +117,20 @@ Route::group(['domain'=>'{nameDomain}', 'middleware' => ['clientAuth']], functio
     Route::get('/', function () {
         return view('client.welcome');
     });
+    //Demo:
+    Route::post('pusher/auth', 'ReadingNotificationController@pusherAuth');
+// gọi ra trang view demo-pusher.blade.php
+    Route::get('demo-pusher','ReadingNotificationController@getPusher');
+// Truyển message lên server Pusher
+    Route::get('fire-event','ReadingNotificationController@fireEvent');
+    Route::get('test-event','ReadingNotificationController@testEvent');
+
     //********** For Reading Solution *************
     Route::get('showComments/{question_id_custom}',['as'=>'showComments','uses'=>'Client\CommentQuestionController@getComments']);
-
     Route::get('showExplanation/{question_id_custom}',['as'=>'showExplanation','uses'=>'Client\ReadingResultController@getExplanation']);
-
-    Route::get('vocabularyReading',['as'=>'vocabularyReading','uses'=>'Client\ReadingVocabularyController@getVocabularyReading']);
-
     Route::post('enterNewComment',['as'=>'enterNewComment','uses'=>'Client\CommentQuestionController@createNewComment']);
 
-
+    //For Reading English:
     Route::group(['prefix'=>'reading/{level_id}'],function () {
         Route::get('',['as'=>'reading/{level_id}','uses'=>'Client\ReadingLessonController@index']);
         Route::get('readingLesson/{type_lesson_id}/{lesson_id}',                array('as'=>'reading.readingLesson',            'uses'=>'Client\ReadingLessonController@readingLessonDetail'));
@@ -135,6 +139,8 @@ Route::group(['domain'=>'{nameDomain}', 'middleware' => ['clientAuth']], functio
         Route::get('readingViewSolutionLesson/{type_lesson_id}-{lesson_id}',['as'=>'readingViewSolutionLesson','uses'=>'Client\ReadingResultController@getReadingViewSolutionLesson']);
     });
 
+    //For english Story:
+    Route::get('vocabularyReading',['as'=>'vocabularyReading','uses'=>'Client\ReadingVocabularyController@getVocabularyReading']);
 
     Route::group(['prefix'=>'englishStory'],function () {
         Route::get('viewStory/{story}',['as'=>'viewStory','uses'=>'Client\EnglishStoryController@viewStory']);

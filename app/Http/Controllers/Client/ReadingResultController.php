@@ -8,6 +8,8 @@ use App\Services\ReadingLessonService;
 use App\Services\ReadingResultService;
 use App\Services\ReadingStatusLearningOfUserService;
 use App\Services\ReadingQuestionLessonService;
+use App\Services\ReadingQuestionAnswerLessonService;
+use App\Services\UcenduUserService;
 
 class ReadingResultController extends Controller
 {
@@ -77,9 +79,20 @@ class ReadingResultController extends Controller
         }
     }
 
+    //Ajax get comments + explanation:
     public function getExplanation($domain, $question_custom_id) {
         $readingQuestionLessonService = new ReadingQuestionLessonService();
+        $readingQuestionAnswerLessonService = new ReadingQuestionAnswerLessonService();
+        $ucenduUserService = new UcenduUserService();
+
+        //Get explanation:
         $explanation = $readingQuestionLessonService->getExplanation($question_custom_id);
-        return json_encode(['explanation' => $explanation]);
+
+        //Get comments:
+        $list_comments = $readingQuestionAnswerLessonService->getAllCommentsByQuestionCustomId($question_custom_id);
+
+        $current_user_info = $ucenduUserService->getLevelCurrentUser();
+
+        return json_encode(['explanation' => $explanation, 'list_comments' => $list_comments, 'current_user_info' => $current_user_info]);
     }
 }

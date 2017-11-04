@@ -23,12 +23,25 @@
     <link rel="stylesheet" href="{{asset('public/libs/toolbar/jquery.toolbar.css')}}" />
     {{--<link rel="stylesheet" href="{{asset('public/libs/jcubic-splitter/css/jquery.splitter.css')}}" />--}}
     <script>
-        var current_user = {!! json_encode(Auth::user()) !!};
-        {{--var current_user_name = {!! json_encode((array)Auth::user()->id) !!};--}}
+        {{--var current_user = {!! json_encode(Auth::user()) !!};--}}
+        let current_username = {!! json_encode(Auth::user()->username) !!};
+        let current_user_id = {!! json_encode(Auth::id()) !!};
+        let current_user_avatar = {!! json_encode(Auth::user()->avatar) !!};
+    </script>
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
+    <script>
+        var OneSignal = window.OneSignal || [];
+        OneSignal.push(["init", {
+            appId: "25eb1639-9eec-4283-838b-a9c35a8c84cf",
+            autoRegister: false, /* Set to true to automatically prompt visitors */
+            notifyButton: {
+                enable: true /* Set to false to hide */
+            }
+        }]);
     </script>
     @yield('css')
 </head>
-<body data-hijacking="on" data-animation="parallax">
+<body data-hijacking="on" data-animation="parallax" style="background: white !important;">
 <a href="#" id="allownoti" class="hidden">Cho phép thông báo</a>
 <a href="#" id="shownoti" class="hidden">Hiển thị thông báo</a>
 <div class="overlay"></div>
@@ -42,8 +55,8 @@
 
 </div>
 {{--@include('utils.toolbarReadingLesson')--}}
-@include('utils.leftMenuReading');
-@include('layout.footerNavigation')
+{{--@include('utils.leftMenuReading');--}}
+{{--@include('layout.footerNavigation')--}}
 <script src="{{asset('public/libs/tether/tether.min.js')}}"></script>
 <script src="{{asset('public/libs/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('public/libs/bootstrap/js/bootstrap.min.js')}}"></script>
@@ -54,53 +67,41 @@
 <script src="{{asset('public/libs/toolbar/jquery.toolbar.js')}}"></script>
 <script src="{{asset('public/js/my-script.js')}}"></script>
 <script src="{{asset('public/js/client/readingFooterNavigation.js')}}"></script>
-<script language="JavaScript">
-    <!--
-//    var dictionaries = "ev_ve";
-    // -->
-</script>
-{{--<script language="JavaScript1.2" src="http://vndic.net/js/vndic.js" type='text/javascript'></script>--}}
-<script language="JavaScript">
-    $('.btn-toolbar').toolbar({
-        content: '#toolbar-options',
-        position: 'right',
-        style: 'primary',
-        event: 'click'
-    });
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+<script src="{{asset('public/js/socketNoti.js')}}"></script>
+<script type="text/javascript">
 
-    var allownoti = document.getElementById('allownoti');
-    var shownoti = document.getElementById('shownoti');
-
-    // Thực hiện hành động bên trong khi nhấp vào Cho phép thông báo
-    //        e.preventDefault();
-
-    //        // Nếu trình duyệt không hỗ trợ thông báo
-    //        if (!window.Notification)
-    //        {
-    //            alert('Trình duyệt của bạn không hỗ trợ chức năng này.');
-    //        }
-    //        // Ngược lại trình duyệt có hỗ trợ thông báo
-    //        else
-    //        {
-    // Gửi lời mời cho phép thông báo
-    Notification.requestPermission(function (p) {
-        // Nếu không cho phép
-        if (p === 'denied')
+    OneSignal.sendSelfNotification(
+            /* Title (defaults if unset) */
+        "OneSignal Web Push Notification",
+            /* Message (defaults if unset) */
+        "Action buttons increase the ways your users can interact with your notification.",
+            /* URL (defaults if unset) */
+        'http://ucendu.dev/?_osp=do_not_open',
+            /* Icon */
+        'https://onesignal.com/images/notification_logo.png',
         {
-//                    Notification.requestPermission = 'granted';
-//                    alert('Bạn đã không cho phép thông báo trên trình duyệt.');
-        }
-        // Ngược lại cho phép
-        else
-        {
-//                    alert('Bạn đã cho phép thông báo trên trình duyệt!');
-        }
-    });
-    //        }
-
+            /* Additional data hash */
+            notificationType: 'news-feature'
+        },
+        [{ /* Buttons */
+            /* Choose any unique identifier for your button. The ID of the clicked button is passed to you so you can identify which button is clicked */
+            id: 'like-button',
+            /* The text the button should display. Supports emojis. */
+            text: 'Like',
+            /* A valid publicly reachable URL to an icon. Keep this small because it's downloaded on each notification display. */
+            icon: 'http://i.imgur.com/N8SN8ZS.png',
+            /* The URL to open when this action button is clicked. See the sections below for special URLs that prevent opening any window. */
+            url: 'https://example.com/?_osp=do_not_open'
+        },
+            {
+                id: 'read-more-button',
+                text: 'Read more',
+                icon: 'http://i.imgur.com/MIxJp1L.png',
+                url: 'https://example.com/?_osp=do_not_open'
+            }]
+    );
 </script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
-{{--<script src="{{asset('public/js/socketNoti.js')}}"></script>--}}
 @yield('scripts')
 </body>
 </html>

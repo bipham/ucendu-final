@@ -54,4 +54,8 @@ class User extends Model
         $this->where('id', $user_id)->where('status', 1)->update(['password' => Hash::make($new_password), 'activated' => 1, 'updated_at' => Carbon::now()]);
         return 'success';
     }
+
+    public function getLevelCurrentUser($user_id) {
+        return $this->where('id', $user_id)->where('status', 1)->select('id', 'level_user_id')->get()->first();
+    }
 }

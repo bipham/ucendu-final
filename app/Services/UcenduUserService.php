@@ -22,5 +22,9 @@ class UcenduUserService
     public function updateNewPasswordOfUser($new_password) {
         return $this->_readingUserModel->updateNewPasswordOfUser($new_password, $this->_adminId);
     }
+
+    public function getLevelCurrentUser() {
+        return $this->_readingUserModel->getLevelCurrentUser($this->_adminId);
+}
 }
 ?>
